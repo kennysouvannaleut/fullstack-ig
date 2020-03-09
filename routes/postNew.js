@@ -1,6 +1,6 @@
 const express = require('express')
 const postNew = express.Router()
-const Post = require('./models/post.js')
+const Post = require('../models/post.js')
 
 postNew.post('/', (req, res, next) => {
     const newPost = new Post(req.body)

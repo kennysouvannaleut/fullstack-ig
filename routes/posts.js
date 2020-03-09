@@ -11,3 +11,7 @@ posts.get('/', (req, res, next) => {
         return res.status(200).send(posts)
     })
 })
+
+posts.put('/:postId', (req, res, next) => {
+    Post.findOneAndUpdate
+})

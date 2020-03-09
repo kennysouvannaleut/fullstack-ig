@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Contact = () => (
+const Post = () => (
     
     <div>
 
     </div>
 );
 
-export default Contact;
+export default Post;

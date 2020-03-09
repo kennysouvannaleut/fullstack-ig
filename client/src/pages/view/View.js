@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Profile = () => (
+const View = () => (
     
     <div>
 
     </div>
 );
 
-export default Profile;
+export default View;

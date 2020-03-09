@@ -12,7 +12,7 @@ posts.get('/', (req, res, next) => {
     })
 })
 
-posts.delete('/:postId', (req, res, status) => {
+posts.delete('/:postId', (req, res, next) => {
     Post.findOneAndDelete({_id: req.params.postId}, (err, post) => {
         if(err){
             res.status(500)

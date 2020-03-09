@@ -3,8 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Error from './components/Error';
 import Home from './pages/home/Home';
-import Profile from './pages/profile/Profile';
-import Public from './pages/public/Public';
+import Post from './pages/post/Post';
+import View from './pages/view/View';
 
 const App = () => {
     
@@ -25,12 +25,12 @@ const App = () => {
                         component={ Home }
                     />
                     <Route
-                        path='profile'
-                        component={ Profile }
+                        path='post'
+                        component={ Post }
                     />
                     <Route
-                        path='/public'
-                        component={ Public }
+                        path='/view'
+                        component={ View }
                     />
                     <Route component={ Error } />
                 </Switch>

@@ -12,3 +12,5 @@ postNew.post('/', (req, res, next) => {
         return res.status(201).send(post)
     })
 })
+
+module.exports = postNew

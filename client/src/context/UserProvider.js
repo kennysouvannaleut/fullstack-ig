@@ -13,11 +13,9 @@ const UserProvider = (props) => {
     } = useFetch(true);
 
     const initialInputs = {
-        postDate: '',
-        postTitle: '',
-        postDescription: '',
-        postCategory: '',
-        postURL: ''
+        imgURL: '',
+        description: '',
+        likes: ''
     };
 
     const [inputs, setInputs] = useState(initialInputs);
@@ -34,18 +32,18 @@ const UserProvider = (props) => {
             .catch(handleError)
     };
 
-    const removePost = (postID) => {
-        axios.delete(`/post/${postID}`)
+    const removePost = (postId) => {
+        axios.delete(`/post/${postId}`)
             .then(res => {
-                setInputs(prev => prev.filter(post => post._id !== postID ))
+                setInputs(prev => prev.filter(post => post._id !== postId ))
             })
             .catch(handleError)
     };
 
-    const editPost = (edit, postID) => {
-       axios.put(`/post/${postID}`, edit)
+    const editPost = (edit, postId) => {
+       axios.put(`/post/${postId}`, edit)
         .then(res => {
-            setInputs(prev => prev.map(post => post._id !== postID ? post : data ))
+            setInputs(prev => prev.map(post => post._id !== postId ? post : data ))
         })
         .catch(handleError)
     };

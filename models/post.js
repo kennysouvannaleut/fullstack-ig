@@ -8,8 +8,11 @@ const postSchema = new Schema({
     },
     description: {
         type: String
+    },
+    likes: {
+        type: Number,
+        required: true
     }
-
 })
 
 module.exports = mongoose.model('Post', postSchema)

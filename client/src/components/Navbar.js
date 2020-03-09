@@ -8,8 +8,12 @@ const Navbar = () => (
             label='Home'
         />
         <Navtab
-            to='/contact'
-            label='/Contact' 
+            to='/post'
+            label='/Post' 
+        />
+        <Navtab
+            to='/view'
+            label='/View' 
         />
     </> 
 );

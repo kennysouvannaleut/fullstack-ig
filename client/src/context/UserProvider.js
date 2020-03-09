@@ -24,7 +24,7 @@ const UserProvider = (props) => {
 
     const createPost = (newPost) => {
         axios.post('/post', newPost)
-            .then(data => {
+            .then(res => {
                 setInputs(prev => ({
                     ...prev,
                     loading,
@@ -36,7 +36,7 @@ const UserProvider = (props) => {
 
     const removePost = (postID) => {
         axios.delete(`/post/${postID}`)
-            .then(data => {
+            .then(res => {
                 setInputs(prev => prev.filter(post => post._id !== postID ))
             })
             .catch(handleError)
@@ -44,7 +44,7 @@ const UserProvider = (props) => {
 
     const editPost = (edit, postID) => {
        axios.put(`/post/${postID}`, edit)
-        .then(data => {
+        .then(res => {
             setInputs(prev => prev.map(post => post._id !== postID ? post : data ))
         })
         .catch(handleError)

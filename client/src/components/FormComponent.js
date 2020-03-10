@@ -6,43 +6,35 @@ const FormComponent = props => {
         handleSubmit,
         btnText,
         inputs: {
-            postDate,
-            postTitle,
-            postDescription,
-            postURL
+            imgURL,
+            description,
+            likes
         }
     } = props;
 
     return (
         <form onSubmit={ handleSubmit }>
             <input
-                type='date'
-                name='postDate'
-                value={ postDate }
+                type='text'
+                name='imgURL'
+                value={ imgURL }
                 onChange={ handleChange }
+                placeholder='Image URL'
             />
-
             <input 
                 type='text'
-                name='postTitle'
-                value={ postTitle }
+                name='description'
+                value={ description }
                 onChange={ handleChange }
+                placeholder='Description'
             />
-
             <input 
                 type='text'
-                name='postDescription'
-                value={ postDescription }
+                name='likes'
+                value={ likes }
                 onChange={ handleChange }
+                placeholder='Likes'
             />
-
-            <input 
-                type='text'
-                name='postURL'
-                value={ postURL }
-                onChange={ handleChange }
-            />
-
             <button>{ btnText }</button>
         </form>
     );

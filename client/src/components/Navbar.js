@@ -9,11 +9,11 @@ const Navbar = () => (
         />
         <Navtab
             to='/post'
-            label='/Post' 
+            label='Post' 
         />
         <Navtab
             to='/view'
-            label='/View' 
+            label='View' 
         />
     </> 
 );

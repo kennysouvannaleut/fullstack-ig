@@ -7,26 +7,45 @@ export const UserContext = createContext();
 const handleError = err => console.log(err.response.data.errMsg);
 
 const UserProvider = (props) => {
-    const {
-        data,
-        loading
-    } = useFetch(true);
+    const [{ 
+        data, 
+        isLoading, 
+        isError 
+    }, apiFetch] = useFetch('/view', { posts: [] } );
 
-    const initialInputs = {
-        imgURL: '',
-        description: '',
-        likes: ''
+    const [state, setState] = useState(data);
+    const [query, setQuery] = useState('user');
+
+    const getPosts = () => { 
+        apiFetch()
+        const { posts } = data
+        setState({
+            isError,
+            isLoading,
+            posts
+        })
     };
 
-    const [inputs, setInputs] = useState(initialInputs);
+    const getUserPost = (userId) => {
+        axios.get(`/post/${userId}`)
+            .then(res => {
+                setState(prevState => ({
+                    ...prevState,
+                    posts: res.data
+                }))
+            })
+            .catch(handleError)
+    }
 
     const createPost = (newPost) => {
         axios.post('/post', newPost)
             .then(res => {
-                setInputs(prev => ({
-                    ...prev,
-                    loading,
-                    data
+                setState(prevState => ({
+                    ...prevState,
+                    posts: [ 
+                        ...prevState.posts,
+                        res.data
+                    ]
                 }))
             })
             .catch(handleError)
@@ -34,8 +53,8 @@ const UserProvider = (props) => {
 
     const removePost = (postId) => {
         axios.delete(`/post/${postId}`)
-            .then(res => {
-                setInputs(prev => prev.filter(post => post._id !== postId ))
+            .then(() => {
+                setState(prevState => prevState.filter(post => post._id !== postId))
             })
             .catch(handleError)
     };
@@ -43,21 +62,33 @@ const UserProvider = (props) => {
     const editPost = (edit, postId) => {
        axios.put(`/post/${postId}`, edit)
         .then(res => {
-            setInputs(prev => prev.map(post => post._id !== postId ? post : data ))
+            setState(prevState => prevState.map(post => post._id !== postId ? post: res.data))
         })
         .catch(handleError)
+    };
+
+    const filterPost = (e) => {
+        if(e.target.value === 'reset') {
+            apiFetch()
+        } else {
+            axios.get(`/view/search?query=${query}`)
+                .then(res => setQuery(res.data))
+                .catch(handleError)
+        }
     };
 
     return (
         <UserContext.Provider 
             value={{ 
-                ...inputs,
-                data,
-                loading,
+                ...state,
+                getPosts,
+                getUserPost,
                 createPost,
                 removePost,
-                editPost 
-            }} >
+                editPost,
+                filterPost
+            }} 
+            >
             { props.children }
         </UserContext.Provider>
     );

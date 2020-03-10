@@ -22,9 +22,9 @@ mongoose.connect (
     }
 );
 
-// app.use('/post', require('./routes/'));
 app.use('/view', require('./routes/posts.js'))
 app.use('/post', require('./routes/postNew.js'))
+app.use('/users', require('./routes/users.js'))
 
 app.use((err, req, res, next) => {
     console.log(err);

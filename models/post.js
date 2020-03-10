@@ -11,6 +11,11 @@ const postSchema = new Schema({
     },
     likes: {
         type: Number,
+        required: true,
+        default: 0
+    },
+    user: {
+        type: String,
         required: true
     }
 })

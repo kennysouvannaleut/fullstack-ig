@@ -3,10 +3,9 @@ import FormComponent from './FormComponent';
 
 const FormContainer = (props) => {
     const initialInputs = {
-        postDate: '',
-        postTitle: '',
-        postDescription: '',
-        postURL: ''
+        imgURL: '',
+        description: '',
+        likes: ''
     };
     
     const [inputs, setInputs] = useState(initialInputs);
@@ -33,7 +32,7 @@ const FormContainer = (props) => {
                 handleChange={ handleChange }
                 handleSubmit= { handleSubmit }
                 inputs={ inputs }
-                btnText='Create New Post'
+                btnText='New Post'
             />
         </>
     );

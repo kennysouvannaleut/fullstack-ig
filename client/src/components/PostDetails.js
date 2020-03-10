@@ -2,18 +2,16 @@ import React from 'react';
 
 const PostDetails = props => {
     const { 
-        postDate, 
-        postTitle, 
-        postDescription, 
-        postURL 
+        imgURL, 
+        description, 
+        likes
      } = props;
 
      return (
          <div className='post-details'>
-             <h3>Post Date: { postDate }</h3>
-             <h2>Title: { postTitle }</h2>
-             <p>Description: { postDescription }</p>
-             <p>URL: { postURL }</p>
+             <a href='true'>Image URL: { imgURL }</a>
+             <p>Description: { description }</p>
+             <p>Likes { likes }</p>
          </div>
      );
 };

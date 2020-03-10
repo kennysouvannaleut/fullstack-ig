@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const activeStyle = {
-    color: 'b3b322',
+    color: '#b3b322',
     fontWeight: 'bold'
 };
 

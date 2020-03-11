@@ -1,17 +1,23 @@
 import React from 'react';
+// import Button from '../components/Button';
 
 const PostDetails = props => {
     const { 
         imgURL, 
         description, 
-        likes
+        likes,
+        user,
+        dateAdded
      } = props;
 
      return (
          <div className='post-details'>
-             <a href='true'>Image URL: { imgURL }</a>
+             <p>Date: { dateAdded }</p>
+             <p>Posted By: { user }</p>
+             <img src={ imgURL } alt={ imgURL } width='250px' />
              <p>Description: { description }</p>
-             <p>Likes { likes }</p>
+                {/* <Button /> */}
+             <span>Likes: { likes }</span>
          </div>
      );
 };

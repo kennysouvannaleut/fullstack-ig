@@ -6,14 +6,22 @@ const FormComponent = props => {
         handleSubmit,
         btnText,
         inputs: {
+            user,
             imgURL,
-            description,
-            likes
+            description
+            // likes
         }
     } = props;
 
     return (
         <form onSubmit={ handleSubmit }>
+            <input 
+                type='text'
+                name='user'
+                value={ user }
+                onChange={ handleChange }
+                placeholder='Username'
+            />
             <input
                 type='text'
                 name='imgURL'
@@ -28,13 +36,13 @@ const FormComponent = props => {
                 onChange={ handleChange }
                 placeholder='Description'
             />
-            <input 
+            {/* <input 
                 type='text'
                 name='likes'
                 value={ likes }
                 onChange={ handleChange }
                 placeholder='Likes'
-            />
+            /> */}
             <button>{ btnText }</button>
         </form>
     );

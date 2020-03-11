@@ -9,10 +9,9 @@ const useFetch = (initialUrl, initialData) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            setIsError(false);
-            setIsLoading(true);
-
             try {
+                setIsError(false);
+                setIsLoading(true);
                 const response = await axios.get(url);
                 setData(response.data);
 

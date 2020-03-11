@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserProvider';
 import PostList from '../../components/PostList';
+import Button from '../../components/Button'
 
 const View = () => {
     const { posts } = useContext(UserContext);
@@ -12,6 +13,7 @@ const View = () => {
             <PostList 
                 posts={ posts }
             />
+            <Button />
         </div>
     );
 };

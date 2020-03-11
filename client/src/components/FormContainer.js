@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import FormComponent from './FormComponent';
+import ImgUploader from './ImgUploader';
 
 const FormContainer = (props) => {
     const initialInputs = {
+        user: '',
         imgURL: '',
         description: '',
         likes: ''
@@ -10,7 +12,7 @@ const FormContainer = (props) => {
     
     const [inputs, setInputs] = useState(initialInputs);
 
-    const { createPost } = props;
+    const { createPost, onDrop } = props;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,6 +35,9 @@ const FormContainer = (props) => {
                 handleSubmit= { handleSubmit }
                 inputs={ inputs }
                 btnText='New Post'
+            />
+            <ImgUploader 
+                onDrop={ onDrop }
             />
         </>
     );

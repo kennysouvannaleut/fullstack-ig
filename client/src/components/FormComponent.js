@@ -1,51 +1,39 @@
 import React from 'react';
+import ImageUploader from 'react-images-upload';
 
 const FormComponent = props => {
     const {
         handleChange,
         handleSubmit,
-        btnText,
-        inputs: {
-            user,
-            imgURL,
-            description
-            // likes
-        }
+        handleOnDrop,
+        buttonText
     } = props;
 
     return (
-        <form onSubmit={ handleSubmit }>
-            <input 
-                type='text'
-                name='user'
-                value={ user }
-                onChange={ handleChange }
-                placeholder='Username'
+        <form onSubmit={ handleSubmit }
+            >
+            <ImageUploader 
+                onChange={ handleOnDrop }
+                withIcon={ true }
+                withPreview={ true }
+                imgExtension={ ['.jpg', '.gif', '.png' ] }
+                maxFileSize={ 5242880 }
+                fileSizeError='file size is to big'
+                fileTypeError='is not supported file extension'
+                buttonText='Upload Image'
             />
-            <input
-                type='text'
-                name='imgURL'
-                value={ imgURL }
+            <br />
+            <textarea
                 onChange={ handleChange }
-                placeholder='Image URL'
+                placeholder='some description...'
+                cols={ 50 }
+                rows={ 10 }
             />
-            <input 
-                type='text'
-                name='description'
-                value={ description }
-                onChange={ handleChange }
-                placeholder='Description'
-            />
-            {/* <input 
-                type='text'
-                name='likes'
-                value={ likes }
-                onChange={ handleChange }
-                placeholder='Likes'
-            /> */}
-            <button>{ btnText }</button>
+            <br />
+            <button>{ buttonText }</button>
         </form>
     );
 };
 
 export default FormComponent;
+

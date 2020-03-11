@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import FormComponent from './FormComponent';
-import ImgUploader from './ImgUploader';
 
 const FormContainer = (props) => {
-    const initialInputs = {
-        user: '',
-        imgURL: '',
-        description: '',
-        likes: ''
-    };
     
-    const [inputs, setInputs] = useState(initialInputs);
+    const [inputs, setInputs] = useState('');
+    const [pictures, setPictures] = useState([]);
 
-    const { createPost, onDrop } = props;
+    const { createPost } = props;
+
+    const handleOnDrop = () => {
+        setPictures(pictures)
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -24,24 +22,19 @@ const FormContainer = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createPost(inputs);
-        setInputs(initialInputs);
+        createPost();
+        setInputs(inputs);
     };
 
     return (
-        <>
-            <FormComponent 
-                handleChange={ handleChange }
-                handleSubmit= { handleSubmit }
-                inputs={ inputs }
-                btnText='New Post'
-            />
-            <ImgUploader 
-                onDrop={ onDrop }
-            />
-        </>
+        <FormComponent 
+            handleChange={ handleChange }
+            handleSubmit={ handleSubmit }
+            handleOnDrop={ handleOnDrop } 
+            // inputs={ inputs }
+            buttonText='New Post'
+        />
     );
 };
 
 export default FormContainer;
-

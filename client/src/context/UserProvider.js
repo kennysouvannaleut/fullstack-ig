@@ -18,7 +18,7 @@ const UserProvider = (props) => {
 
     const getPosts = () => { 
         apiFetch()
-        const { posts } = data;
+        const { posts } =  data;
         setState({
             isError,
             isLoading,

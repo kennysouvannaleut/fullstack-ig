@@ -118,6 +118,24 @@ const UserProvider = (props) => {
     //     }
     // };
 
+    const like = (postId) => {
+        axios.put(`/like/${postId}`)
+            .then(res => {
+                const {post} = res.data
+                setUserState(prevUserState => [...prevUserState, prevUserState.likes, post])
+            })
+            .catch(handleError)
+    }
+
+    const dislike = (postId) => {
+        axios.put(`/dislike${postId}`)
+            .then(res => {
+                const {post} = res.data
+                setUserState(prevUserState => [...prevUserState, prevUserState.likes, post])
+            })
+            .catch(handleError)
+    }
+
     return (
         <UserContext.Provider 
             value={{ 
@@ -129,7 +147,9 @@ const UserProvider = (props) => {
                 getUserPost,
                 createPost,
                 removePost,
-                editPost
+                editPost,
+                like,
+                dislike
                 // filterPost
             }} 
             >

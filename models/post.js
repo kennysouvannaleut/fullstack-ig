@@ -1,12 +1,11 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-// const date = new Date()
 const postSchema = new Schema({
-    imgURL: {
-        required: true,
-        type: String
-    },
+    // imgURL: {
+    //     required: true,
+    //     type: String
+    // },
     description: {
         type: String
     },
@@ -19,12 +18,15 @@ const postSchema = new Schema({
         type: String,
         required: true
     },
+    // user: {
+    //     type: Schema.Types.String,
+    //     ref: 'User',
+    //     required: true,
+    //     unique: true
+    // },
     dateAdded: {
         type: Date,
         default: Date.now()
-        // value: String,
-        // required: true,
-        // type: Date#toString()
     }
 })
 

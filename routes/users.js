@@ -1,24 +1,23 @@
 const express = require('express')
 const users = express.Router()
 const Post = require('../models/post.js')
+const User = require('../models/user.js')
 
-// get all users (not sure if we'll use this)
-// users.get('/', (req, res, next) => {
-//     Post.find((err, users) => {
-//         if(err){
-//             res.status(500)
-//             return next(err)
-//         }
-//         const usernames = users.map(post => post.user)
-//         const unique = new Set(usernames)
-//         const uniqueUsers = unique.values(unique)
-//         return res.status(200).send(Array.from(uniqueUsers))
-//     })
-// })
+// get all users:
+users.get('/all', (req, res, next) => {
+    User.find(
+        (err, users) => {
+        if(err){
+            res.status(500)
+            return next(err)
+        }
+        return res.status(200).send(users)
+    })
+})
 
 // get one user
-users.get('/:userId', (req, res, next) => {
-    Post.find({user: req.params.userId}, (err, user) => {
+users.get('/:username', (req, res, next) => {
+    Post.find({user: req.params.username.toLowerCase()}, (err, user) => {
         if(err){
             res.status(500)
             return next(err)

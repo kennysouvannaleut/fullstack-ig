@@ -6,6 +6,7 @@ const FormComponent = props => {
         handleSubmit,
         btnText,
         inputs: {
+            user,
             imgURL,
             description
             // likes
@@ -14,6 +15,13 @@ const FormComponent = props => {
 
     return (
         <form onSubmit={ handleSubmit }>
+            <input 
+                type='text'
+                name='user'
+                value={ user }
+                onChange={ handleChange }
+                placeholder='Username'
+            />
             <input
                 type='text'
                 name='imgURL'

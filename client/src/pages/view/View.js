@@ -8,7 +8,7 @@ const View = () => {
 
     return (
         <div className='view'>
-            <h1>Welcome! @ {}</h1>
+            <h1>Welcome!</h1>
             <h3>User Posts</h3>
             <PostList 
                 posts={ posts }

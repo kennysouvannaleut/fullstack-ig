@@ -1,18 +1,18 @@
 import React from 'react';
-import useCounter from '../../hooks/useCounter';
+// import useCounter from '../../hooks/useCounter';
 
 const Home = () => {
-    const {
-        count,
-        increment,
-        decrement
-    } = useCounter()
+    // const {
+    //     count,
+    //     increment,
+    //     decrement
+    // } = useCounter()
 
     return (
         <div>
-            <button onClick={ increment }>Likes!</button>
+            {/* <button onClick={ increment }>Likes!</button>
             <button onClick={ decrement }>DisLikes!</button>
-            <span>{ count }</span>
+            <span>{ count }</span> */}
         </div>
     );
 };

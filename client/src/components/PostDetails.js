@@ -3,9 +3,9 @@ import React from 'react';
 
 const PostDetails = props => {
     const { 
-        imgURL, 
+        // image,
         description, 
-        likes,
+        // likes,
         user,
         dateAdded
      } = props;
@@ -14,10 +14,10 @@ const PostDetails = props => {
          <div className='post-details'>
              <p>Date: { dateAdded }</p>
              <p>Posted By: { user }</p>
-             <img src={ imgURL } alt={ imgURL } width='250px' />
+             {/* <img src={ imgURL } alt={ imgURL } width='250px' /> */}
              <p>Description: { description }</p>
                 {/* <Button /> */}
-             <span>Likes: { likes }</span>
+             {/* <span>Likes: { likes }</span> */}
          </div>
      );
 };

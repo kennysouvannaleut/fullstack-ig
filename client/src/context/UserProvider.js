@@ -35,6 +35,7 @@ const UserProvider = (props) => {
     const signup = (credentials) => {
         userAxios.post('auth/signup', credentials)
             .then(res => {
+                const { user } = res.data;
                 localStorage.setItem('user', JSON.stringify(user))
                 setUserState(prevUserState => ({
                     ...prevUserState,

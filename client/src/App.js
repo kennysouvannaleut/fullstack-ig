@@ -1,31 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { UserContext } from './context/UserProvider';
 
 import Navbar from './components/Navbar';
 import Error from './components/Error';
 
 import Home from './pages/home/Home';
-import Post from './pages/post/Post';
+import Profile from './pages/profile/Profile';
 import View from './pages/view/View';
 
 const App = () => {
+    const { logout } = useContext(UserContext);
 
     return (
         <div className='App'>
-            <Navbar />
+            <Navbar logout={ logout } />
 
             <Switch>
                 <Redirect 
                     exact path='/'
-                    to='/home'
+                    to='/profile'
                 />
                 <Route 
                     path='/home' 
                     component={ Home }
                 />
                 <Route
-                    path='/post'
-                    component={ Post }
+                    path='/profile'
+                    component={ Profile }
                 />
                 <Route
                     path='/view'

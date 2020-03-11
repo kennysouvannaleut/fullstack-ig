@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-// const date = new Date()
 const postSchema = new Schema({
     imgURL: {
         required: true,
@@ -22,9 +21,6 @@ const postSchema = new Schema({
     dateAdded: {
         type: Date,
         default: Date.now()
-        // value: String,
-        // required: true,
-        // type: Date#toString()
     }
 })
 

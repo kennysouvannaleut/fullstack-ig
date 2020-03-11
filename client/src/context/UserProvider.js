@@ -10,7 +10,8 @@ const handleError = err => console.log(err.response.data.errMsg);
 const UserProvider = (props) => {
     const initialState = {
         user: JSON.parse(localStorage.getItem('user')) || {},
-        posts: []
+        posts: [],
+        errMsg: ''
     };
 
     const [userState, setUserState] = useState(initialState);
@@ -42,7 +43,7 @@ const UserProvider = (props) => {
                     user
                 }))
             })
-            .catch(handleError)
+            .catch(handleAuthErr(handleError))
     };
 
     const login = (credentials) => {
@@ -56,7 +57,7 @@ const UserProvider = (props) => {
                     user
                 }))
             })
-            .catch(handleError)
+            .catch(handleAuthErr(handleError))
     };
 
     const logout = () => {
@@ -65,6 +66,20 @@ const UserProvider = (props) => {
             user: {},
             posts: []
         })
+    };
+
+    const handleAuthErr = (errMsg) => {
+        setUserState(prevUserState => ({
+            ...prevUserState,
+            errMsg
+        }))
+    };
+
+    const resetAuthErr = () => {
+        setUserState(prevUserState => ({
+            ...prevUserState,
+            errMsg
+        }))
     };
 
     const getUserPost = (userId) => {

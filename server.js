@@ -22,11 +22,12 @@ mongoose.connect (
     }
 )
 
+app.use('/auth', require('./routes/userAuth.js'))
+app.use('/users', require('./routes/users.js'))
 app.use('/post', require('./routes/postNew.js'))
 app.use('/viewposts', require('./routes/posts.js'))
 app.use('/', require('./routes/likeDislike.js'))
 app.use('/update', require('./routes/update'))
-app.use('/users', require('./routes/users.js'))
 
 app.use((err, req, res, next) => {
     console.log(err)

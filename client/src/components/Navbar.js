@@ -1,21 +1,27 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import Navtab from './Navtab';
 
-const Navbar = () => (
-    <>
-        <Navtab
-            to='/home' 
-            label='Home'
-        />
-        <Navtab
-            to='/post'
-            label='Post' 
-        />
-        <Navtab
-            to='/view'
-            label='View' 
-        />
-    </> 
-);
+const Navbar = props => {
+    const { logout } = props;
+
+    return (
+        <div className='navbar'>
+            <Navtab
+                to='/home' 
+                label='Home'
+            />
+            <Navtab
+                to='/profile'
+                label='Profile' 
+            />
+            <Navtab
+                to='/view'
+                label='View' 
+            />
+            <button onClick={ logout }>Logout</button>
+        </div>
+    );
+};
 
 export default Navbar;

@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../components/Button';
 
 const PostDetails = props => {
     const { 
@@ -9,9 +10,10 @@ const PostDetails = props => {
 
      return (
          <div className='post-details'>
-             <a href='true'>Image URL: { imgURL }</a>
+             <img src={ imgURL } alt={ imgURL } width='250px' />
              <p>Description: { description }</p>
-             <p>Likes { likes }</p>
+                <Button />
+             <span>Likes: { likes }</span>
          </div>
      );
 };

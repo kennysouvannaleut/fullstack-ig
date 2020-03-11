@@ -7,8 +7,8 @@ const FormComponent = props => {
         btnText,
         inputs: {
             imgURL,
-            description,
-            likes
+            description
+            // likes
         }
     } = props;
 
@@ -28,13 +28,13 @@ const FormComponent = props => {
                 onChange={ handleChange }
                 placeholder='Description'
             />
-            <input 
+            {/* <input 
                 type='text'
                 name='likes'
                 value={ likes }
                 onChange={ handleChange }
                 placeholder='Likes'
-            />
+            /> */}
             <button>{ btnText }</button>
         </form>
     );

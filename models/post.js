@@ -18,6 +18,12 @@ const postSchema = new Schema({
         type: String,
         required: true
     },
+    // user: {
+    //     type: Schema.Types.String,
+    //     ref: 'User',
+    //     required: true,
+    //     unique: true
+    // },
     dateAdded: {
         type: Date,
         default: Date.now()

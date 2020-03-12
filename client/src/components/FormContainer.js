@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FormComponent from './FormComponent';
 
 const FormContainer = (props) => {
-    
+
     const [inputs, setInputs] = useState('');
     const [pictures, setPictures] = useState([]);
 
@@ -36,8 +36,8 @@ const FormContainer = (props) => {
                 // inputs={ inputs }
                 buttonText='New Post'
             />
-            <button onClick={() => like(_id)}>Like</button>
-            <button onClick={() => dislike(_id)}>Dislike</button>
+            <button onClick={like}>Like</button>
+            <button onClick={dislike}>Dislike</button>
         </>
     );
 };

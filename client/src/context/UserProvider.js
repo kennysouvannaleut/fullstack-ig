@@ -21,7 +21,7 @@ const UserProvider = (props) => {
         data, 
         isLoading, 
         isError 
-    }, apiFetch] = useFetch('/viewposts');
+    }, apiFetch] = useFetch('/viewposts', { posts: [], } );
 
     const getPosts = () => { 
         apiFetch()
@@ -75,7 +75,7 @@ const UserProvider = (props) => {
         }))
     };
 
-    const resetAuthErr = () => {
+    const resetAuthErr = (errMsg) => {
         setUserState(prevUserState => ({
             ...prevUserState,
             errMsg
@@ -94,7 +94,7 @@ const UserProvider = (props) => {
     }
 
     const createPost = (newPost) => {
-        axios.post('/post', newPost)
+        axios.post('/newpost', newPost)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -136,17 +136,17 @@ const UserProvider = (props) => {
     const like = (postId) => {
         axios.put(`/like/${postId}`)
             .then(res => {
-                const {post} = res.data
-                setUserState(prevUserState => [...prevUserState, prevUserState.likes, post])
+                const {posts} = res.data
+                setUserState(prevUserState => [...prevUserState, prevUserState.likes, posts])
             })
             .catch(handleError)
     }
 
     const dislike = (postId) => {
-        axios.put(`/dislike${postId}`)
+        axios.put(`/dislike/${postId}`)
             .then(res => {
-                const {post} = res.data
-                setUserState(prevUserState => [...prevUserState, prevUserState.likes, post])
+                const {posts} = res.data
+                setUserState(prevUserState => [...prevUserState, prevUserState.likes, posts])
             })
             .catch(handleError)
     }
@@ -158,6 +158,7 @@ const UserProvider = (props) => {
                 signup,
                 login,
                 logout,
+                resetAuthErr,
                 getPosts,
                 getUserPost,
                 createPost,

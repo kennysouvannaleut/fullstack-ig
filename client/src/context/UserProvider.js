@@ -95,7 +95,7 @@ const UserProvider = (props) => {
     };
 
     const createPost = (newPost) => {
-        axios.post('/newpost', newPost)
+        axios.post('/post', newPost)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -117,11 +117,11 @@ const UserProvider = (props) => {
     };
 
     const editPost = (update, postId) => {
-       axios.put(`/update/${postId}`, update)
-        .then(res => {
-            setUserState(prevUserState => prevUserState.map(post => post._id !== postId ? post: res.data))
-        })
-        .catch(handleError)
+        axios.put(`/update/${postId}`, update)
+            .then(res => {
+                setUserState(prevUserState => prevUserState.map(post => post._id !== postId ? post: res.data))
+            })
+            .catch(handleError)
     };
 
     // const filterPost = (e) => {

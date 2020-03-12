@@ -13,20 +13,4 @@ posts.get('/', (req, res, next) => {
     })
 })
 
-// update post
-posts.put('/:postId', (req, res, next) => {
-    Post.findOneAndUpdate(
-        {_id: req.params.postId},
-        req.body,
-        {new: true},
-        (err, post) => {
-            if(err){
-                res.status(500)
-                return next(err)
-            }
-            return res.status(201).send(post)
-        }
-    )
-})
-
 module.exports = posts

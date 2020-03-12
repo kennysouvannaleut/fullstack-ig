@@ -15,8 +15,8 @@ const Navbar = props => {
                 label='Profile' 
             />
             <Navtab
-                to='/view'
-                label='View' 
+                to='/post'
+                label='Post' 
             />
             <button onClick={ logout }>Logout</button>
         </div>

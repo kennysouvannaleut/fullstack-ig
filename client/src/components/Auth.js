@@ -3,7 +3,6 @@ import AuthForm from './AuthForm';
 import { UserContext } from '../context/UserProvider';
 
 const Auth = () => {
-
     const initialInputs = { username: '', password: '' };
 
     const [inputs, setInputs] = useState(initialInputs);
@@ -11,7 +10,7 @@ const Auth = () => {
 
     const { signup, login, errMsg, resetAuthErr } = useContext(UserContext);
 
-    const handleChange = (e) => {
+    const handleChange = e => {
         const { name, value } = e.target;
         setInputs(prevInputs => ({
             ...prevInputs,
@@ -19,12 +18,12 @@ const Auth = () => {
         }))
     };
 
-    const handleSignup = (e) => {
+    const handleSignup = e => {
         e.preventDefault();
         signup(inputs);
     };
 
-    const handleLogin = (e) => {
+    const handleLogin = e => {
         e.preventDefault();
         login(inputs);
     };
@@ -39,14 +38,14 @@ const Auth = () => {
             <h1>IG Fullstack App</h1>
             { !toggle ?
             <>
-
                 <AuthForm 
                     handleChange={ handleChange }
                     handleSubmit={ handleSignup }
                     inputs={ inputs }
                     buttonText='Sign up'
+                    errMsg={ errMsg }
                 />
-            <p onClick={ toggleForm }>Already have an account? Login</p>  
+            <p onClick={ toggleForm }>Already have an account? Sign in</p>  
         </>
     :
             <>
@@ -57,7 +56,7 @@ const Auth = () => {
                     buttonText='Login'
                     errMsg={ errMsg }
                 />
-                <p onClick={ toggleForm }>New user? Sign</p>
+                <p onClick={ toggleForm }>New user? Sign up</p>
             </>
             }
         </div>

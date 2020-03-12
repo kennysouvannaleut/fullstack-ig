@@ -5,16 +5,14 @@ import FormContainer from '../../components/FormContainer';
 
 const Profile = () => {
     const {
-        user: {
-            username
-        },
+        username,
         createPost,
         posts
     } = useContext(UserContext);
 
     return (
         <div className='profile'>
-            <h1>Welcome @{ username }!</h1>
+            <h1>Welcome @{ username }</h1>
             <h3>Create a post</h3>
             <FormContainer 
                 createPost={ createPost }

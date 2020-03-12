@@ -1,12 +1,10 @@
 import React from 'react';
-// import Button from '../components/Button';
 
 const PostDetails = props => {
     const { 
-        // image,
-        description, 
-        // likes,
         user,
+        description, 
+        likes,
         dateAdded
      } = props;
 
@@ -14,10 +12,8 @@ const PostDetails = props => {
          <div className='post-details'>
              <p>Date: { dateAdded }</p>
              <p>Posted By: { user }</p>
-             {/* <img src={ imgURL } alt={ imgURL } width='250px' /> */}
              <p>Description: { description }</p>
-                {/* <Button /> */}
-             {/* <span>Likes: { likes }</span> */}
+             <span>Likes: { likes }</span>
          </div>
      );
 };

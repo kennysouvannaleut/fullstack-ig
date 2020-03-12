@@ -1,15 +1,16 @@
 import React, { useState, createContext } from 'react';
-import useFetch from '../hooks/useFetch';
+import { useFetch } from '../hooks/useFetch';
 import axios from 'axios';
 
 export const UserContext = createContext();
+
 const userAxios = axios.create();
 
 const handleError = err => console.log(err.response.data.errMsg);
 
 const UserProvider = (props) => {
     const initialState = {
-        user: JSON.parse(localStorage.getItem('user')) || {},
+        username: JSON.parse(localStorage.getItem('username')) || [],
         posts: [],
         errMsg: ''
     };
@@ -21,11 +22,11 @@ const UserProvider = (props) => {
         data, 
         isLoading, 
         isError 
-    }, apiFetch] = useFetch('/viewposts');
+    }, apiFetch] = useFetch('/viewposts', { posts: [] }, );
 
     const getPosts = () => { 
-        apiFetch()
-        const { posts } =  data;
+        apiFetch();
+        const { posts } = data;
         setUserState({
             isError,
             isLoading,
@@ -36,34 +37,34 @@ const UserProvider = (props) => {
     const signup = (credentials) => {
         userAxios.post('auth/signup', credentials)
             .then(res => {
-                const { user } = res.data;
-                localStorage.setItem('user', JSON.stringify(user))
+                const { username } = res.data;
+                localStorage.setItem('username', JSON.stringify(username))
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    user
+                    username
                 }))
             })
-            .catch(handleAuthErr(handleError))
+            .catch(handleError => handleAuthErr(handleError))
     };
 
     const login = (credentials) => {
         userAxios.post('auth/login', credentials)
             .then(res => {
-                const { user } = res.data;
-                localStorage.setItem('user', JSON.stringify(user))
-                getPosts()
+                const { username } = res.data;
+                localStorage.setItem('username', JSON.stringify(username))
+                getUserPost();
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    user
+                    username
                 }))
             })
-            .catch(handleAuthErr(handleError))
+            .catch(handleError => handleAuthErr(handleError))
     };
 
     const logout = () => {
-        localStorage.removeItem('user')
+        localStorage.removeItem('username')
         setUserState({
-            user: {},
+            username: [],
             posts: []
         })
     };
@@ -78,7 +79,7 @@ const UserProvider = (props) => {
     const resetAuthErr = () => {
         setUserState(prevUserState => ({
             ...prevUserState,
-            errMsg
+            errMsg: ''
         }))
     };
 
@@ -91,7 +92,7 @@ const UserProvider = (props) => {
                 }))
             })
             .catch(handleError)
-    }
+    };
 
     const createPost = (newPost) => {
         axios.post('/post', newPost)
@@ -109,7 +110,7 @@ const UserProvider = (props) => {
 
     const removePost = (postId) => {
         axios.delete(`/update/${postId}`)
-            .then(() => {
+            .then(res => {
                 setUserState(prevUserState => prevUserState.filter(post => post._id !== postId))
             })
             .catch(handleError)
@@ -136,20 +137,30 @@ const UserProvider = (props) => {
     const like = (postId) => {
         axios.put(`/like/${postId}`)
             .then(res => {
-                const {post} = res.data
-                setUserState(prevUserState => [...prevUserState, prevUserState.likes, post])
+                setUserState(prevUserState => ({
+                    ...prevUserState, 
+                    posts: [
+                        ...prevUserState.likes, 
+                        res.data
+                    ]
+                }))
             })
             .catch(handleError)
-    }
+    };
 
     const dislike = (postId) => {
-        axios.put(`/dislike${postId}`)
+        axios.put(`/dislike/${postId}`)
             .then(res => {
-                const {post} = res.data
-                setUserState(prevUserState => [...prevUserState, prevUserState.likes, post])
+                setUserState(prevUserState => ({
+                    ...prevUserState, 
+                    posts: [
+                        ...prevUserState.likes, 
+                        res.data
+                    ]
+                }))
             })
             .catch(handleError)
-    }
+    };
 
     return (
         <UserContext.Provider 
@@ -158,6 +169,7 @@ const UserProvider = (props) => {
                 signup,
                 login,
                 logout,
+                resetAuthErr,
                 getPosts,
                 getUserPost,
                 createPost,

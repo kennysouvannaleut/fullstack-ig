@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const useFetch = (initialUrl, initialData) => {
+export const useFetch = (initialUrl, initialData) => {
     const [data, setData] = useState(initialData);
     const [url, setUrl] = useState(initialUrl);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {
+        let didCancel = false;
+
         const fetchData = async () => {
             try {
                 setIsError(false);
@@ -24,9 +26,12 @@ const useFetch = (initialUrl, initialData) => {
         };
 
         fetchData();
+        
+        return () => {
+            didCancel = true;
+        };
+
     }, [url]);
 
     return [{ data, isLoading, isError }, setUrl];
 };
-
-export default useFetch;

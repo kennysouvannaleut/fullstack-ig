@@ -4,10 +4,11 @@ import { UserContext } from './context/UserProvider';
 
 import Navbar from './components/Navbar';
 import Error from './components/Error';
+import Auth from './components/Auth';
 
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
-import View from './pages/view/View';
+import Post from './pages/post/Post';
 
 const App = () => {
     const { logout } = useContext(UserContext);
@@ -15,31 +16,18 @@ const App = () => {
     return (
         <div className='App'>
             <Navbar logout={ logout } />
+            <Auth />
 
             <Switch>
-                <Redirect 
-                    exact path='/'
-                    to='/profile'
-                />
-                <Route 
-                    path='/home' 
-                    component={ Home }
-                />
-                <Route
-                    path='/profile'
-                    component={ Profile }
-                />
-                <Route
-                    path='/view'
-                    component={ View }
-                />
-                <Route 
-                    component={ Error } 
-                />
+                {/* <Redirect to='/home' />  */}
+                <Route exact path='/' component={ Home } />
+                <Route path='/profile' component={ Profile } />
+                <Route path='/post' component={ Post } />
+                <Route component={ Error } />
             </Switch>
 
         </div>
-    );
+    ); 
 };
 
 export default App;

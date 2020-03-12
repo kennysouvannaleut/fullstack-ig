@@ -76,7 +76,7 @@ const UserProvider = (props) => {
         }))
     };
 
-    const resetAuthErr = () => {
+    const resetAuthErr = (errMsg) => {
         setUserState(prevUserState => ({
             ...prevUserState,
             errMsg: ''
@@ -95,7 +95,7 @@ const UserProvider = (props) => {
     };
 
     const createPost = (newPost) => {
-        axios.post('/post', newPost)
+        axios.post('/newpost', newPost)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,

@@ -42,6 +42,8 @@ const FormContainer = (props) => {
                 inputs={ inputs }
                 buttonText='Create Post'
             />
+            <button onClick={like}>Like</button>
+            <button onClick={dislike}>Dislike</button>
         </>
     );
 };

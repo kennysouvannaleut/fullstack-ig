@@ -15,7 +15,7 @@ users.get('/all', (req, res, next) => {
     })
 })
 
-// get one user
+// get one user's posts
 users.get('/:username', (req, res, next) => {
     Post.find({user: req.params.username.toLowerCase()}, (err, user) => {
         if(err){

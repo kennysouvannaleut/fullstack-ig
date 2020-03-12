@@ -3,6 +3,14 @@ const app = express()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 
+var firebaseConfig = {
+        apiKey: 'AIzaSyBMzNMMbyeAsrmfVwA0I4s4lGM4AR7jOq4',
+        authDomain: '<your-auth-domain>',
+        databaseURL: '<your-database-url>',
+        storageBucket: 'image-bucket-143c1.firebaseapp.com'
+    }
+    firebase.initializeApp(firebaseConfig)
+
 const dbURL = 'mongodb://localhost:27017/group-api'
 
 app.use(express.json())

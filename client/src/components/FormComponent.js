@@ -6,13 +6,45 @@ const FormComponent = props => {
         handleChange,
         handleSubmit,
         handleOnDrop,
-        buttonText
+        buttonText,
+        // like,
+        // dislike,
+        inputs: {
+            user,
+            // description,
+            // pictures,
+            // likes,
+            dateAdded
+        }
     } = props;
 
     return (
         <form onSubmit={ handleSubmit }
             >
+            <input 
+                type='date'
+                name='dateAdded'
+                value={ dateAdded }
+                onChange={ handleChange }
+            />
+            <input 
+                type='text'
+                name='user'
+                value={ user }
+                onChange={ handleChange }
+                placeholder='Username'
+            />
+            <br />
+            <br />
+            <textarea
+                // name='description'
+                onChange={ handleChange }
+                placeholder='some description...'
+                cols={ 50 }
+                rows={ 10 } 
+            />
             <ImageUploader 
+                // name={ pictures }
                 onChange={ handleOnDrop }
                 withIcon={ true }
                 withPreview={ true }
@@ -20,17 +52,14 @@ const FormComponent = props => {
                 maxFileSize={ 5242880 }
                 fileSizeError='file size is to big'
                 fileTypeError='is not supported file extension'
-                buttonText='Upload Image'
+                buttonText='Upload an image'
             />
-            <br />
-            <textarea
-                onChange={ handleChange }
-                placeholder='some description...'
-                cols={ 50 }
-                rows={ 10 }
-            />
-            <br />
             <button>{ buttonText }</button>
+            <br />
+            {/* <button onClick={ like }>Like!</button>
+            <button onClick={ dislike }>Dislike!</button> */}
+            <br />
+            {/* <span>{ likes }.</span> */}
         </form>
     );
 };

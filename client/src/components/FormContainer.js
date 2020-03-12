@@ -2,20 +2,24 @@ import React, { useState } from 'react';
 import FormComponent from './FormComponent';
 
 const FormContainer = (props) => {
-    // const initialInputs = {
-        
-    // }
+    const initialInputs = {
+        user: '',
+        description: '',
+        likes: '',
+        dateAdded: '',
+        pictures: ''
+    };
     
-    const [inputs, setInputs] = useState();
+    const [inputs, setInputs] = useState(initialInputs);
     const [pictures, setPictures] = useState([]);
 
-    const { createPost, like, dislike } = props;
+    const { createPost } = props;
 
     const handleOnDrop = () => {
         setPictures(pictures)
     }
 
-    const handleChange = (e) => {
+    const handleChange = e => {
         const { name, value } = e.target;
         setInputs(prevInputs => ({
             ...prevInputs,
@@ -23,10 +27,10 @@ const FormContainer = (props) => {
         }))
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = e => {
         e.preventDefault();
-        createPost();
-        setInputs(inputs);
+        createPost(inputs);
+        setInputs(initialInputs);
     };
 
     return (
@@ -35,12 +39,9 @@ const FormContainer = (props) => {
                 handleChange={ handleChange }
                 handleSubmit={ handleSubmit }
                 handleOnDrop={ handleOnDrop }
-                // inputs={ inputs }
-                buttonText='New Post'
+                inputs={ inputs }
+                buttonText='Create Post'
             />
-            <button onClick={ () => like }>Like</button>
-            <button onClick={ () => dislike }>Dislike</button>
-            <span>The count is { like }</span>
         </>
     );
 };

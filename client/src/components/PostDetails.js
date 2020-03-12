@@ -10,10 +10,10 @@ const PostDetails = props => {
 
      return (
          <div className='post-details'>
-             <p>Date: { dateAdded }</p>
              <p>Posted By: { user }</p>
              <p>Description: { description }</p>
              <span>Likes: { likes }</span>
+             <p>Date Posted: { dateAdded }</p>
          </div>
      );
 };

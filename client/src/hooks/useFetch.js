@@ -8,7 +8,6 @@ export const useFetch = (initialUrl, initialData) => {
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {
-        let didCancel = false;
 
         const fetchData = async () => {
             try {
@@ -26,10 +25,6 @@ export const useFetch = (initialUrl, initialData) => {
         };
 
         fetchData();
-        
-        return () => {
-            didCancel = true;
-        };
 
     }, [url]);
 

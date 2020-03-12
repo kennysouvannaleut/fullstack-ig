@@ -10,7 +10,7 @@ const handleError = err => console.log(err.response.data.errMsg);
 
 const UserProvider = (props) => {
     const initialState = {
-        username: JSON.parse(localStorage.getItem('username')) || [],
+        username: JSON.parse(localStorage.getItem('username')) || '',
         posts: [],
         errMsg: ''
     };
@@ -64,7 +64,7 @@ const UserProvider = (props) => {
     const logout = () => {
         localStorage.removeItem('username')
         setUserState({
-            username: [],
+            username: '',
             posts: []
         })
     };

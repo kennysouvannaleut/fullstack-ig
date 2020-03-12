@@ -10,7 +10,7 @@ const handleError = err => console.log(err.response.data.errMsg);
 
 const UserProvider = (props) => {
     const initialState = {
-        username: JSON.parse(localStorage.getItem('username')) || '',
+        user: localStorage.getItem('user') || '',
         posts: [],
         errMsg: ''
     };
@@ -37,11 +37,11 @@ const UserProvider = (props) => {
     const signup = (credentials) => {
         userAxios.post('auth/signup', credentials)
             .then(res => {
-                const { username } = res.data;
-                localStorage.setItem('username', JSON.stringify(username))
+                const { user } = res.data;
+                localStorage.setItem('user')
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    username
+                    user
                 }))
             })
             .catch(handleError => handleAuthErr(handleError))
@@ -50,21 +50,21 @@ const UserProvider = (props) => {
     const login = (credentials) => {
         userAxios.post('auth/login', credentials)
             .then(res => {
-                const { username } = res.data;
-                localStorage.setItem('username', JSON.stringify(username))
-                getUserPost();
+                const { user } = res.data;
+                localStorage.setItem('user')
+                getPosts();
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    username
+                    user
                 }))
             })
             .catch(handleError => handleAuthErr(handleError))
     };
 
     const logout = () => {
-        localStorage.removeItem('username')
+        localStorage.removeItem('user')
         setUserState({
-            username: '',
+            user: '',
             posts: []
         })
     };
@@ -76,7 +76,7 @@ const UserProvider = (props) => {
         }))
     };
 
-    const resetAuthErr = (errMsg) => {
+    const resetAuthErr = () => {
         setUserState(prevUserState => ({
             ...prevUserState,
             errMsg: ''
@@ -84,7 +84,7 @@ const UserProvider = (props) => {
     };
 
     const getUserPost = (userId) => {
-        axios.get(`/users/${userId}`)
+        axios.get(`/viewposts/${userId}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -110,7 +110,7 @@ const UserProvider = (props) => {
 
     const removePost = (postId) => {
         axios.delete(`/update/${postId}`)
-            .then(res => {
+            .then(() => {
                 setUserState(prevUserState => prevUserState.filter(post => post._id !== postId))
             })
             .catch(handleError)

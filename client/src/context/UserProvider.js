@@ -95,7 +95,7 @@ const UserProvider = (props) => {
     };
 
     const createPost = (newPost) => {
-        axios.post('/newpost', newPost)
+        axios.post('/post', newPost)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,

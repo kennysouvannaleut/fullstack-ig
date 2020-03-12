@@ -2,19 +2,24 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+// const firebase = require('firebase')
+
+const dotENV = require('dotenv')
+dotENV.config()
+const apiKey = process.env.API_KEY
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBMzNMMbyeAsrmfVwA0I4s4lGM4AR7jOq4",
-    authDomain: "image-bucket-143c1.firebaseapp.com",
-    databaseURL: "https://image-bucket-143c1.firebaseio.com",
-    projectId: "image-bucket-143c1",
-    storageBucket: "image-bucket-143c1.appspot.com",
-    messagingSenderId: "396601837101",
-    appId: "1:396601837101:web:cfb369d92c08c6c9809aa4",
-    measurementId: "G-CK3LLXRTX5"
+    apiKey: apiKey,
+    authDomain: "image-bucket-4e572.firebaseapp.com",
+    databaseURL: "https://image-bucket-4e572.firebaseio.com",
+    projectId: "image-bucket-4e572",
+    storageBucket: "image-bucket-4e572.appspot.com",
+    messagingSenderId: "15521326526",
+    appId: "1:15521326526:web:1e2fb596d1b954e7e7c5ef",
+    measurementId: "G-QRZNJJGDP6"
   }
 
-firebase.initializeApp(firebaseConfig)
+// firebase.initializeApp(firebaseConfig)
 
 const dbURL = 'mongodb://localhost:27017/group-api'
 

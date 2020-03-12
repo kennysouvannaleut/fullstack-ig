@@ -20,10 +20,10 @@ const App = () => {
 
             <Switch>
                 {/* <Redirect to='/home' />  */}
-                <Route exact path='/' component={ Home } />
                 <Route path='/profile' component={ Profile } />
                 <Route path='/post' component={ Post } />
                 <Route component={ Error } />
+                <Route path='/' component={ Home } />
             </Switch>
 
         </div>

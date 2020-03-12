@@ -15,15 +15,4 @@ users.get('/all', (req, res, next) => {
     })
 })
 
-// get one user
-users.get('/:username', (req, res, next) => {
-    Post.find({user: req.params.username.toLowerCase()}, (err, user) => {
-        if(err){
-            res.status(500)
-            return next(err)
-        }
-        return res.status(200).send(user)
-    })
-})
-
 module.exports = users

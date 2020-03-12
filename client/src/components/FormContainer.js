@@ -13,7 +13,7 @@ const FormContainer = (props) => {
     const [inputs, setInputs] = useState(initialInputs);
     const [pictures, setPictures] = useState([]);
 
-    const { createPost } = props;
+    const { createPost, like, dislike } = props;
 
     const handleOnDrop = () => {
         setPictures(pictures)

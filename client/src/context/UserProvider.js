@@ -10,7 +10,7 @@ const handleError = err => console.log(err.response.data.errMsg);
 
 const UserProvider = (props) => {
     const initialState = {
-        user: localStorage.getItem('user') || '',
+        user: localStorage.getItem('user') || {},
         posts: [],
         errMsg: ''
     };
@@ -44,7 +44,7 @@ const UserProvider = (props) => {
                     user
                 }))
             })
-            .catch(handleError => handleAuthErr(handleError))
+            .catch(err => handleAuthErr(err.response.data.errMsg))
     };
 
     const login = (credentials) => {
@@ -52,19 +52,19 @@ const UserProvider = (props) => {
             .then(res => {
                 const { user } = res.data;
                 localStorage.setItem('user')
-                getPosts();
+                getUserPost();
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     user
                 }))
             })
-            .catch(handleError => handleAuthErr(handleError))
+            .catch(err => handleAuthErr(err.response.data.errMsg))
     };
 
     const logout = () => {
         localStorage.removeItem('user')
         setUserState({
-            user: '',
+            user: {},
             posts: []
         })
     };
@@ -86,9 +86,10 @@ const UserProvider = (props) => {
     const getUserPost = (userId) => {
         axios.get(`/viewposts/${userId}`)
             .then(res => {
+                const { posts } = res.data
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    posts: res.data
+                    posts
                 }))
             })
             .catch(handleError)

@@ -10,32 +10,32 @@ const FormComponent = props => {
         // like,
         // dislike,
         inputs: {
-            user,
-            // description,
+            // user,
+            // description, 
             // pictures,
-            // likes,
-            dateAdded
+            likes
+            // dateAdded
         }
     } = props;
 
     return (
         <form onSubmit={ handleSubmit }
             >
-            <input 
+            {/* <input 
                 type='date'
                 name='dateAdded'
                 value={ dateAdded }
                 onChange={ handleChange }
-            />
-            <input 
+            /> */}
+            {/* <input 
                 type='text'
                 name='user'
                 value={ user }
                 onChange={ handleChange }
                 placeholder='Username'
-            />
-            <br />
-            <br />
+            /> */}
+            {/* <br /> */}
+            {/* <br /> */}
             <textarea
                 // name='description'
                 onChange={ handleChange }
@@ -55,11 +55,11 @@ const FormComponent = props => {
                 buttonText='Upload an image'
             />
             <button>{ buttonText }</button>
-            <br />
+            {/* <br /> */}
             {/* <button onClick={ like }>Like!</button>
             <button onClick={ dislike }>Dislike!</button> */}
             <br />
-            {/* <span>{ likes }.</span> */}
+            <span>{ likes }.</span>
         </form>
     );
 };

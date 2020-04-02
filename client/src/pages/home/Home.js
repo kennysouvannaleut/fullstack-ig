@@ -4,7 +4,7 @@ const Home = () => {
 console.log('hello')
     return (
         <div className='home'>
-
+            HOME
         </div>
     );
 };

@@ -14,11 +14,10 @@ import ProtectedRoute from './components/ProtectedRoute.js'
 
 const App = () => {
     const { logout, username } = useContext(UserContext);
-    console.log(username)
+
     return (
         <div className='App'>
             {username && <Navbar logout={ logout } />}
-            {/* <Auth /> */}
 
             <Switch>
                 <Route 
@@ -34,6 +33,12 @@ const App = () => {
                 <ProtectedRoute 
                     path='/post' 
                     component={ Post } 
+                    redirectTo='/'
+                    username={username}
+                />
+                <ProtectedRoute
+                    path='/home'
+                    component={ Home }
                     redirectTo='/'
                     username={username}
                 />

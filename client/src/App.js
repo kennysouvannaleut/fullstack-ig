@@ -10,20 +10,38 @@ import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import Post from './pages/post/Post';
 
-const App = () => {
-    const { logout } = useContext(UserContext);
+import ProtectedRoute from './components/ProtectedRoute.js'
 
+const App = () => {
+    const { logout, username } = useContext(UserContext);
+    console.log(username)
     return (
         <div className='App'>
-            <Navbar logout={ logout } />
-            <Auth />
+            {username && <Navbar logout={ logout } />}
+            {/* <Auth /> */}
 
             <Switch>
-                {/* <Redirect to='/home' />  */}
-                <Route path='/profile' component={ Profile } />
-                <Route path='/post' component={ Post } />
-                <Route component={ Error } />
-                <Route path='/' component={ Home } />
+                <Route 
+                    exact path='/'
+                    render={() => username ? <Redirect to='/profile'/> : <Auth/>}
+                /> 
+                <ProtectedRoute 
+                    path='/profile' 
+                    component={ Profile } 
+                    redirectTo='/'
+                    username={username}
+                />
+                <ProtectedRoute 
+                    path='/post' 
+                    component={ Post } 
+                    redirectTo='/'
+                    username={username}
+                />
+                <ProtectedRoute 
+                    component={ Error } 
+                    redirectTo='/'
+                    username={username}
+                />
             </Switch>
 
         </div>

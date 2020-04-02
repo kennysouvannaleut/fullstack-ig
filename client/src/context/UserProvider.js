@@ -14,14 +14,14 @@ const UserProvider = (props) => {
         posts: [],
         errMsg: ''
     };
-
+    
     const [userState, setUserState] = useState(initialState);
     // const [query, setQuery] = useState('user');
 
     const [{ 
         data, 
         isLoading, 
-        isError 
+        isError
     }, apiFetch] = useFetch('/viewposts', { posts: [] }, );
 
     const getPosts = () => { 
@@ -34,8 +34,9 @@ const UserProvider = (props) => {
         })
     };
 
+    // USERS:
     const signup = (credentials) => {
-        userAxios.post('auth/signup', credentials)
+        userAxios.post('/auth/signup', credentials)
             .then(res => {
                 const { username } = res.data;
                 localStorage.setItem('username', JSON.stringify(username))
@@ -48,16 +49,16 @@ const UserProvider = (props) => {
     };
 
     const login = (credentials) => {
-        userAxios.post('auth/login', credentials)
-            .then(res => {
-                const { username } = res.data;
-                localStorage.setItem('username', JSON.stringify(username))
-                getUserPost();
-                setUserState(prevUserState => ({
-                    ...prevUserState,
-                    username
-                }))
-            })
+        userAxios.post('/auth/login', credentials)
+        .then(res => {
+            const { username } = res.data;
+            localStorage.setItem('username', JSON.stringify(username))
+            getUserPost(res.data._id);
+            setUserState(prevUserState => ({
+                ...prevUserState,
+                username
+            }))
+        })
             .catch(handleError => handleAuthErr(handleError))
     };
 
@@ -76,15 +77,16 @@ const UserProvider = (props) => {
         }))
     };
 
-    const resetAuthErr = (errMsg) => {
+    const resetAuthErr = () => {
         setUserState(prevUserState => ({
             ...prevUserState,
             errMsg: ''
         }))
     };
 
+    // POSTS:
     const getUserPost = (userId) => {
-        axios.get(`/users/${userId}`)
+        axios.get(`/viewposts/${userId}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -134,6 +136,7 @@ const UserProvider = (props) => {
     //     }
     // };
 
+    // UP/DOWN VOTING:
     const like = (postId) => {
         axios.put(`/like/${postId}`)
             .then(res => {

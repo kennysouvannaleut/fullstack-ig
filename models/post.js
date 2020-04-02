@@ -14,16 +14,16 @@ const postSchema = new Schema({
         // required: true,
         default: 0
     },
-    user: {
-        type: String,
-        required: true
-    },
     // user: {
-    //     type: Schema.Types.String,
-    //     ref: 'User',
-    //     required: true,
-    //     unique: true
+    //     type: String,
+    //     required: true
     // },
+    user: {
+        type: Schema.Types.String,
+        ref: 'User',
+        required: true,
+        unique: true
+    },
     dateAdded: {
         type: Date,
         default: Date.now()

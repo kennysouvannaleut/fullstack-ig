@@ -1,5 +1,5 @@
 import React from 'react';
-import PostDetails from './PostDetails';
+import Post from './Post.js';
 
 const PostList = props => {
     const { 
@@ -16,7 +16,7 @@ const PostList = props => {
                 posts.length > 0 && 
                 posts.map(post => {
                 return (
-                    <PostDetails
+                    <Post
                         { ...post }
                         key={ post._id }
                     />

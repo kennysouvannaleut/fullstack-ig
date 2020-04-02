@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PostDetails = props => {
+const Post = props => {
     const { 
         user,
         description, 
@@ -18,4 +18,4 @@ const PostDetails = props => {
      );
 };
 
-export default PostDetails;
+export default Post;

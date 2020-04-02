@@ -56,9 +56,6 @@ const FormComponent = props => {
             />
             <button>{ buttonText }</button>
             <br />
-            {/* <button onClick={ like }>Like!</button>
-            <button onClick={ dislike }>Dislike!</button> */}
-            <br />
             {/* <span>{ likes }.</span> */}
         </form>
     );

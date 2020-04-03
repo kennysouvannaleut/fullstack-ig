@@ -10,11 +10,11 @@ const FormComponent = props => {
         // like,
         // dislike,
         inputs: {
-            user,
-            // description,
+            // user,
+            // description, 
             // pictures,
-            // likes,
-            dateAdded
+            likes
+            // dateAdded
         }
     } = props;
 

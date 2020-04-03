@@ -10,7 +10,7 @@ const Auth = () => {
 
     const { signup, login, errMsg, resetAuthErr } = useContext(UserContext);
 
-    const handleChange = e => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setInputs(prevInputs => ({
             ...prevInputs,
@@ -18,12 +18,12 @@ const Auth = () => {
         }))
     };
 
-    const handleSignup = e => {
+    const handleSignup = (e) => {
         e.preventDefault();
         signup(inputs);
     };
 
-    const handleLogin = e => {
+    const handleLogin = (e) => {
         e.preventDefault();
         login(inputs);
     };
@@ -35,7 +35,7 @@ const Auth = () => {
 
     return (
         <div className='auth-container'>
-            <h1>IG Fullstack App</h1>
+            <h1>IG App</h1>
             { !toggle ?
             <>
                 <AuthForm 

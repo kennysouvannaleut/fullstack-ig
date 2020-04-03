@@ -24,6 +24,8 @@ const UserProvider = (props) => {
         isError
     }, apiFetch] = useFetch('/viewposts', { posts: [] }, );
 
+    console.log(userState)
+
     const getPosts = () => { 
         apiFetch();
         const { posts } = data;
@@ -92,6 +94,7 @@ const UserProvider = (props) => {
                     ...prevUserState,
                     posts: res.data
                 }))
+                console.log(res.data)
             })
             .catch(handleError)
     };

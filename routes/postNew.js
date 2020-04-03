@@ -3,6 +3,8 @@ const postNew = express.Router()
 const Post = require('../models/post.js')
 
 postNew.post('/', (req, res, next) => {
+    console.log(777, req.body)
+    req.body.user = req.user._id
     const newPost = new Post(req.body)
     newPost.save((err, post) => {
         if(err){

@@ -7,7 +7,9 @@ const Profile = () => {
     const {
         username,
         createPost,
-        posts
+        posts,
+        like,
+        dislike
     } = useContext(UserContext);
 
     return (
@@ -20,6 +22,8 @@ const Profile = () => {
             <h3>Recent posts</h3>
             <PostList 
                 posts={ posts }
+                like={ like }
+                dislike={ dislike }
             />
         </div>
     );

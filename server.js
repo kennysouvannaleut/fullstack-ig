@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-const firebase = require('firebase')
+// const firebase = require('firebase')
 
 // const dotENV = require('dotenv')
 // dotENV.config()
@@ -19,9 +19,9 @@ const firebase = require('firebase')
 //     measurementId: "G-QRZNJJGDP6"
 //   }
 
-firebase.initializeApp(firebaseConfig)
+// firebase.initializeApp(firebaseConfig)
 
-const dbURL = 'mongodb://localhost:27017/group-api'
+const dbURL = 'mongodb://localhost:27017/ig-app'
 
 app.use(express.json())
 app.use(morgan('dev'))

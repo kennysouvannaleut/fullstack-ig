@@ -1,16 +1,17 @@
-import React, { useState, createContext, useEffect } from 'react';
+import React, { useState } from 'react';
+import UserContext from './userContext';
 import Axios from 'axios';
-
-export const UserContext = createContext();
 
 const userAxios = Axios.create();
 
 const handleError = err => console.log(err.response.data.errMsg);
 
-const UserProvider = (props) => {
+const UserProvider = props => {
     const initialState = {
         user: localStorage.getItem('user') || {},
         posts: [],
+        currentPost: null,
+        loading: true,
         errMsg: ''
     };
     
@@ -162,26 +163,22 @@ const UserProvider = (props) => {
             .catch(handleError)
     };
 
-    useEffect(() => {
-        getPosts();
-    }, []);
-
     return (
         <UserContext.Provider 
-            value={{ 
-                ...userState,
-                signup,
-                login,
-                logout,
-                resetAuthErr,
-                getPosts,
-                getUserPost,
-                createPost,
-                removePost,
-                editPost,
-                like,
-                dislike
-            }} 
+        value={{ 
+            ...userState,
+            signup,
+            login,
+            logout,
+            resetAuthErr,
+            getPosts,
+            getUserPost,
+            createPost,
+            removePost,
+            editPost,
+            like,
+            dislike
+        }} 
             >
             { props.children }
         </UserContext.Provider>

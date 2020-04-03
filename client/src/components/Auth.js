@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import AuthForm from './AuthForm';
-import { UserContext } from '../context/UserProvider';
+import UserContext from '../context/userContext';
 
 const Auth = () => {
     const initialInputs = { username: '', password: '' };
@@ -8,7 +8,8 @@ const Auth = () => {
     const [inputs, setInputs] = useState(initialInputs);
     const [toggle, setToggle] = useState(false);
 
-    const { signup, login, errMsg, resetAuthErr } = useContext(UserContext);
+    const userContext = useContext(UserContext)
+    const { signup, login, errMsg, resetAuthErr } = useContext(userContext);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

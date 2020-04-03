@@ -1,19 +1,20 @@
 import React, { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { UserContext } from './context/UserProvider';
+import UserContext from './context/userContext';
 
 import Navbar from './components/Navbar';
 import Error from './components/Error';
 import Auth from './components/Auth';
 
-// import Home from './pages/home/Home';
+import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import Post from './pages/post/Post';
 
 import ProtectedRoute from './components/ProtectedRoute.js'
 
 const App = () => {
-    const { logout, username } = useContext(UserContext);
+    const userContext = useContext(UserContext);
+    const { logout, username } = userContext;
 
     return (
         <div className='App'>

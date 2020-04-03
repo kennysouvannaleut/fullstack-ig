@@ -1,39 +1,31 @@
-import React, { useState, createContext } from 'react';
-import { useFetch } from '../hooks/useFetch';
-import axios from 'axios';
+import React, { useState } from 'react';
+import UserContext from './userContext';
+import Axios from 'axios';
 
-export const UserContext = createContext();
-
-const userAxios = axios.create();
+const userAxios = Axios.create();
 
 const handleError = err => console.log(err.response.data.errMsg);
 
-const UserProvider = (props) => {
+const UserProvider = props => {
     const initialState = {
         user: localStorage.getItem('user') || {},
         posts: [],
+        currentPost: null,
+        loading: true,
         errMsg: ''
     };
     
     const [userState, setUserState] = useState(initialState);
-    // const [query, setQuery] = useState('user');
-
-    const [{ 
-        data, 
-        isLoading, 
-        isError
-    }, apiFetch] = useFetch('/viewposts', { posts: [] }, );
 
     console.log(userState)
 
-    const getPosts = () => { 
-        apiFetch();
-        const { posts } = data;
-        setUserState({
-            isError,
-            isLoading,
-            posts
-        })
+    // get all posts
+    const getPosts = () => {
+        Axios.get('/viewposts')
+            .then(res => {
+                setUserState({ posts: res.data })
+            })
+            .catch(handleError);
     };
 
     // USERS:
@@ -47,11 +39,11 @@ const UserProvider = (props) => {
                     user
                 }))
             })
-            .catch(err => handleAuthErr(err.response.data.errMsg))
+            .catch(handleError => handleAuthErr(handleError));
     };
 
     const login = (credentials) => {
-        userAxios.post('auth/login', credentials)
+        userAxios.post('/auth/login', credentials)
             .then(res => {
                 const { user } = res.data;
                 localStorage.setItem('user')
@@ -61,18 +53,19 @@ const UserProvider = (props) => {
                     user
                 }))
             })
-            .catch(err => handleAuthErr(err.response.data.errMsg))
-        userAxios.post('/auth/login', credentials)
-        .then(res => {
-            const { username } = res.data;
-            localStorage.setItem('username', JSON.stringify(username))
-            getUserPost(res.data._id);
-            setUserState(prevUserState => ({
-                ...prevUserState,
-                username
-            }))
-        })
-            .catch(handleError => handleAuthErr(handleError))
+            .catch(handleError => handleAuthErr(handleError));
+
+        // userAxios.post('/auth/login', credentials)
+        // .then(res => {
+        //     const { username } = res.data;
+        //     localStorage.setItem('username', JSON.stringify(username))
+        //     getUserPost(res.data._id);
+        //     setUserState(prevUserState => ({
+        //         ...prevUserState,
+        //         username
+        //     }))
+        // })
+        //     .catch(handleError => handleAuthErr(handleError))
     };
 
     const logout = () => {
@@ -99,7 +92,7 @@ const UserProvider = (props) => {
 
     // POSTS:
     const getUserPost = (userId) => {
-        axios.get(`/viewposts/${userId}`)
+        Axios.get(`/viewposts/${userId}`)
             .then(res => {
                 const { posts } = res.data
                 setUserState(prevUserState => ({
@@ -112,7 +105,7 @@ const UserProvider = (props) => {
     };
 
     const createPost = (newPost) => {
-        axios.post('/post', newPost)
+        Axios.post('/post', newPost)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -126,7 +119,7 @@ const UserProvider = (props) => {
     };
 
     const removePost = (postId) => {
-        axios.delete(`/update/${postId}`)
+        Axios.delete(`/update/${postId}`)
             .then(() => {
                 setUserState(prevUserState => prevUserState.filter(post => post._id !== postId))
             })
@@ -134,26 +127,16 @@ const UserProvider = (props) => {
     };
 
     const editPost = (update, postId) => {
-        axios.put(`/update/${postId}`, update)
+        Axios.put(`/update/${postId}`, update)
             .then(res => {
                 setUserState(prevUserState => prevUserState.map(post => post._id !== postId ? post: res.data))
             })
             .catch(handleError)
     };
 
-    // const filterPost = (e) => {
-    //     if(e.target.value === 'reset') {
-    //         apiFetch()
-    //     } else {
-    //         axios.get(`/viewposts/search?query=${query}`)
-    //             .then(res => setQuery(res.data))
-    //             .catch(handleError)
-    //     }
-    // };
-
     // UP/DOWN VOTING:
     const like = (postId) => {
-        axios.put(`/like/${postId}`)
+        Axios.put(`/like/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState, 
@@ -167,7 +150,7 @@ const UserProvider = (props) => {
     };
 
     const dislike = (postId) => {
-        axios.put(`/dislike/${postId}`)
+        Axios.put(`/dislike/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState, 
@@ -182,21 +165,20 @@ const UserProvider = (props) => {
 
     return (
         <UserContext.Provider 
-            value={{ 
-                ...userState,
-                signup,
-                login,
-                logout,
-                resetAuthErr,
-                getPosts,
-                getUserPost,
-                createPost,
-                removePost,
-                editPost,
-                like,
-                dislike
-                // filterPost
-            }} 
+        value={{ 
+            ...userState,
+            signup,
+            login,
+            logout,
+            resetAuthErr,
+            getPosts,
+            getUserPost,
+            createPost,
+            removePost,
+            editPost,
+            like,
+            dislike
+        }} 
             >
             { props.children }
         </UserContext.Provider>

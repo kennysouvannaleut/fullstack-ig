@@ -1,6 +1,6 @@
 const express = require('express')
 const users = express.Router()
-const Post = require('../models/post.js')
+// const Post = require('../models/post.js')
 const User = require('../models/user.js')
 
 // get all users:

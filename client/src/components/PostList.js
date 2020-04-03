@@ -5,7 +5,9 @@ const PostList = props => {
     const { 
         isError,
         isLoading, 
-        posts 
+        posts,
+        like,
+        dislike
     } = props;
 
     return (
@@ -18,10 +20,13 @@ const PostList = props => {
                 return (
                     <Post
                         { ...post }
+                        like={ like }
+                        dislike={ dislike }
                         key={ post._id }
                     />
                     )
-                })}
+                })
+            }
         </div>
     );
 };

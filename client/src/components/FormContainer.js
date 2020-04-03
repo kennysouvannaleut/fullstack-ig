@@ -5,15 +5,15 @@ const FormContainer = (props) => {
     const initialInputs = {
         user: '',
         description: '',
-        likes: '',
-        dateAdded: '',
+        // likes: '',
+        // dateAdded: '',
         pictures: ''
     };
     
     const [inputs, setInputs] = useState(initialInputs);
     const [pictures, setPictures] = useState([]);
 
-    const { createPost, like, dislike } = props;
+    const { createPost } = props;
 
     const handleOnDrop = () => {
         setPictures(pictures)
@@ -34,17 +34,13 @@ const FormContainer = (props) => {
     };
 
     return (
-        <>
-            <FormComponent 
-                handleChange={ handleChange }
-                handleSubmit={ handleSubmit }
-                handleOnDrop={ handleOnDrop }
-                inputs={ inputs }
-                buttonText='Create Post'
-            />
-            <button onClick={like}>Like</button>
-            <button onClick={dislike}>Dislike</button>
-        </>
+        <FormComponent 
+            handleChange={ handleChange }
+            handleSubmit={ handleSubmit }
+            handleOnDrop={ handleOnDrop }
+            inputs={ inputs }
+            buttonText='Create Post'
+        />
     );
 };
 

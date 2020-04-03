@@ -14,8 +14,8 @@ posts.get('/', (req, res, next) => {
 })
 
 // get one user's posts
-posts.get('/:user', (req, res, next) => {
-    Post.find({user: req.params.user.toLowerCase()}, (err, user) => {
+posts.get('/:userId', (req, res, next) => {
+    Post.find({user: req.params.userId}, (err, user) => {
         if(err){
             res.status(500)
             return next(err)

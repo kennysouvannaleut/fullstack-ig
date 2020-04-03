@@ -19,25 +19,24 @@ const FormComponent = props => {
     } = props;
 
     return (
-        <form onSubmit={ handleSubmit }
-            >
-            <input 
+        <form onSubmit={ handleSubmit }>
+            {/* <input 
                 type='date'
                 name='dateAdded'
                 value={ dateAdded }
                 onChange={ handleChange }
-            />
-            <input 
+            /> */}
+            {/* <input 
                 type='text'
                 name='user'
                 value={ user }
                 onChange={ handleChange }
                 placeholder='Username'
-            />
+            /> */}
             <br />
             <br />
             <textarea
-                // name='description'
+                name='description'
                 onChange={ handleChange }
                 placeholder='some description...'
                 cols={ 50 }

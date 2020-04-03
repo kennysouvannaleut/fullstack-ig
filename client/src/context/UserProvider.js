@@ -14,15 +14,17 @@ const UserProvider = (props) => {
         posts: [],
         errMsg: ''
     };
-
+    
     const [userState, setUserState] = useState(initialState);
     // const [query, setQuery] = useState('user');
 
     const [{ 
         data, 
         isLoading, 
-        isError 
+        isError
     }, apiFetch] = useFetch('/viewposts', { posts: [] }, );
+
+    console.log(userState)
 
     const getPosts = () => { 
         apiFetch();
@@ -34,8 +36,9 @@ const UserProvider = (props) => {
         })
     };
 
+    // USERS:
     const signup = (credentials) => {
-        userAxios.post('auth/signup', credentials)
+        userAxios.post('/auth/signup', credentials)
             .then(res => {
                 const { user } = res.data;
                 localStorage.setItem('user')
@@ -59,6 +62,17 @@ const UserProvider = (props) => {
                 }))
             })
             .catch(err => handleAuthErr(err.response.data.errMsg))
+        userAxios.post('/auth/login', credentials)
+        .then(res => {
+            const { username } = res.data;
+            localStorage.setItem('username', JSON.stringify(username))
+            getUserPost(res.data._id);
+            setUserState(prevUserState => ({
+                ...prevUserState,
+                username
+            }))
+        })
+            .catch(handleError => handleAuthErr(handleError))
     };
 
     const logout = () => {
@@ -83,6 +97,7 @@ const UserProvider = (props) => {
         }))
     };
 
+    // POSTS:
     const getUserPost = (userId) => {
         axios.get(`/viewposts/${userId}`)
             .then(res => {
@@ -91,6 +106,7 @@ const UserProvider = (props) => {
                     ...prevUserState,
                     posts
                 }))
+                console.log(res.data)
             })
             .catch(handleError)
     };
@@ -135,6 +151,7 @@ const UserProvider = (props) => {
     //     }
     // };
 
+    // UP/DOWN VOTING:
     const like = (postId) => {
         axios.put(`/like/${postId}`)
             .then(res => {

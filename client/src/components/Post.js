@@ -1,11 +1,14 @@
 import React from 'react';
 
-const PostDetails = props => {
+const Post = props => {
     const { 
         user,
         description, 
         likes,
-        dateAdded
+        dateAdded,
+        like,
+        dislike,
+        _id
      } = props;
 
      return (
@@ -14,8 +17,10 @@ const PostDetails = props => {
              <p>Description: { description }</p>
              <span>Likes: { likes }</span>
              <p>Date Posted: { dateAdded }</p>
+             <button onClick={ () => like(_id) }>Like</button>
+            <button onClick={ () => dislike(_id) }>Dislike</button>
          </div>
      );
 };
 
-export default PostDetails;
+export default Post;

@@ -19,8 +19,7 @@ const FormComponent = props => {
     } = props;
 
     return (
-        <form onSubmit={ handleSubmit }
-            >
+        <form onSubmit={ handleSubmit }>
             {/* <input 
                 type='date'
                 name='dateAdded'
@@ -34,10 +33,10 @@ const FormComponent = props => {
                 onChange={ handleChange }
                 placeholder='Username'
             /> */}
-            {/* <br /> */}
-            {/* <br /> */}
+            <br />
+            <br />
             <textarea
-                // name='description'
+                name='description'
                 onChange={ handleChange }
                 placeholder='some description...'
                 cols={ 50 }
@@ -55,11 +54,8 @@ const FormComponent = props => {
                 buttonText='Upload an image'
             />
             <button>{ buttonText }</button>
-            {/* <br /> */}
-            {/* <button onClick={ like }>Like!</button>
-            <button onClick={ dislike }>Dislike!</button> */}
             <br />
-            <span>{ likes }.</span>
+            {/* <span>{ likes }.</span> */}
         </form>
     );
 };

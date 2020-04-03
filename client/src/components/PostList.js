@@ -1,11 +1,13 @@
 import React from 'react';
-import PostDetails from './PostDetails';
+import Post from './Post.js';
 
 const PostList = props => {
     const { 
         isError,
         isLoading, 
-        posts 
+        posts,
+        like,
+        dislike
     } = props;
 
     return (
@@ -16,12 +18,15 @@ const PostList = props => {
                 posts.length > 0 && 
                 posts.map(post => {
                 return (
-                    <PostDetails
+                    <Post
                         { ...post }
+                        like={ like }
+                        dislike={ dislike }
                         key={ post._id }
                     />
                     )
-                })}
+                })
+            }
         </div>
     );
 };

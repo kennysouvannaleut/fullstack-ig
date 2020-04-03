@@ -3,7 +3,7 @@ import { UserContext } from '../../context/UserProvider';
 import PostList from '../../components/PostList';
 
 const Post = () => {
-    const { username, posts } = useContext(UserContext);
+    const { username, posts, like, dislike } = useContext(UserContext);
 
     return (
         <div className='post'>
@@ -11,6 +11,8 @@ const Post = () => {
             <h3>User Posts</h3>
             <PostList 
                 posts={ posts }
+                like={ like }
+                dislike={ dislike }
             />
         </div>
     );

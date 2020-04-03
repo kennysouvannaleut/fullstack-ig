@@ -30,7 +30,9 @@ const AuthForm = props => {
                 placeholder='Password'
             />
             <button>{ buttonText }</button>
-            <p style={ { color: 'red' } }>{ errMsg }</p>
+            {errMsg &&
+                <p style={ { color: 'red' } }>{ errMsg }</p>
+            }
         </form>
     );
 };

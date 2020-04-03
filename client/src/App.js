@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import Error from './components/Error';
 import Auth from './components/Auth';
 
-// import Home from './pages/home/Home';
+import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import Post from './pages/post/Post';
 

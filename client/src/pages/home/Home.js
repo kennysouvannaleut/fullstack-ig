@@ -1,10 +1,11 @@
 import React from 'react';
+import PostList from '../../components/PostList';
 
 const Home = () => {
 console.log('hello')
     return (
         <div className='home'>
-            HOME
+            <PostList />
         </div>
     );
 };

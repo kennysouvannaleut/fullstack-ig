@@ -1,19 +1,32 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../../context/UserProvider';
-import PostList from '../../components/PostList';
+import React, { useContext, useEffect } from 'react';
+import UserContext from '../../context/userContext';
+import { useParams } from 'react-router-dom';
 
 const Post = () => {
-    const { username, posts, like, dislike } = useContext(UserContext);
+    const userContext = useContext(UserContext)
+    const { user, getUserPost, currentPost } = userContext;
+
+    let { userId } = useParams;
+
+    useEffect(() => {
+        getUserPost(userId);
+    }, []);
 
     return (
         <div className='post'>
-            <h1>Welcome @{ username }!</h1>
-            <h3>User Posts</h3>
-            <PostList 
-                posts={ posts }
-                like={ like }
-                dislike={ dislike }
-            />
+            <h1>Welcome @{ user }!</h1>
+            { currentPost ? (
+                <>
+                <div className='post-content'>
+                    <h2>{ currentPost.title }</h2>
+                    <p>{ currentPost.description }</p>
+                    <p>{ currentPost.likes }</p>
+                    <p>{ currentPost.dateAdded }</p>
+                </div>
+                </>
+            ) : (
+                <div>Loading...</div>
+            )}
         </div>
     );
 };

@@ -11,10 +11,10 @@ const FormComponent = props => {
         // dislike,
         inputs: {
             user,
-            // description,
+            // description, 
             // pictures,
-            // likes,
-            dateAdded
+            // likes
+            // dateAdded
         }
     } = props;
 
@@ -26,13 +26,13 @@ const FormComponent = props => {
                 value={ dateAdded }
                 onChange={ handleChange }
             /> */}
-            {/* <input 
+            <input 
                 type='text'
                 name='user'
                 value={ user }
                 onChange={ handleChange }
                 placeholder='Username'
-            /> */}
+            />
             <br />
             <br />
             <textarea

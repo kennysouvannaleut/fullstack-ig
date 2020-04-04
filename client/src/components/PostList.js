@@ -1,32 +1,42 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import UserContext from '../context/userContext';
 import Post from './Post.js';
 
-const PostList = props => {
-    const { 
-        isError,
-        isLoading, 
-        posts,
-        like,
-        dislike
-    } = props;
+const PostList = () => {
+    const userContext = useContext(UserContext)
+    const { getPosts, posts, loading } = userContext;  
+
+    useEffect(() => {
+        getPosts();
+    }, []);
+
+    console.log(posts);
 
     return (
-        <div className='post-list'>
-            { isError && <div>Oh no! Something went wrong...</div> }
-            { isLoading && <div>Loading...</div> }
-            { posts && 
-                posts.length > 0 && 
-                posts.map(post => {
-                return (
-                    <Post
-                        { ...post }
-                        like={ like }
-                        dislike={ dislike }
-                        key={ post._id }
-                    />
-                    )
-                })
-            }
+        <div className='posts'>
+            <div className='container'>
+                <h2>Posts</h2>
+                {
+                !loading ? (
+                    <div className='posts-grid-container'>
+                        {
+                        posts.map((post, i) => {
+                            return (
+                                <Post 
+                                    key={ i }
+                                    { ...post }
+                                    like={ post.like } 
+                                    dislike={ post.dislike }
+                                    id={ post._id }
+                                />
+                            )
+                        })
+                    }
+                    </div>
+                ) : (
+                    <div>Loading...</div>
+                )}
+            </div>
         </div>
     );
 };

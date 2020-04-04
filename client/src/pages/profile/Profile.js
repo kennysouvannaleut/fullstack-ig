@@ -1,16 +1,17 @@
 import React, { useContext } from 'react';
-import { UserContext } from '../../context/UserProvider';
+import UserContext from '../../context/userContext';
 import PostList from '../../components/PostList';
 import FormContainer from '../../components/FormContainer';
 
 const Profile = () => {
+    const userContext = useContext(UserContext)
     const {
         username,
         createPost,
         posts,
         like,
         dislike
-    } = useContext(UserContext);
+    } = userContext;
 
     return (
         <div className='profile'>

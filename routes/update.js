@@ -24,7 +24,7 @@ update.put('/:postId', (req, res, next) => {
                 res.status(500)
                 return next(err)
             }
-            return res.status(201).send(post)
+            return res.status(201).send('Your post was updated' + post)
         }
     )
 })

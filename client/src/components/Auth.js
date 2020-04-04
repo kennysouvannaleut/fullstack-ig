@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import AuthForm from './AuthForm';
-import { UserContext } from '../context/UserProvider';
+import UserContext from '../context/userContext';
 
 const Auth = () => {
     const initialInputs = { username: '', password: '' };
@@ -8,9 +8,10 @@ const Auth = () => {
     const [inputs, setInputs] = useState(initialInputs);
     const [toggle, setToggle] = useState(false);
 
-    const { signup, login, errMsg, resetAuthErr } = useContext(UserContext);
+    const userContext = useContext(UserContext)
+    const { signup, login, errMsg, resetAuthErr } = useContext(userContext);
 
-    const handleChange = e => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setInputs(prevInputs => ({
             ...prevInputs,
@@ -18,12 +19,12 @@ const Auth = () => {
         }))
     };
 
-    const handleSignup = e => {
+    const handleSignup = (e) => {
         e.preventDefault();
         signup(inputs);
     };
 
-    const handleLogin = e => {
+    const handleLogin = (e) => {
         e.preventDefault();
         login(inputs);
     };
@@ -35,7 +36,7 @@ const Auth = () => {
 
     return (
         <div className='auth-container'>
-            <h1>IG Fullstack App</h1>
+            <h1>IG App</h1>
             { !toggle ?
             <>
                 <AuthForm 

@@ -18,7 +18,7 @@ const Post = require('../models/post.js')
 postNew.post('/', (req, res, next) => {
     const newPost = new Post(req.body);
     console.log(newPost);
-    newPost.user = req.user;
+    // newPost.user = req.user;
     newPost.save((err, post) => {
         if (err) { return next(err); 
     } return res.status(201).send(`New user post created with postID: ${post._id}` + post);

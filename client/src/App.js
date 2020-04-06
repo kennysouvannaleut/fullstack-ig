@@ -14,44 +14,45 @@ import ProtectedRoute from './components/ProtectedRoute.js'
 
 const App = () => {
     const userContext = useContext(UserContext);
-    const { logout, username } = userContext;
+    const { user, logout } = userContext;
 
     return (
         <div className='App'>
-            {username && <Navbar logout={ logout } />}
+            {user && <Navbar logout={ logout } />}
 
             <Switch>
                 {/* <Redirect to='/home' />  */}
                 <Route path='/profile' component={ Profile } />
-                <Route path='/post' component={ Post } />
+                {/* <Route path='/post' component={ Post } /> */}
+                <Route path='/post/:userId:' component={ Post } />
                 <Route component={ Error } />
                 {/* <Route path='/' component={ Home } /> */}
                 <Route 
                     exact path='/'
-                    render={() => username ? <Redirect to='/profile'/> : <Auth/>}
+                    render={() => user ? <Redirect to='/profile'/> : <Auth/>}
                 /> 
                 <ProtectedRoute 
                     path='/profile' 
                     component={ Profile } 
                     redirectTo='/'
-                    username={username}
+                    username={user}
                 />
                 <ProtectedRoute 
                     path='/post' 
                     component={ Post } 
                     redirectTo='/'
-                    username={username}
+                    username={user}
                 />
                 <ProtectedRoute
                     path='/home'
                     component={ Home }
                     redirectTo='/'
-                    username={username}
+                    username={user}
                 />
                 <ProtectedRoute 
                     component={ Error } 
                     redirectTo='/'
-                    username={username}
+                    username={user}
                 />
             </Switch>
 

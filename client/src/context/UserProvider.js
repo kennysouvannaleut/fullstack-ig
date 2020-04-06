@@ -135,7 +135,7 @@ const UserProvider = props => {
     };
 
     // UP/DOWN VOTING:
-    const like = (postId) => {
+    const likePost = (postId) => {
         Axios.put(`/like/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -149,7 +149,7 @@ const UserProvider = props => {
             .catch(handleError)
     };
 
-    const dislike = (postId) => {
+    const dislikePost = (postId) => {
         Axios.put(`/dislike/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -176,8 +176,8 @@ const UserProvider = props => {
             createPost,
             removePost,
             editPost,
-            like,
-            dislike
+            likePost,
+            dislikePost
         }} 
             >
             { props.children }

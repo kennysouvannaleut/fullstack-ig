@@ -6,8 +6,8 @@ const Post = props => {
         description, 
         likes,
         dateAdded,
-        like,
-        dislike,
+        likePost,
+        dislikePost,
         _id
      } = props;
 
@@ -17,8 +17,8 @@ const Post = props => {
              <p>Description: { description }</p>
              <span>Likes: { likes }</span>
              <p>Date Posted: { dateAdded }</p>
-             <button onClick={ () => like(_id) }>Like</button>
-            <button onClick={ () => dislike(_id) }>Dislike</button>
+             <button onClick={ () => likePost(_id) }>Like</button>
+            <button onClick={ () => dislikePost(_id) }>Dislike</button>
          </div>
      );
 };

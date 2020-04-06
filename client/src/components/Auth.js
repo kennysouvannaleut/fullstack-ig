@@ -8,8 +8,8 @@ const Auth = () => {
     const [inputs, setInputs] = useState(initialInputs);
     const [toggle, setToggle] = useState(false);
 
-    const userContext = useContext(UserContext)
-    const { signup, login, errMsg, resetAuthErr } = useContext(userContext);
+    const userContext = useContext(UserContext);
+    const { signup, login, errMsg, resetAuthErr } = userContext;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -36,7 +36,7 @@ const Auth = () => {
 
     return (
         <div className='auth-container'>
-            <h1>IG App</h1>
+            <h1>App</h1>
             { !toggle ?
             <>
                 <AuthForm 

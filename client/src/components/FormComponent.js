@@ -7,14 +7,14 @@ const FormComponent = props => {
         handleSubmit,
         handleOnDrop,
         buttonText,
-        // like,
-        // dislike,
+        // likePost,
+        // dislikePost,
         inputs: {
             user,
-            // description, 
-            // pictures,
-            // likes
-            // dateAdded
+            description, 
+            pictures,
+            likes,
+            dateAdded
         }
     } = props;
 

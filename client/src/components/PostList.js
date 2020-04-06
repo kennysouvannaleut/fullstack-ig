@@ -3,14 +3,11 @@ import UserContext from '../context/userContext';
 import Post from './Post.js';
 
 const PostList = () => {
-    const userContext = useContext(UserContext)
-    const { getPosts, posts, loading } = userContext;  
+    const { getPosts, posts, loading, likePost, dislikePost } = useContext(UserContext)
 
     useEffect(() => {
         getPosts();
     }, []);
-
-    console.log(posts);
 
     return (
         <div className='posts'>
@@ -25,8 +22,8 @@ const PostList = () => {
                                 <Post 
                                     key={ i }
                                     { ...post }
-                                    like={ post.like } 
-                                    dislike={ post.dislike }
+                                    likePost={ likePost } 
+                                    dislikePost={ dislikePost }
                                     id={ post._id }
                                 />
                             )

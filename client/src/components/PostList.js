@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import UserContext from '../context/userContext';
-import Post from './Post.js';
+// import Post from './Post.js';
+import PostCard from './PostCard';
 
 const PostList = () => {
-    const userContext = useContext(UserContext)
+    const userContext = useContext(UserContext);
     const { getPosts, posts, loading } = userContext;  
 
     useEffect(() => {
@@ -22,11 +23,14 @@ const PostList = () => {
                         {
                         posts.map((post, i) => {
                             return (
-                                <Post 
+                                <PostCard 
                                     key={ i }
                                     { ...post }
-                                    like={ post.like } 
-                                    dislike={ post.dislike }
+                                    // title={ post.title }
+                                    // user={ post.user }
+                                    // likes={ post.likes }
+                                    // description={ post.description }
+                                    // dateAdded={ post.dateAdded }
                                     id={ post._id }
                                 />
                             )

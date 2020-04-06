@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom';
 
 const Post = () => {
     const userContext = useContext(UserContext)
-    const { user, getUserPost, currentPost } = userContext;
+    const { user, getPostById, currentPost } = userContext;
 
     let { userId } = useParams;
 
     useEffect(() => {
-        getUserPost(userId);
+        getPostById(userId);
     }, []);
 
     return (

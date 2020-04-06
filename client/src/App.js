@@ -14,45 +14,45 @@ import ProtectedRoute from './components/ProtectedRoute.js'
 
 const App = () => {
     const userContext = useContext(UserContext);
-    const { user, logout } = userContext;
+    const { username, logout } = userContext;
 
     return (
         <div className='App'>
-            {user && <Navbar logout={ logout } />}
+            {username && <Navbar logout={ logout } />}
 
             <Switch>
                 {/* <Redirect to='/home' />  */}
-                <Route path='/profile' component={ Profile } />
+                {/* <Route path='/profile' component={ Profile } />  */}
                 {/* <Route path='/post' component={ Post } /> */}
-                <Route path='/post/:userId:' component={ Post } />
-                <Route component={ Error } />
-                {/* <Route path='/' component={ Home } /> */}
+                {/* <Route path='/:userId:' component={ Post } /> */}
+                {/* <Route component={ Error } /> */}
+                <Route path='/' component={ Home } />
                 <Route 
                     exact path='/'
-                    render={() => user ? <Redirect to='/profile'/> : <Auth/>}
+                    render={() => username ? <Redirect to='/post'/> : <Auth/>}
                 /> 
                 <ProtectedRoute 
                     path='/profile' 
                     component={ Profile } 
                     redirectTo='/'
-                    username={user}
+                    username={username}
                 />
                 <ProtectedRoute 
                     path='/post' 
                     component={ Post } 
                     redirectTo='/'
-                    username={user}
+                    username={username}
                 />
                 <ProtectedRoute
                     path='/home'
                     component={ Home }
                     redirectTo='/'
-                    username={user}
+                    username={username}
                 />
                 <ProtectedRoute 
                     component={ Error } 
                     redirectTo='/'
-                    username={user}
+                    username={username}
                 />
             </Switch>
 

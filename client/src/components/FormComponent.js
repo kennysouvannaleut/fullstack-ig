@@ -43,7 +43,7 @@ const FormComponent = props => {
                 rows={ 10 } 
             />
             <ImageUploader 
-                // name={ pictures }
+                name={ pictures }
                 onChange={ handleOnDrop }
                 withIcon={ true }
                 withPreview={ true }

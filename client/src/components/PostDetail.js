@@ -1,11 +1,11 @@
-import React from 'react'
+// import React from 'react'
 
-const PostDetail = () => {
-    return(
-        <div>
+// const PostDetail = () => {
+//     return(
+//         <div>
 
-        </div>
-    )
-}
+//         </div>
+//     )
+// }
 
-export default PostDetail
+// export default PostDetail

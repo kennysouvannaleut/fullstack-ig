@@ -9,7 +9,6 @@ const handleError = err => console.log(err.response.data.errMsg);
 const UserProvider = props => {
     const initialState = {
         user: localStorage.getItem('user') || {},
-        posts: [],
         currentPost: null,
         loading: true,
         errMsg: ''

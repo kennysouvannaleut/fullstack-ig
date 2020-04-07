@@ -36,7 +36,6 @@ const FormContainer = (props) => {
     const handleSubmit = e => {
         e.preventDefault();
         createPost(inputs);
-        likePost(inputs)
         setInputs(initialInputs);
     };
 

@@ -10,7 +10,7 @@ const FormComponent = props => {
         // likePost,
         // dislikePost,
         inputs: {
-            user,
+            username,
             description, 
             pictures,
             likes,
@@ -29,7 +29,7 @@ const FormComponent = props => {
             <input 
                 type='text'
                 name='user'
-                value={ user }
+                value={ username }
                 onChange={ handleChange }
                 placeholder='Username'
             />

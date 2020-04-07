@@ -22,10 +22,9 @@ const App = () => {
 
             <Switch>
                 {/* <Redirect to='/home' />  */}
-                {/* <Route path='/profile' component={ Profile } />  */}
-                {/* <Route path='/post' component={ Post } /> */}
-                {/* <Route path='/:userId:' component={ Post } /> */}
-                {/* <Route component={ Error } /> */}
+                <Route path='/:userId' component={ Profile } /> 
+                <Route path='/post:' component={ Post } />
+                <Route component={ Error } />
                 <Route path='/' component={ Home } />
                 <Route 
                     exact path='/'

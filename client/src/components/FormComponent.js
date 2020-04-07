@@ -7,25 +7,23 @@ const FormComponent = props => {
         handleSubmit,
         onDrop,
         buttonText,
-        // likePost,
-        // dislikePost,
         inputs: {
             user,
             description, 
             pictures,
-            likes,
+            // likes,
             dateAdded
         }
     } = props;
 
     return (
         <form onSubmit={ handleSubmit }>
-            {/* <input 
+            <input 
                 type='date'
                 name='dateAdded'
                 value={ dateAdded }
                 onChange={ handleChange }
-            /> */}
+            />
             <input 
                 type='text'
                 name='user'
@@ -37,13 +35,14 @@ const FormComponent = props => {
             <br />
             <textarea
                 name='description'
+                value={ description}
                 onChange={ handleChange }
-                placeholder='some description...'
+                placeholder='some image description...'
                 cols={ 50 }
                 rows={ 10 } 
             />
             <ImageUploader 
-                // name={ pictures }
+                name={ pictures }
                 onChange={ onDrop }
                 withIcon={ true }
                 withPreview={ true }
@@ -54,8 +53,6 @@ const FormComponent = props => {
                 buttonText='Upload an image'
             />
             <button>{ buttonText }</button>
-            <br />
-            {/* <span>{ likes }.</span> */}
         </form>
     );
 };

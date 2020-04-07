@@ -30,7 +30,6 @@ const handleError = err => console.log(err.response.data.errMsg);
 const UserProvider = props => {
     const initialState = {
         user: localStorage.getItem('user') || {},
-        posts: [],
         currentPost: null,
         loading: true,
         errMsg: ''
@@ -66,7 +65,7 @@ const UserProvider = props => {
             .then(res => {
                 const { user } = res.data;
                 localStorage.setItem('user')
-                getUserPost();
+                getPostById();
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     user
@@ -110,7 +109,7 @@ const UserProvider = props => {
     };
 
     // POSTS:
-    const getUserPost = (userId) => {
+    const getPostById = (userId) => {
         Axios.get(`/viewposts/${userId}`)
             .then(res => {
                 const { posts } = res.data
@@ -229,7 +228,7 @@ const UserProvider = props => {
             logout,
             resetAuthErr,
             getPosts,
-            getUserPost,
+            getPostById,
             createPost,
             uploadPicture,
             removePost,

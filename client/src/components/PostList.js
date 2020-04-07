@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import UserContext from '../context/userContext';
-import Post from './Post.js';
+// import Post from './Post.js';
+import PostCard from './PostCard';
 
 const PostList = () => {
     const { getPosts, posts, loading, likePost, dislikePost } = useContext(UserContext)
@@ -19,9 +20,14 @@ const PostList = () => {
                         {
                         posts.map((post, i) => {
                             return (
-                                <Post 
+                                <PostCard 
                                     key={ i }
                                     { ...post }
+                                    // title={ post.title }
+                                    // user={ post.user }
+                                    // likes={ post.likes }
+                                    // description={ post.description }
+                                    // dateAdded={ post.dateAdded }
                                     likePost={ likePost } 
                                     dislikePost={ dislikePost }
                                     id={ post._id }

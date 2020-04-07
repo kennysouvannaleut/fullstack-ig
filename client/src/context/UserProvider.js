@@ -22,18 +22,6 @@ firebase.initializeApp(firebaseConfig)
 
 const storage = firebase.storage();
 const storageRef = storage.ref();
-console.log(storageRef)
-
-function uploadPicture(pictures){
-    const testRef = storageRef.child(`${pictures[0].name}`)
-    const testImagesRef = storageRef.child(`images/${pictures[0].name}`)
-    console.log(111, pictures[0])
-    const testFile = pictures[0]
-    testRef.put(testFile).then((snapshot) => {
-        console.log(777, snapshot)
-        console.log('image uploaded')
-    })
-}
 
 const userAxios = Axios.create();
 
@@ -148,6 +136,48 @@ const UserProvider = props => {
             })
             .catch(handleError)
     };
+
+    function uploadPicture(pictures){
+        const testRef = storageRef.child(`${pictures[0].name}`)
+        const testImagesRef = storageRef.child(`images/${pictures[0].name}`)
+        console.log(111, pictures[0])
+        const testFile = pictures[0]
+        testRef.put(testFile).then((snapshot) => {
+            console.log(777, snapshot)
+            console.log('image uploaded')
+        })
+
+        testRef.on(firebase.storage.TaskEvent.STATE_CHANGED,
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                console.log(`Upload is ${progress}% done`)
+                switch(snapshot.state){
+                    case firebase.storage.TaskState.PAUSED:
+                        console.log('Upload is paused')
+                        break
+                    case firebase.storage.TaskState.RUNNING:
+                        console.log('Upload is running')
+                        break
+                }
+            }, (error) => {
+                switch(error.code){
+                    case 'storage/unauthorized':
+                    // User doesn't have permission to access the object
+                    break
+                    case 'storage/canceled':
+                    // User canceled the upload
+                    break
+                    case 'storage/unknown':
+                    // Unknown error occurred, inspect error.serverResponse
+                    break
+            }
+            }, () => {
+            // Upload completed successfully, now we can get the download URL
+                testRef.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                    console.log('File available at', downloadURL)
+                })
+            })
+    }
 
     const removePost = (postId) => {
         Axios.delete(`/update/${postId}`)

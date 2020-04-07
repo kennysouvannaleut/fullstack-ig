@@ -15,8 +15,8 @@ const postSchema = new Schema({
         default: 0
     },
     user: {
-        type: String
-        // required: true
+        type: String,
+        required: true
     },
     // user: {
     //     type: Schema.Types.ObjectId,

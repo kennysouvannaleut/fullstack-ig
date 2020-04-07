@@ -5,7 +5,7 @@ const FormContainer = (props) => {
     const initialInputs = {
         user: '',
         description: '',
-        likes: '',
+        // likes: '',
         dateAdded: '',
         pictures: ''
     };
@@ -15,6 +15,7 @@ const FormContainer = (props) => {
     console.log(222, pictures)
     const { 
         createPost, 
+        // likes,
         uploadPicture,
         editPost, 
         removePost, 
@@ -38,7 +39,6 @@ const FormContainer = (props) => {
         e.preventDefault();
         createPost(inputs);
         uploadPicture(pictures)
-        likePost(inputs)
         setInputs(initialInputs);
     };
 

@@ -6,7 +6,7 @@ const PostCard = props => {
         <div className='card'>
             <div className='card-info'>
                 <div className='card-title'>
-                    <Link to={`${props.id}`}>
+                    <Link to={`${props._id}`}>
                         <p>Title: { props.title }</p>
                     </Link>
                 </div>

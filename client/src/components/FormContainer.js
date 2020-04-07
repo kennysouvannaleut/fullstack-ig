@@ -5,7 +5,7 @@ const FormContainer = (props) => {
     const initialInputs = {
         user: '',
         description: '',
-        likes: '',
+        // likes: '',
         dateAdded: '',
         pictures: ''
     };
@@ -15,10 +15,9 @@ const FormContainer = (props) => {
 
     const { 
         createPost, 
-        editPost, 
-        removePost, 
-        likePost, 
-        dislikePost 
+        // likes,
+        // editPost, 
+        // removePost, 
     } = props;
 
     const handleOnDrop = () => {

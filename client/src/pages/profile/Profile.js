@@ -7,6 +7,7 @@ const Profile = () => {
     const userContext = useContext(UserContext)
     const {
         createPost,
+        likes,
     //     likePost,
     //     dislikePost,
         username,
@@ -17,7 +18,7 @@ const Profile = () => {
         <div className='profile'>
             <h1>Welcome @{ username }</h1>
             <h3>Create a new post</h3>
-            <FormContainer createPost={ createPost  } />
+            <FormContainer createPost={ createPost } />
             <h3>Recent posts</h3> 
             <PostList 
                  posts={ posts }

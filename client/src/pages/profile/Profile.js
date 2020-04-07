@@ -8,8 +8,9 @@ const Profile = () => {
     const {
         createPost,
         // likes,
-    //     likePost,
-    //     dislikePost,
+        uploadPicture,
+        likePost,
+        dislikePost,
         username,
         posts
     } = userContext;
@@ -17,9 +18,14 @@ const Profile = () => {
     return (
         <div className='profile'>
             <h1>Welcome @{ username }</h1>
-            <h3>Create a new post</h3>
-            <FormContainer createPost={ createPost } />
-            <h3>Recent posts</h3> 
+            <h3>Create a post</h3>
+            <FormContainer 
+                createPost={ createPost }
+                uploadPicture={ uploadPicture }
+                likePost={ likePost }
+                dislikePost={ dislikePost }
+            />
+            <h3>Recent posts</h3>
             <PostList 
                  posts={ posts }
                 // like={ likePost }

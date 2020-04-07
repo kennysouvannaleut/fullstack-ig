@@ -4,14 +4,11 @@ import UserContext from '../context/userContext';
 import PostCard from './PostCard';
 
 const PostList = () => {
-    const userContext = useContext(UserContext);
-    const { getPosts, posts, loading } = userContext;  
+    const { getPosts, posts, loading, likePost, dislikePost } = useContext(UserContext)
 
     useEffect(() => {
         getPosts();
     }, []);
-
-    console.log(posts);
 
     return (
         <div className='posts'>
@@ -31,6 +28,8 @@ const PostList = () => {
                                     // likes={ post.likes }
                                     // description={ post.description }
                                     // dateAdded={ post.dateAdded }
+                                    likePost={ likePost } 
+                                    dislikePost={ dislikePost }
                                     id={ post._id }
                                 />
                             )

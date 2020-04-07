@@ -18,13 +18,13 @@ const App = () => {
 
     return (
         <div className='App'>
-            {username && <Navbar logout={ logout } />}
+            {<Navbar logout={ logout } />}
 
             <Switch>
                 {/* <Redirect to='/home' />  */}
                 <Route path='/:userId' component={ Profile } /> 
                 <Route path='/post' component={ Post } />
-                <Route component={ Error } />
+                {/* <Route component={ Error } /> */}
                 <Route path='/' component={ Home } />
                 <Route 
                     exact path='/'

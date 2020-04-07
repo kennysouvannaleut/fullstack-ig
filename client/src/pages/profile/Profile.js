@@ -7,7 +7,7 @@ const Profile = () => {
     const userContext = useContext(UserContext)
     const {
         createPost,
-        likes,
+        // likes,
     //     likePost,
     //     dislikePost,
         username,

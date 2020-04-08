@@ -11,17 +11,19 @@ const FormContainer = (props) => {
     };
     
     const [inputs, setInputs] = useState(initialInputs);
-    const [pictures, setPictures] = useState([]);
-
+    const [pictures, setPictures] = useState({});
+    console.log(222, pictures)
     const { 
         createPost, 
-        // likes,
-        // editPost, 
-        // removePost, 
+        uploadPicture,
+        editPost, 
+        removePost, 
+        likePost, 
+        dislikePost 
     } = props;
 
-    const handleOnDrop = () => {
-        setPictures(pictures);
+    const onDrop = picture => {
+        setPictures(picture);
     };
 
     const handleChange = e => {
@@ -35,6 +37,8 @@ const FormContainer = (props) => {
     const handleSubmit = e => {
         e.preventDefault();
         createPost(inputs);
+        uploadPicture(pictures)
+        likePost(inputs)
         setInputs(initialInputs);
     };
 
@@ -42,7 +46,7 @@ const FormContainer = (props) => {
         <FormComponent 
             handleChange={ handleChange }
             handleSubmit={ handleSubmit }
-            handleOnDrop={ handleOnDrop }
+            onDrop={ onDrop }
             inputs={ inputs }
             buttonText='Create new post'
         />

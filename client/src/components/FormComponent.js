@@ -5,7 +5,7 @@ const FormComponent = props => {
     const {
         handleChange,
         handleSubmit,
-        handleOnDrop,
+        onDrop,
         buttonText,
         inputs: {
             user,
@@ -43,7 +43,7 @@ const FormComponent = props => {
             />
             <ImageUploader 
                 name={ pictures }
-                onChange={ handleOnDrop }
+                onChange={ onDrop }
                 withIcon={ true }
                 withPreview={ true }
                 imgExtension={ ['.jpg', '.gif', '.png' ] }

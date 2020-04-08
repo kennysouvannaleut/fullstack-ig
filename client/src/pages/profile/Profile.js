@@ -7,6 +7,7 @@ const Profile = () => {
     const userContext = useContext(UserContext)
     const {
         createPost,
+        // likes,
         uploadPicture,
         likePost,
         dislikePost,

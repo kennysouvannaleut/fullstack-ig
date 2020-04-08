@@ -24,6 +24,11 @@ const PostList = () => {
                                 <PostCard 
                                     key={ i }
                                     { ...post }
+                                    // title={ post.title }
+                                    // user={ post.user }
+                                    // likes={ post.likes }
+                                    // description={ post.description }
+                                    // dateAdded={ post.dateAdded }
                                     likePost={ likePost } 
                                     dislikePost={ dislikePost }
                                     id={ post._id }

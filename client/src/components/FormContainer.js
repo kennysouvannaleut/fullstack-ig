@@ -22,10 +22,10 @@ const FormContainer = (props) => {
         createPost, 
         // likes,
         // uploadPicture,
-        editPost, 
-        removePost, 
-        likePost, 
-        dislikePost 
+        // editPost, 
+        // removePost, 
+        // likePost, 
+        // dislikePost 
     } = props;
 
     const onDrop = picture => {

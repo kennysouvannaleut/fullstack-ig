@@ -12,18 +12,18 @@ const FormComponent = props => {
             description, 
             pictures,
             // likes,
-            dateAdded
+            // dateAdded
         }
     } = props;
 
     return (
         <form onSubmit={ handleSubmit }>
-            <input 
+            {/* <input 
                 type='date'
                 name='dateAdded'
                 value={ dateAdded }
                 onChange={ handleChange }
-            />
+            /> */}
             <input 
                 type='text'
                 name='user'

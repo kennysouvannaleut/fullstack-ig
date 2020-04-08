@@ -124,8 +124,8 @@ const UserProvider = props => {
     };
 
     const createPost = (newPost) => {
+        // console.log('mongodb post')
         Axios.post('/post', newPost)
-            console.log('mongodb post')
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,

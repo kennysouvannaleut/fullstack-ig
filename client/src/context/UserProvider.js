@@ -29,7 +29,7 @@ const handleError = err => console.log(err.response.data.errMsg);
 
 const UserProvider = props => {
     const initialState = {
-        user: localStorage.getItem('user') || {},
+        user: localStorage.getItem('user') || '',
         currentPost: null,
         loading: true,
         errMsg: ''
@@ -80,7 +80,7 @@ const UserProvider = props => {
     const logout = () => {
         localStorage.removeItem('user')
         setUserState({
-            user: {},
+            user: '',
             posts: []
         })
     };

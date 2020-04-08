@@ -28,8 +28,6 @@ const Profile = () => {
             <h3>Recent posts</h3>
             <PostList 
                  posts={ posts }
-                // like={ likePost }
-                //  dislike={ dislikePost }
             />
         </div>
     );

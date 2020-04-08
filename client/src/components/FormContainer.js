@@ -42,7 +42,6 @@ const FormContainer = (props) => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        console.log('second')
         // const storageRef = storage.ref()
         const pictureFile = pictures[0]
         const fileName = pictures[0].name
@@ -101,8 +100,8 @@ const FormContainer = (props) => {
                             ...prevInputs, 
                             imgUrl: url
                         }))
-                        
-                        finalizeSubmit(inputs)
+                        const imgUrl = {...inputs, imgUrl: url}
+                        finalizeSubmit(imgUrl)
                     })
             }
         )

@@ -2,26 +2,26 @@ import React, { useState } from 'react';
 import UserContext from './userContext';
 import Axios from 'axios';
 
-import firebase from 'firebase'
-const dotENV = require('dotenv')
-dotENV.config()
-const apiKey = process.env.API_KEY
+// import firebase from 'firebase'
+// const dotENV = require('dotenv')
+// dotENV.config()
+// const apiKey = process.env.API_KEY
 
-const firebaseConfig = {
-    apiKey: apiKey,
-    authDomain: "image-bucket-4e572.firebaseapp.com",
-    databaseURL: "https://image-bucket-4e572.firebaseio.com",
-    projectId: "image-bucket-4e572",
-    storageBucket: "image-bucket-4e572.appspot.com",
-    messagingSenderId: "15521326526",
-    appId: "1:15521326526:web:1e2fb596d1b954e7e7c5ef",
-    measurementId: "G-QRZNJJGDP6"
-  }
+// const firebaseConfig = {
+//     apiKey: apiKey,
+//     authDomain: "image-bucket-4e572.firebaseapp.com",
+//     databaseURL: "https://image-bucket-4e572.firebaseio.com",
+//     projectId: "image-bucket-4e572",
+//     storageBucket: "image-bucket-4e572.appspot.com",
+//     messagingSenderId: "15521326526",
+//     appId: "1:15521326526:web:1e2fb596d1b954e7e7c5ef",
+//     measurementId: "G-QRZNJJGDP6"
+//   }
 
-firebase.initializeApp(firebaseConfig)
+// firebase.initializeApp(firebaseConfig)
 
-const storage = firebase.storage();
-const storageRef = storage.ref();
+// const storage = firebase.storage()
+// const storageRef = storage.ref()
 
 const userAxios = Axios.create();
 
@@ -36,15 +36,6 @@ const UserProvider = props => {
     };
     
     const [userState, setUserState] = useState(initialState);
-
-    // get all posts
-    const getPosts = () => {
-        Axios.get('/viewposts')
-            .then(res => {
-                setUserState({ posts: res.data })
-            })
-            .catch(handleError);
-    };
 
     // USERS:
     const signup = (credentials) => {
@@ -109,6 +100,16 @@ const UserProvider = props => {
     };
 
     // POSTS:
+    // get all posts:
+    const getPosts = () => {
+        Axios.get('/viewposts')
+            .then(res => {
+                setUserState({ posts: res.data })
+            })
+            .catch(handleError);
+    };
+
+    // get posts by userId
     const getPostById = (userId) => {
         Axios.get(`/viewposts/${userId}`)
             .then(res => {
@@ -122,8 +123,9 @@ const UserProvider = props => {
             .catch(handleError)
     };
 
-    const createPost = (newPost, pictures) => {
+    const createPost = (newPost) => {
         Axios.post('/post', newPost)
+            console.log('mongodb post')
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -135,48 +137,6 @@ const UserProvider = props => {
             })
             .catch(handleError)
     };
-
-    function uploadPicture(pictures){
-        const testRef = storageRef.child(`${pictures[0].name}`)
-        const testImagesRef = storageRef.child(`images/${pictures[0].name}`)
-        console.log(111, pictures[0])
-        const testFile = pictures[0]
-        testRef.put(testFile).then((snapshot) => {
-            console.log(777, snapshot)
-            console.log('image uploaded')
-        })
-
-        testRef.on(firebase.storage.TaskEvent.STATE_CHANGED,
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                console.log(`Upload is ${progress}% done`)
-                switch(snapshot.state){
-                    case firebase.storage.TaskState.PAUSED:
-                        console.log('Upload is paused')
-                        break
-                    case firebase.storage.TaskState.RUNNING:
-                        console.log('Upload is running')
-                        break
-                }
-            }, (error) => {
-                switch(error.code){
-                    case 'storage/unauthorized':
-                    // User doesn't have permission to access the object
-                    break
-                    case 'storage/canceled':
-                    // User canceled the upload
-                    break
-                    case 'storage/unknown':
-                    // Unknown error occurred, inspect error.serverResponse
-                    break
-            }
-            }, () => {
-            // Upload completed successfully, now we can get the download URL
-                testRef.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                    console.log('File available at', downloadURL)
-                })
-            })
-    }
 
     const removePost = (postId) => {
         Axios.delete(`/update/${postId}`)
@@ -230,7 +190,6 @@ const UserProvider = props => {
             getPosts,
             getPostById,
             createPost,
-            uploadPicture,
             removePost,
             editPost,
             likePost,

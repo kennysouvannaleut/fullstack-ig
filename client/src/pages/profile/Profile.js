@@ -14,6 +14,7 @@ const Profile = () => {
         username,
         posts
     } = userContext;
+    console.log(2212, userContext)
 
     return (
         <div className='profile'>
@@ -25,12 +26,10 @@ const Profile = () => {
                 likePost={ likePost }
                 dislikePost={ dislikePost }
             />
-            <h3>Recent posts</h3>
-            <PostList 
+            {/* <h3>Recent posts</h3> */}
+            {/* <PostList 
                  posts={ posts }
-                // like={ likePost }
-                //  dislike={ dislikePost }
-            />
+            /> */}
         </div>
     );
 };

@@ -4,7 +4,8 @@ import UserContext from '../context/userContext';
 import PostCard from './PostCard';
 
 const PostList = () => {
-    const { getPosts, posts, loading, likePost, dislikePost } = useContext(UserContext)
+    const userContext = useContext(UserContext)
+    const { getPosts, posts, loading, likePost, dislikePost } = userContext;
 
     useEffect(() => {
         getPosts();

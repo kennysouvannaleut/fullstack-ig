@@ -7,19 +7,11 @@ const FormComponent = props => {
         handleSubmit,
         onDrop,
         buttonText,
-        inputs: { user, description }
+        inputs: { description }
     } = props;
 
     return (
         <form onSubmit={ handleSubmit }>
-            <input 
-                type='text'
-                name='user'
-                value={ user }
-                onChange={ handleChange }
-                placeholder='username'
-            />
-            <br />
             <textarea
                 name='description'
                 value={ description}

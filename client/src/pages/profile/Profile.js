@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import UserContext from '../../context/userContext';
-// import PostList from '../../components/PostList';
+import PostList from '../../components/PostList';
 import FormContainer from '../../components/FormContainer';
 
 const Profile = () => {
@@ -13,7 +13,7 @@ const Profile = () => {
         uploadPicture,
         upvotePost,
         downvotePost,
-        // posts
+        posts
     } = userContext;
 
     return (
@@ -23,13 +23,14 @@ const Profile = () => {
             <FormContainer 
                 createPost={ createPost }
                 uploadPicture={ uploadPicture }
+                user={ username }
+            />
+            <h3>Recent posts</h3>
+             <PostList 
+                posts={ posts }
                 upvotePost={ upvotePost }
                 downvotePost={ downvotePost }
             />
-            {/* <h3>Recent posts</h3>  */}
-             {/* <PostList 
-                 posts={ posts }
-            /> */}
         </div>
     );
 };

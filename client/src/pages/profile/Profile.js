@@ -29,7 +29,7 @@ const Profile = () => {
                 likePost={ likePost }
                 dislikePost={ dislikePost }
             />
-            <h3>Recent posts</h3> 
+            {/* <h3>Recent posts</h3>  */}
              {/* <PostList 
                  posts={ posts }
             /> */}

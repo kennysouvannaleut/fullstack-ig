@@ -98,8 +98,8 @@ const FormContainer = props => {
                             ...prevInputs, 
                             imgUrl: url
                         }))
-                        
-                        finalizeSubmit(inputs)
+                        const imgUrl = {...inputs, imgUrl: url}
+                        finalizeSubmit(imgUrl)
                     })
             }
         )

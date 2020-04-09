@@ -94,9 +94,9 @@ const UserProvider = props => {
     )};
 
     // get user posts
-    const getPostById = (user) => {
-        const id = user._id;
-        UserAxios.get(`/viewposts/${id}`)
+    const getPostById = (userId) => {
+        // const id = user._id;
+        UserAxios.get(`/viewposts/${userId}`)
             console.log('user post')
             .then(res => {
                 const { posts } = res.data;

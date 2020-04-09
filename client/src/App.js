@@ -1,59 +1,53 @@
 import React, { useContext } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+
 import UserContext from './context/userContext';
 
 import Navbar from './components/Navbar';
-import Error from './components/Error';
 import Auth from './components/Auth';
+import Error from './components/Error';
+import ProtectedRoute from './components/ProtectedRoute.js'
 
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import Post from './pages/post/Post';
 
-import ProtectedRoute from './components/ProtectedRoute.js'
-
 const App = () => {
     const userContext = useContext(UserContext);
-    const { user, logout } = userContext;
-    console.log(111, userContext.user)
+    const { token, logout } = userContext;
 
     return (
         <div className='App'>
-            { user && <Navbar logout={ logout } user={ user }/> }
+            { <Navbar logout={ logout } token={ token } /> }
 
             <Switch>
                 <Route 
                     exact path='/'
-                    render={ () => user ? <Redirect to='/userId' /> : <Auth /> }
+                    render={ () => token ? <Redirect to='/profile' /> : <Auth /> }
                 /> 
-                {/* <Redirect to='/home' />  */}
-                <Route path = '*' component={ Error } />
-                {/* <Route path='/:userId' component={ Profile } /> 
-                <Route path='/post' component={ Post } />
-                <Route path='/' component={ Home } /> */}
+                {/* <Route path = '*' component={ Error } /> */}
+                <Route path='/profile' component={ Profile } /> 
+                <Route path='/viewposts/:userId' component={ Post } />
+                {/* <Route path='/' component={ Home } /> */}
+                
                 <ProtectedRoute 
                     path='/profile' 
                     component={ Profile } 
                     redirectTo={ '/' }
-                    user={ user } 
+                    token={ token } 
                 />
                 <ProtectedRoute 
-                    path='/userId' 
+                    path='viewposts/:userId' 
                     component={ Post } 
                     redirectTo={ '/' }
-                    user={ user }
+                    token={ token }
                 />
                 <ProtectedRoute
                     path='/home'
                     component={ Home }
                     redirectTo={ '/' }
-                    user={ user }
+                    token={ token }
                 />
-                {/* <ProtectedRoute 
-                    component={ Error } 
-                    redirectTo='/'
-                    username={username}
-                /> */}
             </Switch>
 
         </div>

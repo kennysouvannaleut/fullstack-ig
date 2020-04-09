@@ -2,14 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const PostCard = props => {
-    const {_id, username, description, imgUrl, dateAdded, upvotePost, downvotePost, votes} = props
-    console.log(imgUrl)
+    const {_id, user, description, imgUrl, dateAdded, upvotePost, downvotePost, votes} = props
+
     return (
         <div className='card'>
             <div className='card-info'>
                 <div className='card-title'>
                     <Link to={`${_id}`}>
-                        <p>{ username }</p>
+                        <p>{ user }</p>
                         <img src={ imgUrl }/>
                     </Link>
                 </div>
@@ -17,8 +17,8 @@ const PostCard = props => {
 
                     <p>Description: { description }</p>
                     <p>Date: { dateAdded }</p>
-                    <button>Upvote{ upvotePost }</button>
-                    <button>Downvote{ downvotePost }</button>
+                    <button onClick={() => upvotePost(_id)}>Upvote</button>
+                    <button onClick={() => downvotePost(_id)}>Downvote</button>
                     <br />
                     <span>Votes: { votes }</span>
                 </div>

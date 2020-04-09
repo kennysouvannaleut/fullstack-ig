@@ -25,6 +25,7 @@ const UserProvider = props => {
     
     const [userState, setUserState] = useState(initialState)
 
+    console.log(userState.posts)
     const { goBack } = useHistory()
 
     // USER AUTH:

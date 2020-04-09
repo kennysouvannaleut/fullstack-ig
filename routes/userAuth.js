@@ -41,7 +41,7 @@ userAuth.post('/login', (req, res, next) => {
             res.status(403)
             return next(new Error('Username is incorrect'))
         }
-        user.comparePassword(req.body.password, (err, isMatch) => {
+        user.checkPassword(req.body.password, (err, isMatch) => {
             if (err) {
                 res.status(403);
                 return next(new Error('Username or password are incorrect'));

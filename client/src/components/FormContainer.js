@@ -1,47 +1,45 @@
 import React, { useState } from 'react';
 import FormComponent from './FormComponent';
-import {storage} from '../firebase/firebase.js'
+import { storage } from '../firebase/firebase.js';
 
-const FormContainer = (props) => {
+const FormContainer = props => {
     const initialInputs = {
         imgUrl: '',
         user: '',
         description: '',
-        // likes: '',
-        dateAdded: '',
-        // pictures: ''
+        likes: '',
+        dateAdded: ''
     };
     
     const [inputs, setInputs] = useState(initialInputs);
-    const [pictures, setPictures] = useState({});
-    // const [imageAsUrl, setImageAsUrl] = useState('')
-    // console.log(222, pictures)
-    console.log(inputs)
+    const [pictures, setPictures] = useState([]);
 
     const { 
         createPost, 
-        // likes,
         // uploadPicture,
         // editPost, 
         // removePost, 
         // likePost, 
         // dislikePost 
     } = props;
+    console.log('props', props);
 
-    const onDrop = picture => {
-        setPictures(picture);
-    };
+    // const handleOnDrop = picture => {
+    //     setPictures(picture)
+    // };
 
     const handleChange = e => {
         const { name, value } = e.target;
         setInputs(prevInputs => ({
             ...prevInputs,
             [name]: value
-        }))
-    };
+        })
+    )};
 
     const handleSubmit = e => {
-        e.preventDefault()
+        e.preventDefault();
+        setPictures(prev => [...prev, inputs])
+        console.log('second')
         // const storageRef = storage.ref()
         const pictureFile = pictures[0]
         const fileName = pictures[0].name
@@ -119,7 +117,7 @@ const FormContainer = (props) => {
         <FormComponent 
             handleChange={ handleChange }
             handleSubmit={ handleSubmit }
-            onDrop={ onDrop }
+            // handleOnDrop={ handleOnDrop }
             inputs={ inputs }
             buttonText='Create new post'
         />

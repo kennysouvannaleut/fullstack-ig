@@ -6,16 +6,13 @@ import FormContainer from '../../components/FormContainer';
 const Profile = () => {
     const userContext = useContext(UserContext)
     const {
-        // user: {
-        //     username
-        // },
+        user: {
+            username
+        },
         createPost,
-        // likes,
         uploadPicture,
         likePost,
         dislikePost,
-        username,
-        // user,
         // posts
     } = userContext;
 
@@ -29,7 +26,7 @@ const Profile = () => {
                 likePost={ likePost }
                 dislikePost={ dislikePost }
             />
-            {/* <h3>Recent posts</h3>  */}
+            {/* <h3>My recent posts</h3>  */}
              {/* <PostList 
                  posts={ posts }
             /> */}

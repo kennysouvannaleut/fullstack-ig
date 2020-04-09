@@ -25,9 +25,9 @@ const App = () => {
                     exact path='/'
                     render={ () => token ? <Redirect to='/profile' /> : <Auth /> }
                 /> 
-                {/* <Route path = '*' component={ Error } /> */}
-                <Route path='/profile' component={ Profile } /> 
-                <Route path='/viewposts/:userId' component={ Post } />
+                <Route path = '/' component={ Error } />
+                {/* <Route path='/profile' component={ Profile } /> 
+                <Route path='/viewposts/:userId' component={ Post } /> */}
                 {/* <Route path='/' component={ Home } /> */}
                 
                 <ProtectedRoute 
@@ -37,7 +37,7 @@ const App = () => {
                     token={ token } 
                 />
                 <ProtectedRoute 
-                    path='viewposts/:userId' 
+                    path='/:userId' 
                     component={ Post } 
                     redirectTo={ '/' }
                     token={ token }

@@ -13,44 +13,42 @@ import Post from './pages/post/Post';
 import ProtectedRoute from './components/ProtectedRoute.js'
 
 const App = () => {
-    const userContext = useContext(UserContext);
-    const { user, logout } = userContext;
-    console.log(111, userContext.user)
+    const { token , logout } = useContext(UserContext)
 
     return (
         <div className='App'>
-            { user && <Navbar logout={ logout } user={ user }/> }
+            { token && <Navbar logout={ logout }/> }
 
             <Switch>
                 <Route 
                     exact path='/'
-                    render={ () => user ? <Redirect to='/userId' /> : <Auth /> }
+                    render={ () => token ? <Redirect to='/profile' /> : <Auth /> }
                 /> 
                 {/* <Redirect to='/home' />  */}
-                <Route path = '*' component={ Error } />
+                {/* <Route path = '*' component={ Error } /> */}
                 {/* <Route path='/:userId' component={ Profile } /> 
                 <Route path='/post' component={ Post } />
                 <Route path='/' component={ Home } /> */}
                 <ProtectedRoute 
                     path='/profile' 
                     component={ Profile } 
-                    redirectTo={ '/' }
-                    user={ user } 
+                    redirectTo='/'
+                    token={ token } 
                 />
                 <ProtectedRoute 
-                    path='/userId' 
+                    path='/post' 
                     component={ Post } 
-                    redirectTo={ '/' }
-                    user={ user }
+                    redirectTo='/'
+                    token={ token }
                 />
                 <ProtectedRoute
                     path='/home'
                     component={ Home }
-                    redirectTo={ '/' }
-                    user={ user }
+                    redirectTo='/'
+                    token={ token }
                 />
-                {/* <ProtectedRoute 
-                    component={ Error } 
+                {/* <ProtectedRoute
+                    component={ Error }
                     redirectTo='/'
                     username={username}
                 /> */}

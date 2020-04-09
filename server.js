@@ -1,31 +1,9 @@
 const express = require('express')
 const app = express()
+require('dotenv').config()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-// const firebase = require('firebase')
-
-// const dotENV = require('dotenv')
-// dotENV.config()
-// const apiKey = process.env.API_KEY
-
-// const firebaseConfig = {
-//     apiKey: apiKey,
-//     authDomain: "image-bucket-4e572.firebaseapp.com",
-//     databaseURL: "https://image-bucket-4e572.firebaseio.com",
-//     projectId: "image-bucket-4e572",
-//     storageBucket: "image-bucket-4e572.appspot.com",
-//     messagingSenderId: "15521326526",
-//     appId: "1:15521326526:web:1e2fb596d1b954e7e7c5ef",
-//     measurementId: "G-QRZNJJGDP6"
-//   }
-
-// firebase.initializeApp(firebaseConfig)
-
-// Get a reference to the storage service, which is used to create references in your storage bucket
-// var storage = firebase.storage();
-
-// Create a storage reference from our storage service
-// var storageRef = storage.ref();
+const expressJwt = require('express-jwt')
 
 const dbURL = 'mongodb://localhost:27017/ig-app'
 
@@ -47,14 +25,17 @@ mongoose.connect (
 )
 
 app.use('/auth', require('./routes/userAuth.js'))
-app.use('/users', require('./routes/users.js'))
-app.use('/post', require('./routes/postNew.js'))
 app.use('/viewposts', require('./routes/posts.js'))
-app.use('/', require('./routes/likeDislike.js'))
-app.use('/update', require('./routes/update'))
+app.use('/api/users', require('./routes/users.js'))
+app.use('/api/post', require('./routes/postNew.js'))
+app.use('api/', require('./routes/vote.js'))
+app.use('api/update', require('./routes/update'))
 
 app.use((err, req, res, next) => {
     console.log(err)
+    if(err.name === 'UnauthorizedError'){
+        res.status(err.status)
+    }
     return res.send( { errMsg: err.message } )
 })
 

@@ -6,8 +6,8 @@
 //         description, 
 //         likes,
 //         dateAdded,
-//         likePost,
-//         dislikePost,
+//         upvotePost,
+//         downvotePost,
 //         _id
 //      } = props;
 
@@ -17,8 +17,8 @@
 //              <p>Description: { description }</p>
 //              <span>Likes: { likes }</span>
 //              <p>Date Posted: { dateAdded }</p>
-//              <button onClick={ () => likePost(_id) }>Like</button>
-//             <button onClick={ () => dislikePost(_id) }>Dislike</button>
+//              <button onClick={ () => upvotePost(_id) }>Like</button>
+//             <button onClick={ () => downvotePost(_id) }>Dislike</button>
 //          </div>
 //      );
 // };

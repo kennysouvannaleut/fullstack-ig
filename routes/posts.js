@@ -15,13 +15,25 @@ posts.get('/', (req, res, next) => {
 
 // get one user's posts
 posts.get('/:userId', (req, res, next) => {
-    // console.log(req.params.userId)
-    Post.find({user: req.params.userId}, (err, user) => {
+    Post.find({user: req.params.userId}, (err, posts) => {
         if(err){
             res.status(500)
             return next(err)
         }
-        return res.status(200).send(user)
+        return res.status(200).send(posts)
+    })
+})
+
+// get one post
+posts.get('/:postId', (req, res, next) => {
+    Post.findOne(
+        {_id: req.params.postId}, 
+        (err, post) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+        return res.status(200).send(post)
     })
 })
 

@@ -5,7 +5,7 @@ import PostCard from './PostCard';
 
 const PostList = () => {
     const userContext = useContext(UserContext)
-    const { getPosts, posts, loading, likePost, dislikePost } = userContext;
+    const { getPosts, posts, loading, upvotePost, downvotePost } = userContext;
 
     useEffect(() => {
         getPosts();
@@ -29,8 +29,8 @@ const PostList = () => {
                                     // likes={ post.likes }
                                     // description={ post.description }
                                     // dateAdded={ post.dateAdded }
-                                    likePost={ likePost } 
-                                    dislikePost={ dislikePost }
+                                    upvotePost={ upvotePost } 
+                                    downvotePost={ downvotePost }
                                     id={ post._id }
                                 />
                             )

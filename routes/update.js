@@ -4,27 +4,29 @@ const Post = require('../models/post.js')
 
 // delete post
 update.delete('/:postId', (req, res, next) => {
-    Post.findOneAndDelete({_id: req.params.postId}, (err, post) => {
-        if(err){
-            res.status(500)
-            return next(err)
-        }
-        return res.status(200).send(`Your image was deleted`)
+    Post.findOneAndDelete(
+        {_id: req.params.postId, user: req.user._id}, 
+        (err, deletedPost) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+        return res.status(200).send(`Your post was deleted`)
     })
 })
 
 // update post
 update.put('/:postId', (req, res, next) => {
     Post.findOneAndUpdate(
-        {_id: req.params.postId},
+        {_id: req.params.postId, user: req.user._id},
         req.body,
         {new: true},
-        (err, post) => {
+        (err, updatedPost) => {
             if(err){
                 res.status(500)
                 return next(err)
             }
-            return res.status(201).send('Your post was updated' + post)
+            return res.status(201).send('Your post was updated')
         }
     )
 })

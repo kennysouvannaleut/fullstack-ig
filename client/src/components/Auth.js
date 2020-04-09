@@ -9,7 +9,7 @@ const Auth = () => {
     const [toggle, setToggle] = useState(false);
 
     const userContext = useContext(UserContext);
-    const { signup, login, errMsg, resetAuthErr } = userContext;
+    const { signup, login, errMsg, resetAuthErr } = userContext
 
     const handleChange = (e) => {
         const { name, value } = e.target;

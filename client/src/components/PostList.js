@@ -4,7 +4,17 @@ import PostCard from './PostCard';
 
 const PostList = () => {
     const userContext = useContext(UserContext)
-    const { getPosts, posts, loading, upvotePost, downvotePost } = userContext;
+    const { 
+        getPosts, 
+        posts,
+        loading, 
+        upvotePost, 
+        downvotePost,
+        user:{
+            username
+        }
+    } = userContext
+    console.log(userContext)
 
     useEffect(() => {
         getPosts();
@@ -15,22 +25,29 @@ const PostList = () => {
             <div className='container'>
                 <h2>Posts</h2>
                 {
-                !loading ? (
+                loading ? (
                     <div className='posts-grid-container'>
                         {
                         posts.map((post, i) => {
+                            const {
+                                votes,
+                                imgUrl,
+                                description,
+                                dateAdded,
+                                _id
+                            } = post
                             return (
                                 <PostCard 
                                     key={ i }
                                     { ...post }
-                                    // user={ post.user }
-                                    // likes={ post.likes }
-                                    // imgUrl={ post.imgUrl }
-                                    // description={ post.description }
-                                    // dateAdded={ post.dateAdded }
+                                    username={ username }
+                                    votes={ votes }
+                                    imgUrl={ imgUrl }
+                                    description={ description }
+                                    dateAdded={ dateAdded }
                                     upvotePost={ upvotePost } 
                                     downvotePost={ downvotePost }
-                                    id={ post._id }
+                                    id={ _id }
                                 />
                             )
                         })

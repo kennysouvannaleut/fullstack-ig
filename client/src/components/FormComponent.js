@@ -5,11 +5,10 @@ const FormComponent = props => {
     const {
         handleChange,
         handleSubmit,
-        // handleOnDrop,
+        onDrop,
         buttonText,
         inputs: { user, description }
     } = props;
-        console.log('props', props);
 
     return (
         <form onSubmit={ handleSubmit }>
@@ -30,7 +29,7 @@ const FormComponent = props => {
                 rows={ 10 } 
             />
             <ImageUploader 
-                // onChange={ handleOnDrop }
+                onChange={ onDrop }
                 withIcon={ true }
                 withPreview={ true }
                 imgExtension={['.jpg', '.gif', '.png']}

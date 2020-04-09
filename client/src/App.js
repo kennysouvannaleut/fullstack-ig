@@ -30,7 +30,7 @@ const App = () => {
                     token={ token } 
                 />
                 <ProtectedRoute 
-                    path='viewposts/:userId' 
+                    path='/:userId' 
                     component={ Post } 
                     redirectTo={ '/' }
                     token={ token }

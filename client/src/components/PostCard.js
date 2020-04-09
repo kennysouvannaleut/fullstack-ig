@@ -2,23 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const PostCard = props => {
-    console.log('props', props);
+    const {_id, username, description, imgUrl, dateAdded, upvotePost, downvotePost, votes} = props
+    console.log(imgUrl)
     return (
         <div className='card'>
             <div className='card-info'>
                 <div className='card-title'>
-                    <Link to={`${props._id}`}>
-                        <p>{ props.user }</p>
-                        <p>{ props.imgUrl }</p>
+                    <Link to={`${_id}`}>
+                        <p>{ username }</p>
+                        <img src={ imgUrl }/>
                     </Link>
                 </div>
                 <div className='card-post-section'>
-                    <p>Description: { props.description }</p>
-                    <p>Date: { props.dateAdded }</p>
-                    <button>Dislike{ props.dislikePost }</button>
-                    <button>Like{ props.likePost }</button>
+
+                    <p>Description: { description }</p>
+                    <p>Date: { dateAdded }</p>
+                    <button>Upvote{ upvotePost }</button>
+                    <button>Downvote{ downvotePost }</button>
                     <br />
-                    <span>Total:{ props.likes }</span>
+                    <span>Votes: { votes }</span>
                 </div>
             </div>
         </div>

@@ -3,9 +3,11 @@ import FormComponent from './FormComponent';
 import { storage } from '../firebase/firebase.js';
 
 const FormContainer = props => {
+    const { createPost, user } = props
+
     const initialInputs = {
         imgUrl: '',
-        user: '',
+        user: user,
         description: '',
         likes: '',
         dateAdded: '',
@@ -13,8 +15,6 @@ const FormContainer = props => {
     
     const [inputs, setInputs] = useState(initialInputs)
     const [picture, setPicture] = useState({})
-
-    const { createPost } = props
 
     const handleChange = e => {
         const { name, value } = e.target;

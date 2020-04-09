@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Navtab from './Navtab';
 
 const Navbar = props => {
-    console.log('props', props)
     const { token, logout } = props;
 
     return (

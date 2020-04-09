@@ -10,11 +10,7 @@ const PostList = () => {
         loading, 
         upvotePost, 
         downvotePost,
-        user:{
-            username
-        }
     } = userContext
-    console.log(userContext)
 
     useEffect(() => {
         getPosts();
@@ -34,13 +30,14 @@ const PostList = () => {
                                 imgUrl,
                                 description,
                                 dateAdded,
+                                postedBy,
                                 _id
                             } = post
                             return (
                                 <PostCard 
                                     key={ i }
                                     { ...post }
-                                    username={ username }
+                                    user={ postedBy }
                                     votes={ votes }
                                     imgUrl={ imgUrl }
                                     description={ description }

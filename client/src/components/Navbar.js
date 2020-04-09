@@ -14,7 +14,7 @@ const Navbar = props => {
             <Navtab to='/profile' label='Profile' />
             <Navtab to='/post' label='Post' />
 
-            { token && <button onClick={ logout }>Logout</button> }
+            <button onClick={ logout }>Logout</button>
         </div>
     );
 };

@@ -6,14 +6,15 @@ function ProtectedRoute(props) {
         path, 
         redirectTo, 
         component: C, 
-        // user, 
-        token,
+        token, 
         ...rest 
     } = props;
 
-    return token ? 
-        <Route path={ path } render={ () => <C { ...rest } /> } /> :
-        <Redirect to={ redirectTo } />
-    };
+    return (
+        token ? 
+            <Route path={ path } render={ () => <C {...rest} /> } /> :
+            <Redirect to={ redirectTo } />
+    ) 
+}
 
 export default ProtectedRoute;

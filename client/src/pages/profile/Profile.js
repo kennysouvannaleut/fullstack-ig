@@ -11,8 +11,8 @@ const Profile = () => {
         },
         createPost,
         uploadPicture,
-        likePost,
-        dislikePost,
+        upvotePost,
+        downvotePost,
         // posts
     } = userContext;
 
@@ -23,8 +23,8 @@ const Profile = () => {
             <FormContainer 
                 createPost={ createPost }
                 uploadPicture={ uploadPicture }
-                likePost={ likePost }
-                dislikePost={ dislikePost }
+                upvotePost={ upvotePost }
+                downvotePost={ downvotePost }
             />
             {/* <h3>My recent posts</h3>  */}
              {/* <PostList 

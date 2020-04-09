@@ -26,7 +26,7 @@ const Profile = () => {
                 upvotePost={ upvotePost }
                 downvotePost={ downvotePost }
             />
-            {/* <h3>Recent posts</h3>  */}
+            {/* <h3>My recent posts</h3>  */}
              {/* <PostList 
                  posts={ posts }
             /> */}

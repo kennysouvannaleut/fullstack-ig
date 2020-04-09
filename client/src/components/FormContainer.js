@@ -8,25 +8,13 @@ const FormContainer = props => {
         user: '',
         description: '',
         likes: '',
-        dateAdded: ''
-    };
+        dateAdded: '',
+    }
     
-    const [inputs, setInputs] = useState(initialInputs);
-    const [pictures, setPictures] = useState([]);
+    const [inputs, setInputs] = useState(initialInputs)
+    const [picture, setPicture] = useState({})
 
-    const { 
-        createPost, 
-        // uploadPicture,
-        // editPost, 
-        // removePost, 
-        // likePost, 
-        // dislikePost 
-    } = props;
-    console.log('props', props);
-
-    // const handleOnDrop = picture => {
-    //     setPictures(picture)
-    // };
+    const { createPost } = props
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -36,19 +24,22 @@ const FormContainer = props => {
         })
     )};
 
+    const onDrop = picture => {
+        setPicture(picture)
+    }
+
     const handleSubmit = e => {
-        e.preventDefault();
-        setPictures(prev => [...prev, inputs])
+        e.preventDefault()
         console.log('second')
         // const storageRef = storage.ref()
-        const pictureFile = pictures[0]
-        const fileName = pictures[0].name
+        const pictureFile = picture[0]
+        const pictureName = picture[0].name
         
         console.log('start of upload')
         if(pictureFile === ''){
             console.error(`not an image, the image file is a ${typeof(imageAsFile)}`)
         }
-        const uploadTask = storage.ref(`/images/${fileName}`).put(pictureFile)
+        const uploadTask = storage.ref(`/images/${pictureName}`).put(pictureFile)
             // .then((snapshot) => {
             //     console.log(777, snapshot + 'image uploaded')
             // })
@@ -90,7 +81,7 @@ const FormContainer = props => {
                 // uploadTask.snapShot.ref.getDownloadURL().then((downloadURL) => {
                 //     console.log('File available at', downloadURL)
                 // })
-                storage.ref('images').child(fileName).getDownloadURL()
+                storage.ref('images').child(pictureName).getDownloadURL()
                     .then(firebaseUrl => {
                         const url = firebaseUrl
                         console.log(firebaseUrl)
@@ -117,7 +108,7 @@ const FormContainer = props => {
         <FormComponent 
             handleChange={ handleChange }
             handleSubmit={ handleSubmit }
-            // handleOnDrop={ handleOnDrop }
+            onDrop={ onDrop }
             inputs={ inputs }
             buttonText='Create new post'
         />

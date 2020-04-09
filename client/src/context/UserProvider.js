@@ -17,6 +17,7 @@ const UserProvider = props => {
     const initialState = {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || '',
+        posts: [],
         currentPost: null,
         loading: true,
         errMsg: ''
@@ -36,7 +37,8 @@ const UserProvider = props => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     user,
-                    token
+                    token,
+                    success: true
                 }))
             })
             .catch(err => {
@@ -45,6 +47,7 @@ const UserProvider = props => {
             })
     }
 
+    // login
     const login = (credentials) => {
         axios.post('/auth/login', credentials)
             .then(res => {
@@ -55,7 +58,8 @@ const UserProvider = props => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     user,
-                    token
+                    token,
+                    success: true
                 }))
             })
             .catch(err => {
@@ -65,6 +69,7 @@ const UserProvider = props => {
     }
 
     const logout = () => {
+        localStorage.removeItem('token')
         localStorage.removeItem('user')
         localStorage.removeItem('token')
         setUserState({
@@ -75,15 +80,15 @@ const UserProvider = props => {
     };
 
     const handleAuthErr = (errMsg) => {
-        setUserState(prevUserState => ({
-            ...prevUserState,
+        setState(prevState => ({
+            ...prevState,
             errMsg
-        }))
-    };
+        })
+    )};
 
     const resetAuthErr = () => {
-        setUserState(prevUserState => ({
-            ...prevUserState,
+        setState(prevState => ({
+            ...prevState,
             errMsg: ''
         }))
     };
@@ -101,7 +106,7 @@ const UserProvider = props => {
             .catch(handleError)
     }
 
-    // get posts by userId
+    // get user posts
     const getPostById = (userId) => {
         userAxios.get(`/viewposts/${userId}`)
             .then(res => {
@@ -128,10 +133,10 @@ const UserProvider = props => {
     const createPost = (newPost) => {
         userAxios.post('/api/post', newPost)
             .then(res => {
-                setUserState(prevUserState => ({
-                    ...prevUserState,
+                setState(prevState => ({
+                    ...prevState,
                     posts: [ 
-                        ...prevUserState.posts,
+                        ...prevState.posts,
                         res.data
                     ]
                 }))
@@ -139,6 +144,7 @@ const UserProvider = props => {
             .catch(handleError)
     };
 
+    // delete post
     const removePost = (postId) => {
         userAxios.delete(`/api/update/${postId}`)
             .then(() => {
@@ -151,6 +157,7 @@ const UserProvider = props => {
             .catch(handleError)
     };
 
+    // edit post
     const editPost = (update, postId) => {
         userAxios.put(`/api/update/${postId}`, update)
             .then(res => {
@@ -168,11 +175,12 @@ const UserProvider = props => {
     const upvotePost = (postId) => {
         userAxios.put(`/api/upvote/${postId}`)
             .then(res => {
-                setUserState(prevUserState => ({
-                    ...prevUserState, 
-                    posts: prevUserState.posts.map(post => (
+                setState(prevState => ({
+                    ...prevState, 
+                    posts: prevState.posts.map(post => (
                         post._id === postId ? res.data : post))
-                }))
+                    })
+                )
             })
             .catch(handleError)
     };
@@ -180,11 +188,12 @@ const UserProvider = props => {
     const downvotePost = (postId) => {
         userAxios.put(`/api/downvote/${postId}`)
             .then(res => {
-                setUserState(prevUserState => ({
-                    ...prevUserState, 
-                    posts: prevUserState.posts.map(post => (
+                setState(prevState => ({
+                    ...prevState, 
+                    posts: prevState.posts.map(post => (
                         post._id === postId ? res.data : post))
-                }))
+                    })
+                )
             })
             .catch(handleError)
     };
@@ -192,7 +201,7 @@ const UserProvider = props => {
     return (
         <UserContext.Provider 
         value={{ 
-            ...userState,
+            ...state,
             signup,
             login,
             logout,

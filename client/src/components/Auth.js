@@ -11,26 +11,26 @@ const Auth = () => {
     const userContext = useContext(UserContext);
     const { signup, login, errMsg, resetAuthErr } = userContext
 
-    const handleChange = (e) => {
+    const handleChange = e => {
         const { name, value } = e.target;
         setInputs(prevInputs => ({
             ...prevInputs,
             [name]: value
-        }))
-    };
+        })
+    )};
 
-    const handleSignup = (e) => {
+    const handleSignup = e => {
         e.preventDefault();
         signup(inputs);
     };
 
-    const handleLogin = (e) => {
+    const handleLogin = e => {
         e.preventDefault();
         login(inputs);
     };
 
     const toggleForm = () => {
-        setToggle(prev => !prev)
+        setToggle(prevToggle => !prevToggle)
         resetAuthErr();
     };
 
@@ -46,9 +46,9 @@ const Auth = () => {
                     buttonText='Sign up'
                     errMsg={ errMsg }
                 />
-            <p onClick={ toggleForm }>Already have an account? Sign in</p>  
-        </>
-    :
+                <p onClick={ toggleForm }>Already have an account? Sign in</p>  
+            </>
+        :
             <>
                 <AuthForm 
                     handleChange={ handleChange }

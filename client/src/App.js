@@ -28,7 +28,7 @@ const App = () => {
                 {/* <Route path = '*' component={ Error } /> */}
                 <Route path='/profile' component={ Profile } /> 
                 <Route path='/viewposts/:userId' component={ Post } />
-                {/* <Route path='/' component={ Home } /> */}
+                <Route path='/' component={ Home } />
                 
                 <ProtectedRoute 
                     path='/profile' 

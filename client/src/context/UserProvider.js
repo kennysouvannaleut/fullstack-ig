@@ -110,7 +110,7 @@ const UserProvider = props => {
 
     // create new post
     const createPost = (postNew) => {
-        UserAxios.post('/post', postNew)
+        UserAxios.post('/api/post', postNew)
             console.log('mongodb post')
             .then(res => {
                 setState(prevState => ({
@@ -126,7 +126,7 @@ const UserProvider = props => {
 
     // delete post
     const removePost = (postId) => {
-        UserAxios.delete(`/update/${postId}`)
+        UserAxios.delete(`/api/update/${postId}`)
             console.log('post deleted')
             .then(res => {
                 setState(prevState => ({
@@ -141,7 +141,7 @@ const UserProvider = props => {
 
     // edit post
     const editPost = (update, postId) => {
-        UserAxios.put(`/update/${postId}`, update)
+        UserAxios.put(`/api/update/${postId}`, update)
             console.log('post update')
             .then(res => {
                 setState(prevState => ({
@@ -156,7 +156,7 @@ const UserProvider = props => {
 
     // upvote/like post
     const likePost = (postId) => {
-        UserAxios.put(`/like/${postId}`)
+        UserAxios.put(`/api/votes/like/${postId}`)
             console.log('upvote')
             .then(res => {
                 setState(prevState => ({
@@ -171,7 +171,7 @@ const UserProvider = props => {
 
     // downvote/dislike post
     const dislikePost = (postId) => {
-        UserAxios.put(`/dislike/${postId}`)
+        UserAxios.put(`/api/votes/dislike/${postId}`)
         console.log('downvote')
             .then(res => {
                 setState(prevState => ({

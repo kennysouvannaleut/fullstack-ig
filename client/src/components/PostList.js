@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import UserContext from '../context/userContext';
-// import Post from './Post.js';
 import PostCard from './PostCard';
 
 const PostList = () => {
@@ -24,9 +23,9 @@ const PostList = () => {
                                 <PostCard 
                                     key={ i }
                                     { ...post }
-                                    // title={ post.title }
                                     // user={ post.user }
                                     // likes={ post.likes }
+                                    // imgUrl={ post.imgUrl }
                                     // description={ post.description }
                                     // dateAdded={ post.dateAdded }
                                     upvotePost={ upvotePost } 

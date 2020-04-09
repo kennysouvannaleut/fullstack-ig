@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AuthForm = props => {
-    console.log(222, props)
+    console.log('props', props);
     const {
         handleChange,
         handleSubmit,
@@ -30,10 +30,9 @@ const AuthForm = props => {
                 onChange={ handleChange }
                 placeholder='Password'
             />
+
             <button>{ buttonText }</button>
-            {errMsg &&
-                <p style={ { color: 'red' } }>{ errMsg }</p>
-            }
+            { errMsg && <p style={{ color: 'red' }}>{ errMsg }</p> }
         </form>
     );
 };

@@ -11,7 +11,7 @@ const users = require('./routes/users');
 const post = require('./routes/postNew');
 const viewposts = require('./routes/posts');
 const update = require('./routes/update');
-const votes = require('./routes/likeDislike');
+const votes = require('./routes/votes');
 
 const dbURL = 'mongodb://localhost:27017/ig-app'
 

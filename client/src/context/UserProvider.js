@@ -80,14 +80,14 @@ const UserProvider = props => {
     };
 
     const handleAuthErr = (errMsg) => {
-        setState(prevState => ({
+        setUserState(prevState => ({
             ...prevState,
             errMsg
         })
     )};
 
     const resetAuthErr = () => {
-        setState(prevState => ({
+        setUserState(prevState => ({
             ...prevState,
             errMsg: ''
         }))
@@ -133,7 +133,7 @@ const UserProvider = props => {
     const createPost = (newPost) => {
         userAxios.post('/api/post', newPost)
             .then(res => {
-                setState(prevState => ({
+                setUserState(prevState => ({
                     ...prevState,
                     posts: [ 
                         ...prevState.posts,
@@ -175,7 +175,7 @@ const UserProvider = props => {
     const upvotePost = (postId) => {
         userAxios.put(`/api/upvote/${postId}`)
             .then(res => {
-                setState(prevState => ({
+                setUserState(prevState => ({
                     ...prevState, 
                     posts: prevState.posts.map(post => (
                         post._id === postId ? res.data : post))
@@ -188,7 +188,7 @@ const UserProvider = props => {
     const downvotePost = (postId) => {
         userAxios.put(`/api/downvote/${postId}`)
             .then(res => {
-                setState(prevState => ({
+                setUserState(prevState => ({
                     ...prevState, 
                     posts: prevState.posts.map(post => (
                         post._id === postId ? res.data : post))
@@ -201,7 +201,7 @@ const UserProvider = props => {
     return (
         <UserContext.Provider 
         value={{ 
-            ...state,
+            ...userState,
             signup,
             login,
             logout,
@@ -221,4 +221,4 @@ const UserProvider = props => {
     );
 };
 
-export default UserProvider;
+export default UserProvider

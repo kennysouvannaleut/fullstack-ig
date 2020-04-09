@@ -2,6 +2,16 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const postSchema = new Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    postedBy: {
+        type: Schema.Types.String,
+        ref: 'User',
+        required: true
+    },
     imgUrl: {
         required: true,
         type: String
@@ -9,24 +19,18 @@ const postSchema = new Schema({
     description: {
         type: String
     },
-    likes: {
+    votes: {
         type: Number,
-        // required: true,
         default: 0
     },
-    user: {
-        type: String,
-        required: true
-    },
-    // user: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'User',
-    //     required: true
-    //     // unique: true
-    // },
     dateAdded: {
         type: Date,
         default: Date.now()
+    },
+    usersWhoHaveVoted: {
+        type: [Schema.Types.ObjectId],
+        ref: 'User',
+        default: []
     }
 })
 

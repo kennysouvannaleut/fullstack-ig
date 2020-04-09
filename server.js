@@ -1,32 +1,10 @@
 const express = require('express')
 const expressJWT = require('express-jwt');
 const app = express()
+require('dotenv').config()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-// const firebase = require('firebase')
-
-// const dotENV = require('dotenv')
-// dotENV.config()
-// const apiKey = process.env.API_KEY
-
-// const firebaseConfig = {
-//     apiKey: apiKey,
-//     authDomain: "image-bucket-4e572.firebaseapp.com",
-//     databaseURL: "https://image-bucket-4e572.firebaseio.com",
-//     projectId: "image-bucket-4e572",
-//     storageBucket: "image-bucket-4e572.appspot.com",
-//     messagingSenderId: "15521326526",
-//     appId: "1:15521326526:web:1e2fb596d1b954e7e7c5ef",
-//     measurementId: "G-QRZNJJGDP6"
-//   }
-
-// firebase.initializeApp(firebaseConfig)
-
-// Get a reference to the storage service, which is used to create references in your storage bucket
-// var storage = firebase.storage();
-
-// Create a storage reference from our storage service
-// var storageRef = storage.ref();
+const expressJwt = require('express-jwt')
 
 const auth = require('./routes/userAuth');
 const users = require('./routes/users');
@@ -56,19 +34,12 @@ mongoose.connect (
     }
 )
 
-// app.use('/auth', require('./routes/userAuth.js'))
-// app.use('/users', require('./routes/users.js'))
-// app.use('/post', require('./routes/postNew.js'))
-// app.use('/viewposts', require('./routes/posts.js'))
-// app.use('/', require('./routes/likeDislike.js'))
-// app.use('/update', require('./routes/update'))
-
 app.use('/api', expressJWT({ secret: process.env.SECRET }));
 app.use('/api/post', post);
 app.use('/api/update', update);
-app.use('/api/votes', votes);
+app.use('/api/', votes);
 app.use('/auth', auth);
-app.use('/users', users);
+app.use('/api/users', users);
 app.use('/viewposts', viewposts);
 
 app.use((err, req, res, next) => {

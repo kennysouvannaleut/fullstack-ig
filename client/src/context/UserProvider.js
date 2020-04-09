@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import UserContext from './userContext';
-import Axios from 'axios';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom'
 
-const UserAxios = Axios.create();
+const userAxios = axios.create();
 
-UserAxios.interceptors.request.use(config => {
-    const token = localStorage.getItem('token');
-        config.headers.Authorization = `Bearer ${token}`
-        return config 
-    });
+userAxios.interceptors.request.use(config => {
+    const token = localStorage.getItem('token')
+    config.headers.Authorization = `Bearer ${token}`
+    return config
+})
 
 const handleError = err => console.log(err.response.data.errMsg);
 
@@ -20,60 +21,59 @@ const UserProvider = props => {
         currentPost: null,
         loading: true,
         errMsg: ''
-    };
+    }
     
-    const [state, setState] = useState(initialState);
+    const [userState, setUserState] = useState(initialState)
 
-    // get all posts
-    const getPosts = () => {
-        Axios.get('/viewposts')
-            .then(res => {
-                console.log('data', res);
-                setState({ posts: res.data })
-            })
-            .catch(handleError);
-    };
+    const { goBack } = useHistory()
 
-    // signup
+    // USER AUTH:
     const signup = (credentials) => {
-        Axios.post('/auth/signup', credentials)
+        axios.post('/auth/signup', credentials)
             .then(res => {
-                const { user, token } = res.data;
+                const { user, token } = res.data
                 localStorage.setItem('token', token)
                 localStorage.setItem('user', JSON.stringify(user))
-                setState(prevState => ({
-                    ...prevState,
+                setUserState(prevUserState => ({
+                    ...prevUserState,
                     user,
                     token,
                     success: true
                 }))
             })
-            .catch(handleError => handleAuthErr(handleError));
-    };
+            .catch(err => {
+                handleAuthErr(err.response.data.errMsg)
+                handleError(err)
+            })
+    }
 
     // login
     const login = (credentials) => {
-        Axios.post('/auth/login', credentials)
+        axios.post('/auth/login', credentials)
             .then(res => {
-                const { user, token } = res.data;
+                const { user, token } = res.data
                 localStorage.setItem('token', token)
                 localStorage.setItem('user', JSON.stringify(user))
-                getPostById();
-                setState(prevState => ({
-                    ...prevState,
+                getPostById()
+                setUserState(prevUserState => ({
+                    ...prevUserState,
                     user,
                     token,
                     success: true
                 }))
             })
-            .catch(handleError => handleAuthErr(handleError));
-    };
+            .catch(err => {
+                handleAuthErr(err.response.data.errMsg)
+                handleError(err)
+            })
+    }
 
     const logout = () => {
         localStorage.removeItem('token')
         localStorage.removeItem('user')
-        setState({
-            user: {},
+        localStorage.removeItem('token')
+        setUserState({
+            user: '',
             token: '',
             posts: []
         })
@@ -90,28 +90,48 @@ const UserProvider = props => {
         setState(prevState => ({
             ...prevState,
             errMsg: ''
-        })
-    )};
+        }))
+    };
+
+    // POSTS:
+    // get all posts:
+    const getPosts = () => {
+        userAxios.get('/viewposts')
+            .then(res => {
+                setUserState(prevUserState => ({ 
+                    ...prevUserState,
+                    posts: res.data
+                }))
+            })
+            .catch(handleError)
+    }
 
     // get user posts
     const getPostById = (userId) => {
-        // const id = user._id;
-        UserAxios.get(`/viewposts/${userId}`)
-            console.log('user post')
+        userAxios.get(`/viewposts/${userId}`)
             .then(res => {
-                const { posts } = res.data;
-                setState(prevState => ({
-                    ...prevState,
-                    posts
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    posts: res.data
                 }))
             })
             .catch(handleError)
     };
 
-    // create new post
-    const createPost = (postNew) => {
-        UserAxios.post('/api/post', postNew)
-            console.log('mongodb post')
+    // get one post
+    const postDetail = (postId) => {
+        userAxios.get(`/viewposts/${postId}`)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    currentPost: res.data
+                }))
+            })
+            .catch(handleError)
+    }
+
+    const createPost = (newPost) => {
+        userAxios.post('/api/post', newPost)
             .then(res => {
                 setState(prevState => ({
                     ...prevState,
@@ -126,38 +146,34 @@ const UserProvider = props => {
 
     // delete post
     const removePost = (postId) => {
-        UserAxios.delete(`/api/update/${postId}`)
-            console.log('post deleted')
-            .then(res => {
-                setState(prevState => ({
-                    ...prevState,
-                    posts: prevState.posts.filter(post => (
-                        post._id === postId))
-                    })
-                )
+        userAxios.delete(`/api/update/${postId}`)
+            .then(() => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    posts: prevUserState.posts.filter(post => post._id !== postId)
+                }))
+                goBack()
             })
             .catch(handleError)
     };
 
     // edit post
     const editPost = (update, postId) => {
-        UserAxios.put(`/api/update/${postId}`, update)
-            console.log('post update')
+        userAxios.put(`/api/update/${postId}`, update)
             .then(res => {
-                setState(prevState => ({
-                    ...prevState,
-                    posts: prevState.posts.map(post => (
-                        post._id !== postId ? post : res.data))
-                    })
-                )
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    posts: prevUserState.posts.map(post => (
+                        post._id !== postId ? post: res.data
+                    ))
+                }))
             })
             .catch(handleError)
     };
 
-    // upvote/like post
-    const likePost = (postId) => {
-        UserAxios.put(`/api/votes/like/${postId}`)
-            console.log('upvote')
+    // UP/DOWN VOTING:
+    const upvotePost = (postId) => {
+        userAxios.put(`/api/upvote/${postId}`)
             .then(res => {
                 setState(prevState => ({
                     ...prevState, 
@@ -169,10 +185,8 @@ const UserProvider = props => {
             .catch(handleError)
     };
 
-    // downvote/dislike post
-    const dislikePost = (postId) => {
-        UserAxios.put(`/api/votes/dislike/${postId}`)
-        console.log('downvote')
+    const downvotePost = (postId) => {
+        userAxios.put(`/api/downvote/${postId}`)
             .then(res => {
                 setState(prevState => ({
                     ...prevState, 
@@ -194,11 +208,12 @@ const UserProvider = props => {
             resetAuthErr,
             getPosts,
             getPostById,
+            postDetail,
             createPost,
             removePost,
             editPost,
-            likePost,
-            dislikePost
+            upvotePost,
+            downvotePost
         }} 
             >
             { props.children }

@@ -13,13 +13,11 @@ import Profile from './pages/profile/Profile';
 import Post from './pages/post/Post';
 
 const App = () => {
-    const userContext = useContext(UserContext);
-    const { token, logout } = userContext;
+    const { token , logout } = useContext(UserContext)
 
     return (
         <div className='App'>
-            { <Navbar logout={ logout } token={ token } /> }
-
+            { token && <Navbar logout={ logout }/> }
             <Switch>
                 <Route 
                     exact path='/'

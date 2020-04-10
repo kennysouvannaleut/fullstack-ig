@@ -7,3 +7,7 @@
     padding: 0;
     font-family: 'Roboto';
 }
+
+.image {
+    max-width: 400px;
+}

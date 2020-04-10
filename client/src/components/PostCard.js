@@ -10,7 +10,7 @@ const PostCard = props => {
                 <div className='card-title'>
                     <Link to={`${_id}`}>
                         <p>{ user }</p>
-                        <img src={ imgUrl }/>
+                        <img className='image' src={ imgUrl }/>
                     </Link>
                 </div>
                 <div className='card-post-section'>

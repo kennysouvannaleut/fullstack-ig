@@ -197,6 +197,7 @@ const UserProvider = props => {
             })
             .catch(err => { 
                 handleError(err) 
+                                alert('You can only vote once per post')
         })
     };
 
@@ -212,6 +213,7 @@ const UserProvider = props => {
             })
             .catch(err => { 
                 handleError(err) 
+                alert('You can only vote once per post')
         })
     };
 

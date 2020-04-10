@@ -10,11 +10,11 @@ const FormContainer = props => {
         user: user,
         description: '',
         likes: '',
-        dateAdded: '',
-    }
+        dateAdded: Date.now()
+    };
     
-    const [inputs, setInputs] = useState(initialInputs)
-    const [picture, setPicture] = useState({})
+    const [inputs, setInputs] = useState(initialInputs);
+    const [picture, setPicture] = useState([]);
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -26,7 +26,7 @@ const FormContainer = props => {
 
     const onDrop = picture => {
         setPicture(picture)
-    }
+    };
 
     const handleSubmit = e => {
         e.preventDefault()

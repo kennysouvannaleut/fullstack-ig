@@ -1,29 +1,38 @@
 import React, { useContext, useEffect } from 'react';
 import UserContext from '../../context/userContext';
 import { useParams } from 'react-router-dom';
-// import PostList from '../../components/PostList';
 
 const Post = () => {
     const userContext = useContext(UserContext)
-    const { user, getPostById, currentPost } = userContext;
+    const { postDetail, currentPost } = userContext;
     
-    let { userId } = useParams;
+    let { postId } = useParams();
 
     useEffect(() => {
-        getPostById(userId);
+        postDetail(postId);
     }, []);
 
     return (
         <div className='post'>
-            <h1>Welcome @{ user }!</h1>
-                {/* <PostList /> */}
             { currentPost ? (
                 <>
+                <div className='post-image'
+                style={{
+                    width: '250%',
+                    height: '300px',
+                    backgroundImage: `url('${currentPost}')`,
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                    position: 'relative',
+                    borderTopLeftRadius: '2px',
+                    borderTopRightRadius: '2px',                        
+                }}></div>
                 <div className='post-content'>
-                    <p>{ currentPost.imgUrl }</p>
-                    <p>{ currentPost.description }</p>
-                    <p>{ currentPost.likes }</p>
-                    <p>{ currentPost.dateAdded }</p>
+                    <p> date: { currentPost.dateAdded }</p>
+                    <p> description: { currentPost.description }</p>
+                    <p> postedBy: { currentPost.postedBy }</p>
+                    <span> votes: { currentPost.votes }</span>
                 </div>
                 </>
             ) : (

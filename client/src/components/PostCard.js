@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const PostCard = props => {
     const { 
         _id,
-        // user, 
+        user, 
         description, 
         imgUrl, 
         // dateAdded, 

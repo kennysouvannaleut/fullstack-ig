@@ -35,6 +35,8 @@ const PostCard = props => {
                         {/* <p>{ user }</p> */}
                         <p>{ description }</p>
                         {/* <img src={ imgUrl }/> */}
+                        <p>{ user }</p>
+                        <img className='image' src={ imgUrl }/>
                     </Link>
                 </div>
                 <div className='card-post-section'>

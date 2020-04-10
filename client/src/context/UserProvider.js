@@ -103,7 +103,9 @@ const UserProvider = props => {
                     posts: res.data
                 }))
             })
-            .catch(handleError)
+            .catch(err => { 
+                handleError(err) 
+        })
     }
 
     // get user posts
@@ -115,7 +117,9 @@ const UserProvider = props => {
                     posts: res.data
                 }))
             })
-            .catch(handleError)
+            .catch(err => { 
+                handleError(err) 
+        })
     };
 
     // get one post
@@ -127,7 +131,9 @@ const UserProvider = props => {
                     currentPost: res.data
                 }))
             })
-            .catch(handleError)
+            .catch(err => { 
+                handleError(err) 
+        })
     }
 
     const createPost = (newPost) => {
@@ -141,7 +147,9 @@ const UserProvider = props => {
                     ]
                 }))
             })
-            .catch(handleError)
+            .catch(err => { 
+                handleError(err) 
+        })
     };
 
     // delete post
@@ -154,7 +162,9 @@ const UserProvider = props => {
                 }))
                 goBack()
             })
-            .catch(handleError)
+            .catch(err => { 
+                handleError(err) 
+        })
     };
 
     // edit post
@@ -168,7 +178,9 @@ const UserProvider = props => {
                     ))
                 }))
             })
-            .catch(handleError)
+            .catch(err => { 
+                handleError(err) 
+        })
     };
 
     // UP/DOWN VOTING:
@@ -182,7 +194,9 @@ const UserProvider = props => {
                     })
                 )
             })
-            .catch(handleError)
+            .catch(err => { 
+                handleError(err) 
+        })
     };
 
     const downvotePost = (postId) => {
@@ -195,7 +209,9 @@ const UserProvider = props => {
                     })
                 )
             })
-            .catch(handleError)
+            .catch(err => { 
+                handleError(err) 
+        })
     };
 
     return (

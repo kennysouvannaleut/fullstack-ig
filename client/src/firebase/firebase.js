@@ -18,10 +18,66 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-// firebase.analytics()
+const imageUpload = (picture, user, setUrl) => {
+    const pictureFile = picture[0]
+    const pictureName = picture[0].name
+    
+    const storage = firebase.storage()
+    const storageRef = storage.ref()
 
-const storage = firebase.storage()
+    // const picRef = storageRef.child(pictureName);
+    const picImagesRef = storageRef.child(`${user}/${pictureName}`);
+    
+    if(pictureFile === ''){
+        console.error(`not an image, the image file is a ${typeof(imageAsFile)}`)
+    }
 
-export {storage, firebase as default}
+    // uploads picture 
+    const uploadTask = picImagesRef.put(pictureFile)
 
-// const storageRef = storage.ref()
+    // listens for state changes, errors, and completion of upload
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => {
+            // task progress
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            console.log(`Upload is ${progress}% done`)
+            switch(snapshot.state){
+                case firebase.storage.TaskState.PAUSED:
+                    console.log('Upload is paused')
+                    break
+                case firebase.storage.TaskState.RUNNING:
+                    console.log('Upload is running')
+                    break
+            }
+            console.log(snapshot)
+        }, (error) => {
+            // full list of error codes: https://firebase.google.com/docs/storage/web/handle-errors
+            switch(error.code){
+                case 'storage/unauthorized':
+                // User doesn't have permission to access the object
+                break
+                case 'storage/canceled':
+                // User canceled the upload
+                break
+                case 'storage/unknown':
+                // Unknown error occurred, inspect error.serverResponse
+                break
+            }
+            console.log(error)
+        }, () => {
+        // Upload completed successfully, now we can get the download URL
+            uploadTask.snapshot.ref.getDownloadURL()
+                .then(firebaseUrl => {
+                    const url = firebaseUrl
+                    setUrl(url)
+                })
+            // storage.ref('images').child(pictureName).getDownloadURL()
+            //     .then(firebaseUrl => {
+            //         const url = firebaseUrl
+            //         setUrl(url)
+            //     })
+        }
+    )
+}
+
+export default imageUpload

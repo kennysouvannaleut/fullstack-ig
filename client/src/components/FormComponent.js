@@ -24,7 +24,7 @@ const FormComponent = props => {
                 onChange={ onDrop }
                 withIcon={ true }
                 withPreview={ true }
-                imgExtension={['.jpg', '.gif', '.png']}
+                imgExtension={['.jpg', '.jpeg', '.gif', '.png']}
                 maxFileSize={ 5242880 }
                 fileSizeError='file size is to big'
                 fileTypeError='is not supported file extension'

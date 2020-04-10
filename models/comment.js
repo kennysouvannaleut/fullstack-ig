@@ -2,9 +2,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const commentSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+    comment: {
+        type: String,
         required: true
     },
     post: {
@@ -12,13 +11,14 @@ const commentSchema = new Schema({
         ref: 'Post',
         required: true
     },
-    postedBy: {
-        type: Schema.Types.String,
+    user: {
+        type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    text: {
-        type: String,
+    postedBy: {
+        type: Schema.Types.String,
+        ref: 'User',
         required: true
     }
 })

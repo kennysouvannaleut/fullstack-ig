@@ -1,6 +1,6 @@
 // import React, { useContext } from 'react';
 // import UserContext from '../../context/userContext';
-// import PostList from '../../components/PostList';
+// import PostList from '../../components/posts/PostList';
 
 // const Profile = () => {
 //     const userContext = useContext(UserContext)

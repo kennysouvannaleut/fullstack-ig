@@ -1,5 +1,5 @@
 // import React from 'react';
-// import FormContainer from '../FormContainer';
+// import FormContainer from '../posts/FormContainer';
 
 // const NewPost = props => {
 //     const { createPost } = props;

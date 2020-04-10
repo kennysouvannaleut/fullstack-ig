@@ -5,7 +5,7 @@ import UserContext from './context/userContext';
 
 import Navbar from './components/Navbar';
 import Auth from './components/Auth';
-import Error from './components/Error';
+// import Error from './components/Error';
 import ProtectedRoute from './components/ProtectedRoute.js'
 
 import Home from './pages/home/Home';
@@ -23,6 +23,7 @@ const App = () => {
                     exact path='/'
                     render={ () => token ? <Redirect to='/profile' /> : <Auth /> }
                 /> 
+                {/* <Route path='*' component={ Error } /> */}
                 <ProtectedRoute 
                     path='/profile' 
                     component={ Profile } 
@@ -30,7 +31,7 @@ const App = () => {
                     token={ token } 
                 />
                 <ProtectedRoute 
-                    path='/:userId' 
+                    path='/post' 
                     component={ Post } 
                     redirectTo={ '/' }
                     token={ token }

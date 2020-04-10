@@ -80,15 +80,15 @@ const UserProvider = props => {
     };
 
     const handleAuthErr = (errMsg) => {
-        setUserState(prevState => ({
-            ...prevState,
+        setUserState(prevUserState => ({
+            ...prevUserState,
             errMsg
         })
     )};
 
     const resetAuthErr = () => {
-        setUserState(prevState => ({
-            ...prevState,
+        setUserState(prevUserState => ({
+            ...prevUserState,
             errMsg: ''
         }))
     };
@@ -139,10 +139,10 @@ const UserProvider = props => {
     const createPost = (newPost) => {
         userAxios.post('/api/post', newPost)
             .then(res => {
-                setUserState(prevState => ({
-                    ...prevState,
+                setUserState(prevUserState => ({
+                    ...prevUserState,
                     posts: [ 
-                        ...prevState.posts,
+                        ...prevUserState.posts,
                         res.data
                     ]
                 }))
@@ -187,9 +187,9 @@ const UserProvider = props => {
     const upvotePost = (postId) => {
         userAxios.put(`/api/upvote/${postId}`)
             .then(res => {
-                setUserState(prevState => ({
-                    ...prevState, 
-                    posts: prevState.posts.map(post => (
+                setUserState(prevUserState => ({
+                    ...prevUserState, 
+                    posts: prevUserState.posts.map(post => (
                         post._id === postId ? res.data : post))
                     })
                 )
@@ -203,9 +203,9 @@ const UserProvider = props => {
     const downvotePost = (postId) => {
         userAxios.put(`/api/downvote/${postId}`)
             .then(res => {
-                setUserState(prevState => ({
-                    ...prevState, 
-                    posts: prevState.posts.map(post => (
+                setUserState(prevUserState => ({
+                    ...prevUserState, 
+                    posts: prevUserState.posts.map(post => (
                         post._id === postId ? res.data : post))
                     })
                 )
@@ -236,7 +236,7 @@ const UserProvider = props => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     comments: [ 
-                        ...prevState.comments,
+                        ...prevUserState.comments,
                         res.data
                     ]
                 }))

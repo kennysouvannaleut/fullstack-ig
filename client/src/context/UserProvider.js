@@ -19,6 +19,7 @@ const UserProvider = props => {
         token: localStorage.getItem('token') || '',
         posts: [],
         currentPost: null,
+        comments: [],
         loading: true,
         errMsg: ''
     }
@@ -47,7 +48,6 @@ const UserProvider = props => {
             })
     }
 
-    // login
     const login = (credentials) => {
         axios.post('/auth/login', credentials)
             .then(res => {
@@ -174,7 +174,7 @@ const UserProvider = props => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     posts: prevUserState.posts.map(post => (
-                        post._id !== postId ? post: res.data
+                        post._id !== postId ? post : res.data
                     ))
                 }))
             })
@@ -196,7 +196,7 @@ const UserProvider = props => {
             })
             .catch(err => { 
                 handleError(err) 
-                                alert('You can only vote once per post')
+                alert('You can only vote once per post')
         })
     };
 
@@ -214,7 +214,65 @@ const UserProvider = props => {
                 handleError(err) 
                 alert('You can only vote once per post')
         })
-    };
+    }
+
+    // COMMENTS:
+    const getComments= (postId) => {
+        userAxios.get(`/api/comments/${postId}`)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    comments: res.data
+                }))
+            })
+            .catch(err => { 
+                handleError(err) 
+        })
+    }
+
+    const createComment = (postId, newComment) => {
+        userAxios.post(`/api/comments/${postId}`, newComment)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    comments: [ 
+                        ...prevState.comments,
+                        res.data
+                    ]
+                }))
+            })
+            .catch(err => { 
+                handleError(err) 
+        })
+    }
+
+    const removeComment = (commentId) => {
+        userAxios.delete(`/api/comments/${commentId}`)
+            .then(() => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    comments: prevUserState.comments.filter(comment => comment._id !== commentId)
+                }))
+            })
+            .catch(err => { 
+                handleError(err) 
+        })
+    }
+
+    const editComment = (commentId, updatedComment) => {
+        userAxios.put(`/api/comments/${commentId}`, updatedComment)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    comments: prevUserState.comments.map(comment => (
+                        comment._id !== commentId ? comment : res.data
+                    ))
+                }))
+            })
+            .catch(err => { 
+                handleError(err) 
+        })
+    }
 
     return (
         <UserContext.Provider 
@@ -231,7 +289,11 @@ const UserProvider = props => {
             removePost,
             editPost,
             upvotePost,
-            downvotePost
+            downvotePost,
+            getComments,
+            createComment,
+            removeComment,
+            editComment
         }} 
             >
             { props.children }

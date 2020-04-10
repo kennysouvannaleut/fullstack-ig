@@ -3,8 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import UserContext from './context/userContext';
 
-import Navbar from './components/Navbar';
-import Auth from './components/Auth';
+import Navbar from './components/nav/Navbar';
+import Auth from './components/auth/Auth';
 // import Error from './components/Error';
 import ProtectedRoute from './components/ProtectedRoute.js'
 

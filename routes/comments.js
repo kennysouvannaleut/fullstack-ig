@@ -12,7 +12,7 @@ comments.get('/:postId', (req, res, next) => {
     })
 })
 
-comments.post('/:postId', (req, res, next) => {
+comments.post('/post/:postId', (req, res, next) => {
     req.body.user = req.user._id
     req.body.post = req.params._id
     req.body.postedBy = req.user.username

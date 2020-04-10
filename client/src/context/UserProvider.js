@@ -23,9 +23,8 @@ const UserProvider = props => {
         loading: true,
         errMsg: ''
     }
-    
     const [userState, setUserState] = useState(initialState)
-
+    console.log(userState)
     const { goBack } = useHistory()
 
     // USER AUTH:
@@ -231,7 +230,7 @@ const UserProvider = props => {
     }
 
     const createComment = (postId, newComment) => {
-        userAxios.post(`/api/comments/${postId}`, newComment)
+        userAxios.post(`/api/comments/post/${postId}`, newComment)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,

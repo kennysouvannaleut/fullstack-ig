@@ -1,6 +1,6 @@
 const express = require('express')
 const comments = express.Router()
-const Comment = require('../models/post.js')
+const Comment = require('../models/comment.js')
 
 comments.get('/:postId', (req, res, next) => {
     Comment.find({post: req.params.postId}, (err, comments) => {
@@ -13,8 +13,8 @@ comments.get('/:postId', (req, res, next) => {
 })
 
 comments.post('/post/:postId', (req, res, next) => {
+    req.body.post = req.params.postId
     req.body.user = req.user._id
-    req.body.post = req.params._id
     req.body.postedBy = req.user.username
     const newComment = new Comment(req.body)
     newComment.save((err, comment) => {

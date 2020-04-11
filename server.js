@@ -6,12 +6,12 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 
 const auth = require('./routes/userAuth');
-const users = require('./routes/users');
-const post = require('./routes/postNew');
 const viewposts = require('./routes/posts');
+const post = require('./routes/postNew');
 const update = require('./routes/update');
-const votes = require('./routes/votes');
 const comments = require('./routes/comments')
+const votes = require('./routes/votes');
+const users = require('./routes/users');
 
 const dbURL = 'mongodb://localhost:27017/ig-app'
 
@@ -34,14 +34,14 @@ mongoose.connect (
     }
 )
 
-app.use('/api', expressJWT({ secret: process.env.SECRET }));
-app.use('/api/post', post);
-app.use('/api/comments', comments);
-app.use('/api/update', update);
-app.use('/api/', votes);
 app.use('/auth', auth);
-app.use('/api/users', users);
 app.use('/viewposts', viewposts);
+app.use('/api', expressJWT({ secret: process.env.SECRET }));
+app.use('/api/comments', comments);
+app.use('/api/post', post);
+app.use('/api/update', update);
+app.use('/api/vote', votes);
+app.use('/api/users', users);
 
 app.use((err, req, res, next) => {
     console.log(err)

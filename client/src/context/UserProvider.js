@@ -74,7 +74,10 @@ const UserProvider = props => {
         setUserState({
             user: '',
             token: '',
-            posts: []
+            posts: [],
+            currentPost: null,
+            comments: [],
+            errMsg: ''
         })
     };
 
@@ -184,7 +187,7 @@ const UserProvider = props => {
 
     // UP/DOWN VOTING:
     const upvotePost = (postId) => {
-        userAxios.put(`/api/upvote/${postId}`)
+        userAxios.put(`/api/vote/upvote/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState, 
@@ -200,7 +203,7 @@ const UserProvider = props => {
     };
 
     const downvotePost = (postId) => {
-        userAxios.put(`/api/downvote/${postId}`)
+        userAxios.put(`/api/vote/downvote/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState, 

@@ -1,19 +1,15 @@
 import React, { useContext } from 'react';
 import UserContext from '../../context/userContext';
-// import PostList from '../../components/PostList';
 import FormContainer from '../../components/FormContainer';
 
 const Profile = () => {
-    const userContext = useContext(UserContext)
+    const userContext = useContext(UserContext);
     const {
         user: {
             username
         },
         createPost,
         uploadPicture
-        // upvotePost,
-        // downvotePost,
-        // posts
     } = userContext;
 
     return (
@@ -25,12 +21,6 @@ const Profile = () => {
                 uploadPicture={ uploadPicture }
                 user={ username }
             />
-            {/* <h3>My posts</h3> */}
-             {/* <PostList 
-                posts={ posts }
-                upvotePost={ upvotePost }
-                downvotePost={ downvotePost }
-            /> */}
         </div>
     );
 };

@@ -9,7 +9,7 @@ const Auth = () => {
     const [toggle, setToggle] = useState(false);
 
     const userContext = useContext(UserContext);
-    const { signup, login, errMsg, resetAuthErr } = userContext
+    const { signup, login, errMsg, resetAuthErr } = userContext;
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -30,20 +30,20 @@ const Auth = () => {
     };
 
     const toggleForm = () => {
-        setToggle(prevToggle => !prevToggle)
+        setToggle(prevToggle => !prevToggle);
         resetAuthErr();
     };
 
     return (
         <div className='auth-container'>
-            <h1>App</h1>
+            <h1>IG Group Project</h1>
             { !toggle ?
             <>
                 <AuthForm 
                     handleChange={ handleChange }
                     handleSubmit={ handleSignup }
                     inputs={ inputs }
-                    buttonText='Sign up'
+                    buttonText='Signup'
                     errMsg={ errMsg }
                 />
                 <p onClick={ toggleForm }>Already have an account? Sign in</p>  
@@ -57,7 +57,7 @@ const Auth = () => {
                     buttonText='Login'
                     errMsg={ errMsg }
                 />
-                <p onClick={ toggleForm }>New user? Sign up</p>
+                <p onClick={ toggleForm }>New users? Sign up</p>
             </>
             }
         </div>

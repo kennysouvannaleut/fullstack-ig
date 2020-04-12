@@ -10,7 +10,7 @@ const PostList = () => {
         loading, 
         upvotePost, 
         downvotePost,
-    } = userContext
+    } = userContext;
 
     useEffect(() => {
         getPosts();
@@ -32,7 +32,7 @@ const PostList = () => {
                                 dateAdded,
                                 postedBy,
                                 _id
-                            } = post
+                            } = post;
                             return (
                                 <PostCard 
                                     key={ i }

@@ -19,12 +19,12 @@ const UserProvider = props => {
         token: localStorage.getItem('token') || '',
         posts: [],
         currentPost: [],
+        comments: [],
         loading: true,
         errMsg: ''
-    };
-    
+    }
     const [userState, setUserState] = useState(initialState);
-
+    console.log(userState);
     const { goBack } = useHistory();
 
     // USER AUTH:
@@ -74,11 +74,14 @@ const UserProvider = props => {
         setUserState({
             user: '',
             token: '',
-            posts: []
-        });
+            posts: [],
+            currentPost: null,
+            comments: [],
+            errMsg: ''
+        })
     };
 
-    const handleAuthErr = errMsg => {
+    const handleAuthErr = (errMsg) => {
         setUserState(prevUserState => ({
             ...prevUserState,
             errMsg
@@ -182,8 +185,8 @@ const UserProvider = props => {
     };
 
     // UP/DOWN VOTING:
-    const upvotePost = postId => {
-        userAxios.put(`/api/upvote/${postId}`)
+    const upvotePost = (postId) => {
+        userAxios.put(`/api/vote/upvote/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState, 
@@ -191,14 +194,14 @@ const UserProvider = props => {
                         post._id === postId ? res.data : post))
                 }));
             })
-            .catch(err => {
-                handleError(err);
-                alert('You can only vote once per post');
-        });
+            .catch(err => { 
+                handleError(err) 
+                alert('You can only vote once per post')
+        })
     };
 
-    const downvotePost = postId => {
-        userAxios.put(`/api/downvote/${postId}`)
+    const downvotePost = (postId) => {
+        userAxios.put(`/api/vote/downvote/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState, 
@@ -211,6 +214,64 @@ const UserProvider = props => {
                 alert('You can only vote once per post');
         });
     };
+
+    // COMMENTS:
+    const getComments= (postId) => {
+        userAxios.get(`/api/comments/${postId}`)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    comments: res.data
+                }))
+            })
+            .catch(err => { 
+                handleError(err) 
+        })
+    }
+
+    const createComment = (postId, newComment) => {
+        userAxios.post(`/api/comments/post/${postId}`, newComment)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    comments: [ 
+                        ...prevUserState.comments,
+                        res.data
+                    ]
+                }))
+            })
+            .catch(err => { 
+                handleError(err) 
+        })
+    }
+
+    const removeComment = (commentId) => {
+        userAxios.delete(`/api/comments/${commentId}`)
+            .then(() => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    comments: prevUserState.comments.filter(comment => comment._id !== commentId)
+                }))
+            })
+            .catch(err => { 
+                handleError(err) 
+        })
+    }
+
+    const editComment = (commentId, updatedComment) => {
+        userAxios.put(`/api/comments/${commentId}`, updatedComment)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    comments: prevUserState.comments.map(comment => (
+                        comment._id !== commentId ? comment : res.data
+                    ))
+                }))
+            })
+            .catch(err => { 
+                handleError(err) 
+        })
+    }
 
     return (
         <UserContext.Provider 
@@ -227,7 +288,11 @@ const UserProvider = props => {
             removePost,
             editPost,
             upvotePost,
-            downvotePost
+            downvotePost,
+            getComments,
+            createComment,
+            removeComment,
+            editComment
         }} 
             >
             { props.children }

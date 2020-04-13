@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FormComponent from './FormComponent';
-import imageUpload from '../firebase/firebase.js';
+import imageUpload from '../../firebase/firebase.js'
 
 const FormContainer = props => {
     const { createPost, user } = props;

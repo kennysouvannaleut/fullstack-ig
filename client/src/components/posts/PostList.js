@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import UserContext from '../context/userContext';
+import UserContext from '../../context/userContext';
 import PostCard from './PostCard';
 
 const PostList = () => {

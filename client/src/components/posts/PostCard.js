@@ -6,19 +6,17 @@ const PostCard = props => {
     const { 
         _id,
         user, 
-        // description, 
         imgInfo: {
             imgUrl
         }, 
-        imgInfo,
-        // dateAdded, 
+        imgInfo, 
         upvotePost, 
         downvotePost, 
         votes,
         userPage
     } = props;
-    const {user: {username}} = useContext(userContext)
-
+    const { user: { username } } = useContext(userContext);
+    console.log(user);
     return (
         <div className='card'>
             <Link to={`/detail/${ _id }`}>
@@ -27,7 +25,7 @@ const PostCard = props => {
                     style={{
                         width: '300px',
                         height: '250px',
-                        backgroundImage: `url('${ imgUrl }')`,
+                        backgroundImage: `url('${ imgInfo }')`,
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover',
@@ -40,7 +38,7 @@ const PostCard = props => {
             <div className='card-info'>
                 <div className='card-title'>
                     {!userPage &&
-                        <Link to={`/user/${user}`}>
+                        <Link to={`/user/${ user }`}>
                             <p>{ user }</p>
                         </Link>
                     }

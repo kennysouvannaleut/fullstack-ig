@@ -14,8 +14,8 @@ posts.get('/', (req, res, next) => {
 })
 
 // get (logged in) user's posts
-posts.get('/user', (req, res, next) => {
-    Post.find({user: req.user._id}, (err, posts) => {
+posts.get('/:user', (req, res, next) => {
+    Post.find({user: req.params.user}, (err, posts) => {
         if(err){
             res.status(500)
             return next(err)

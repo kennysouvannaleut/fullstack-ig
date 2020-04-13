@@ -2,32 +2,36 @@ import React, { useContext, useEffect } from 'react';
 import UserContext from '../../context/userContext';
 import PostCard from './PostCard';
 
-const PostList = () => {
+const PostList = (props) => {
     const userContext = useContext(UserContext)
     const { 
         getPosts, 
         posts,
         loading, 
         upvotePost, 
-        downvotePost,
-    } = userContext;
+        downvotePost
+        } = userContext;
+    const {userPage} = props
 
     useEffect(() => {
         getPosts();
-    }, []);
+    }, [loading]);
 
     return (
         <div className='posts'>
             <div className='container'>
-                <h2>Posts</h2>
                 {
-                loading ? (
+                !userPage && 
+                    <h2>Posts</h2>
+                }
+                {
+                !loading ? (
                     <div className='posts-grid-container'>
                         {
                         posts.map((post, i) => {
                             const {
                                 votes,
-                                imgUrl,
+                                imgInfo,
                                 description,
                                 dateAdded,
                                 postedBy,
@@ -39,11 +43,12 @@ const PostList = () => {
                                     { ...post }
                                     user={ postedBy }
                                     votes={ votes }
-                                    imgUrl={ imgUrl }
+                                    imgInfo={ imgInfo }
                                     description={ description }
                                     dateAdded={ dateAdded }
                                     upvotePost={ upvotePost } 
                                     downvotePost={ downvotePost }
+                                    userPage={ userPage }
                                     id={ _id }
                                 />
                             )

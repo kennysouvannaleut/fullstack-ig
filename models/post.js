@@ -12,9 +12,9 @@ const postSchema = new Schema({
         ref: 'User',
         required: true
     },
-    imgUrl: {
+    imgInfo: {
         required: true,
-        type: String
+        type: Object
     },
     description: {
         type: String

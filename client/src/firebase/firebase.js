@@ -26,14 +26,15 @@ const imageUpload = (picture, user, setUrl) => {
     const storageRef = storage.ref()
 
     // const picRef = storageRef.child(pictureName);
-    const picImagesRef = storageRef.child(`${user}/${pictureName}`);
+    const path = `${user}/${pictureName}`
+    const picRef = storageRef.child(path);
     
     if(pictureFile === ''){
         console.error(`not an image, the image file is a ${typeof(imageAsFile)}`)
     }
 
     // uploads picture 
-    const uploadTask = picImagesRef.put(pictureFile)
+    const uploadTask = picRef.put(pictureFile)
 
     // listens for state changes, errors, and completion of upload
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
@@ -67,9 +68,12 @@ const imageUpload = (picture, user, setUrl) => {
         }, () => {
         // Upload completed successfully, now we can get the download URL
             uploadTask.snapshot.ref.getDownloadURL()
+            // .then(firebaseUrl => {
+            //     console.log(path)
+            // })
                 .then(firebaseUrl => {
                     const url = firebaseUrl
-                    setUrl(url)
+                    setUrl(url, path)
                 })
             // storage.ref('images').child(pictureName).getDownloadURL()
             //     .then(firebaseUrl => {
@@ -80,4 +84,16 @@ const imageUpload = (picture, user, setUrl) => {
     )
 }
 
-export default imageUpload
+const deleteImage = ref => {
+    // Create a reference to the file to delete
+    // var fileRef = storageRef.child(`${user}/${name}`)
+    
+    // Delete the file
+    firebase.storage.ref(ref).delete().then(() => {
+        console.log('file deleted successfully')
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export {imageUpload, deleteImage}

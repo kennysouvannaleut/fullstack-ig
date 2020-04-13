@@ -11,3 +11,11 @@
 .image {
     max-width: 400px;
 }
+
+.detail-image {
+    max-width: 80%;
+}
+
+.post-detail {
+    text-align: center
+}

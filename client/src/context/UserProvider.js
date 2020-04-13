@@ -18,13 +18,21 @@ const UserProvider = props => {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || '',
         posts: [],
-        currentPost: [],
+        currentPost: {
+            imgInfo: {
+                imgUrl: '',
+                imgRef: ''
+            },
+            user: '',
+            description: '',
+            likes: ''
+        },
         comments: [],
         loading: true,
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
-    console.log(userState);
+    console.log(userState)
     const { goBack } = useHistory();
 
     // USER AUTH:
@@ -54,7 +62,7 @@ const UserProvider = props => {
                 const { user, token } = res.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
-                getPostById();
+                getPostsById();
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     user,
@@ -102,7 +110,8 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({ 
                     ...prevUserState,
-                    posts: res.data
+                    posts: res.data,
+                    loading: false
                 }));
             })
             .catch(err => {
@@ -110,9 +119,24 @@ const UserProvider = props => {
         });
     };
 
-    // get user posts
-    const getPostById = () => {
-        userAxios.get('/viewposts/user')
+    // get (logged in) user's posts
+    const getPostsById = () => {
+        userAxios.get(`/viewposts/user`)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    posts: res.data,
+                    loading: false
+                }))
+            })
+            .catch(err => {
+                handleError(err)
+        })
+    }
+
+    // get (other) user's posts
+    const selectedUser = (username) => {
+        userAxios.get(`/viewposts/user/${username}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -170,13 +194,12 @@ const UserProvider = props => {
     };
 
     // edit post
-    const editPost = (update, postId) => {
+    const editPost = (postId, update) => {
         userAxios.put(`/api/update/${postId}`, update)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    posts: prevUserState.posts.map(post => (
-                        post._id !== postId ? post : res.data))
+                    currentPost: res.data
                 }));
             })
             .catch(err => {
@@ -282,7 +305,8 @@ const UserProvider = props => {
             logout,
             resetAuthErr,
             getPosts,
-            getPostById,
+            getPostsById,
+            selectedUser,
             postDetail,
             createPost,
             removePost,

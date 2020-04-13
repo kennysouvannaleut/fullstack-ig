@@ -13,9 +13,20 @@ posts.get('/', (req, res, next) => {
     })
 })
 
-// get one user's posts
-posts.get('/user/:userId', (req, res, next) => {
-    Post.find({user: req.params.userId}, (err, posts) => {
+// get (logged in) user's posts
+posts.get('/user', (req, res, next) => {
+    Post.find({user: req.user._id}, (err, posts) => {
+        if(err){
+            res.status(500)
+            return next(err)
+        }
+        return res.status(200).send(posts)
+    })
+})
+
+// get (other) user's posts
+posts.get('/user/:username', (req, res, next) => {
+    Post.find({postedBy: req.params.username}, (err, posts) => {
         if(err){
             res.status(500)
             return next(err)

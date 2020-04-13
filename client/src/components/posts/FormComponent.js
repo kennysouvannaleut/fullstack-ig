@@ -16,7 +16,7 @@ const FormComponent = props => {
                 name='description'
                 value={ description }
                 onChange={ handleChange }
-                placeholder='image description...'
+                placeholder='provide an image description'
                 cols={ 50 }
                 rows={ 10 } 
             />
@@ -29,7 +29,7 @@ const FormComponent = props => {
                 maxFileSize={ 5242880 }
                 fileSizeError='file size is to big'
                 fileTypeError='is not supported file extension'
-                buttonText='Upload an image'
+                buttonText='upload an image'
             />
             <button>{ buttonText }</button>
         </form>

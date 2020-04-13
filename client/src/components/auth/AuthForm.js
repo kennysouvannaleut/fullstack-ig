@@ -21,7 +21,6 @@ const AuthForm = props => {
                 onChange={ handleChange }
                 placeholder='Username'
             />
-
             <input
                 type='text'
                 name='password'
@@ -29,7 +28,6 @@ const AuthForm = props => {
                 onChange={ handleChange }
                 placeholder='Password'
             />
-
             <button>{ buttonText }</button>
             { errMsg && <p style={{ color: 'red' }}>{ errMsg }</p> }
         </form>

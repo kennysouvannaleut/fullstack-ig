@@ -86,10 +86,13 @@ const imageUpload = (picture, user, setUrl) => {
 
 const deleteImage = ref => {
     // Create a reference to the file to delete
+    const storage = firebase.storage()
+    const storageRef = storage.ref()
+    const thisImage = storageRef.child(ref)
     // var fileRef = storageRef.child(`${user}/${name}`)
     
     // Delete the file
-    firebase.storage.ref(ref).delete().then(() => {
+    thisImage.delete().then(() => {
         console.log('file deleted successfully')
     }).catch(error => {
         console.log(error)

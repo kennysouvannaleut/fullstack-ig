@@ -34,7 +34,7 @@ comments.delete('/:commentId', (req, res, next) => {
                 res.status(500)
                 return next(err)
             }
-        return res.status(200).send(`Your comment was deleted`)
+        return res.status(200).send(`Your comment was deleted` + deletedComment)
     })
 })
 
@@ -48,7 +48,7 @@ comments.put('/:commentId', (req, res, next) => {
                 res.status(500)
                 return next(err)
             }
-            return res.status(201).send('Your comment was updated')
+            return res.status(201).send(`Your comment was updated`, + updatedComment)
         }
     )
 })

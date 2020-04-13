@@ -11,7 +11,7 @@ update.delete('/:postId', (req, res, next) => {
                 res.status(500)
                 return next(err)
             }
-        return res.status(200).send(`Your post was deleted`)
+        return res.status(200).send(`Your post was deleted` + deletedPost)
     })
 })
 
@@ -26,7 +26,7 @@ update.put('/:postId', (req, res, next) => {
                 res.status(500)
                 return next(err)
             }
-            return res.status(201).send('Your post was updated')
+            return res.status(201).send(`Your post was updated` + updatedPost)
         }
     )
 })

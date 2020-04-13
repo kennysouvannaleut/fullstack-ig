@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FormComponent from './FormComponent';
-import imageUpload from '../../firebase/firebase.js'
+import {imageUpload} from '../../firebase/firebase.js'
 
 const FormContainer = props => {
     const { createPost, user } = props;
@@ -10,7 +10,10 @@ const FormContainer = props => {
     // + ('0' + date.getDate()).slice(-2);
 
     const initialInputs = {
-        imgUrl: '',
+        imgInfo: {
+            imgUrl: '',
+            imgRef: ''
+        },
         user: user,
         description: '',
         likes: '',
@@ -37,12 +40,15 @@ const FormContainer = props => {
         imageUpload(picture, user, setUrl);
     };
 
-    const setUrl = url => {
+    const setUrl = (url, path) => {
         setInputs(prevInputs => ({
             ...prevInputs, 
-            imgUrl: url
+            imgInfo: {
+                imgUrl: url,
+                imgRef: path
+            }
         }))
-        const inputsWithImgUrl = {...inputs, imgUrl: url}
+        const inputsWithImgUrl = {...inputs, imgInfo: {imgUrl: url, imgRef: path}}
         finalizeSubmit(inputsWithImgUrl)
     }
 

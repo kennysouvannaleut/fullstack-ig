@@ -18,7 +18,7 @@ const PostCard = props => {
         userPage
     } = props;
     const {user: {username}} = useContext(userContext)
-    console.log(user)
+
     return (
         <div className='card'>
             <Link to={`/detail/${ _id }`}>

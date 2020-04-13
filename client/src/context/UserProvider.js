@@ -32,7 +32,7 @@ const UserProvider = props => {
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
-    console.log(userState)
+
     const { goBack } = useHistory();
 
     // USER AUTH:

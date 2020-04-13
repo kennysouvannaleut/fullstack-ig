@@ -3,7 +3,7 @@ import UserContext from '../../context/userContext';
 import PostCard from './PostCard';
 
 const PostList = (props) => {
-    const userContext = useContext(UserContext)
+    const userContext = useContext(UserContext);
     const { 
         getPosts, 
         posts,
@@ -11,7 +11,7 @@ const PostList = (props) => {
         upvotePost, 
         downvotePost
         } = userContext;
-    const {userPage} = props
+    const { userPage } = props;
 
     useEffect(() => {
         getPosts();
@@ -43,7 +43,7 @@ const PostList = (props) => {
                                     { ...post }
                                     user={ postedBy }
                                     votes={ votes }
-                                    imgInfo={ imgInfo }
+                                    imgInfo={ imgInfo.imgUrl }
                                     description={ description }
                                     dateAdded={ dateAdded }
                                     upvotePost={ upvotePost } 

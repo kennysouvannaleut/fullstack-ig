@@ -11,8 +11,8 @@ const DetailPage = () => {
         editPost, 
         removePost, 
         user, 
-        user: {username}
-    } = useContext(userContext)
+        user: { username }
+    } = useContext(userContext);
     const {
         imgInfo: {
             imgUrl,
@@ -74,7 +74,7 @@ const DetailPage = () => {
                 </>
             }
             <p>{dateAdded}</p>
-            <img className='detail-image' src={imgUrl}/>
+            <img className='detail-image' src={imgUrl} alt='' />
             {toggle ? 
                 <>
                     <br/>

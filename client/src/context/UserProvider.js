@@ -11,7 +11,7 @@ userAxios.interceptors.request.use(config => {
     return config;
 });
 
-const handleError = err => console.log(err.response.data.errMsg);
+// const handleError = err => console.log(err.response.data.errMsg);
 
 const UserProvider = props => {
     const initialState = {
@@ -23,9 +23,9 @@ const UserProvider = props => {
                 imgUrl: '',
                 imgRef: ''
             },
-            user: '',
+            postedBy: '',
             description: '',
-            likes: ''
+            votes: ''
         },
         comments: [],
         loading: true,
@@ -51,7 +51,7 @@ const UserProvider = props => {
             })
             .catch(err => {
                 handleAuthErr(err.response.data.errMsg);
-                handleError(err);
+                console.error(err);
         });
     };
 
@@ -72,7 +72,7 @@ const UserProvider = props => {
             })
             .catch(err => {
                 handleAuthErr(err.response.data.errMsg);
-                handleError(err);
+                console.error(err);
         });
     };
 
@@ -115,7 +115,7 @@ const UserProvider = props => {
                 }));
             })
             .catch(err => {
-                handleError(err);
+                console.error(err);
         });
     };
 
@@ -130,7 +130,7 @@ const UserProvider = props => {
                 }))
             })
             .catch(err => {
-                handleError(err)
+                console.error(err)
         })
     }
 
@@ -144,7 +144,7 @@ const UserProvider = props => {
                 }));
             })
             .catch(err => {
-                handleError(err);
+                console.error(err);
         });
     };
 
@@ -158,7 +158,7 @@ const UserProvider = props => {
                 }));
             })
             .catch(err => {
-                handleError(err);
+                console.error(err);
         });
     };
 
@@ -174,7 +174,7 @@ const UserProvider = props => {
                 }));
             })
             .catch(err => {
-                handleError(err);
+                console.error(err);
         });
     };
 
@@ -189,7 +189,7 @@ const UserProvider = props => {
                 goBack();
             })
             .catch(err => { 
-                handleError(err);
+                console.error(err);
         });
     };
 
@@ -203,7 +203,8 @@ const UserProvider = props => {
                 }));
             })
             .catch(err => {
-                handleError(err);
+               console.error(err);
+               alert('Your post has been updated')
         });
     };
 
@@ -218,7 +219,7 @@ const UserProvider = props => {
                 }));
             })
             .catch(err => { 
-                handleError(err) 
+                console.error(err)
                 alert('You can only vote once per post')
         })
     };
@@ -233,7 +234,7 @@ const UserProvider = props => {
                 }));
             })
             .catch(err => { 
-                handleError(err)
+                console.error(err)
                 alert('You can only vote once per post');
         });
     };
@@ -248,7 +249,7 @@ const UserProvider = props => {
                 }))
             })
             .catch(err => { 
-                handleError(err) 
+                console.error(err) 
         })
     }
 
@@ -264,7 +265,7 @@ const UserProvider = props => {
                 }))
             })
             .catch(err => { 
-                handleError(err) 
+                console.error(err) 
         })
     }
 
@@ -277,7 +278,7 @@ const UserProvider = props => {
                 }))
             })
             .catch(err => { 
-                handleError(err) 
+                console.error(err) 
         })
     }
 
@@ -292,9 +293,9 @@ const UserProvider = props => {
                 }))
             })
             .catch(err => { 
-                handleError(err) 
-        })
-    }
+                console.error(err) 
+        });
+    };
 
     return (
         <UserContext.Provider 

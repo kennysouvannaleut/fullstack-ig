@@ -41,7 +41,6 @@ const DetailPage = () => {
         setEdits({description: description})
     }, [description])
     
-    console.log(currentPost)
     const toggleEdit = () => {
         setToggle(!toggle)
     }

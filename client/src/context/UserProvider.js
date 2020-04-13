@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import UserContext from './userContext';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
 const userAxios = axios.create();
 
 userAxios.interceptors.request.use(config => {
-    const token = localStorage.getItem('token')
-    config.headers.Authorization = `Bearer ${token}`
-    return config
-})
+    const token = localStorage.getItem('token');
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+});
 
 const handleError = err => console.log(err.response.data.errMsg);
 
@@ -18,59 +18,59 @@ const UserProvider = props => {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || '',
         posts: [],
-        currentPost: null,
+        currentPost: [],
         comments: [],
         loading: true,
         errMsg: ''
     }
-    const [userState, setUserState] = useState(initialState)
-    console.log(userState)
-    const { goBack } = useHistory()
+    const [userState, setUserState] = useState(initialState);
+    console.log(userState);
+    const { goBack } = useHistory();
 
     // USER AUTH:
-    const signup = (credentials) => {
+    const signup = credentials => {
         axios.post('/auth/signup', credentials)
             .then(res => {
-                const { user, token } = res.data
-                localStorage.setItem('token', token)
-                localStorage.setItem('user', JSON.stringify(user))
+                const { user, token } = res.data;
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', JSON.stringify(user));
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     user,
                     token,
                     success: true
-                }))
+                }));
             })
             .catch(err => {
-                handleAuthErr(err.response.data.errMsg)
-                handleError(err)
-            })
-    }
+                handleAuthErr(err.response.data.errMsg);
+                handleError(err);
+        });
+    };
 
-    const login = (credentials) => {
+    // login
+    const login = credentials => {
         axios.post('/auth/login', credentials)
             .then(res => {
-                const { user, token } = res.data
-                localStorage.setItem('token', token)
-                localStorage.setItem('user', JSON.stringify(user))
-                getPostById(user._id)
+                const { user, token } = res.data;
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', JSON.stringify(user));
+                getPostById();
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     user,
                     token,
                     success: true
-                }))
+                }));
             })
             .catch(err => {
-                handleAuthErr(err.response.data.errMsg)
-                handleError(err)
-            })
-    }
+                handleAuthErr(err.response.data.errMsg);
+                handleError(err);
+        });
+    };
 
     const logout = () => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-        localStorage.removeItem('token')
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         setUserState({
             user: '',
             token: '',
@@ -92,8 +92,8 @@ const UserProvider = props => {
         setUserState(prevUserState => ({
             ...prevUserState,
             errMsg: ''
-        }))
-    };
+        })
+    )};
 
     // POSTS:
     // get all posts:
@@ -103,42 +103,42 @@ const UserProvider = props => {
                 setUserState(prevUserState => ({ 
                     ...prevUserState,
                     posts: res.data
-                }))
+                }));
             })
-            .catch(err => { 
-                handleError(err) 
-        })
-    }
+            .catch(err => {
+                handleError(err);
+        });
+    };
 
     // get user posts
-    const getPostById = (userId) => {
-        userAxios.get(`/viewposts/${userId}`)
+    const getPostById = () => {
+        userAxios.get('/viewposts/user')
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     posts: res.data
-                }))
+                }));
             })
-            .catch(err => { 
-                handleError(err) 
-        })
+            .catch(err => {
+                handleError(err);
+        });
     };
 
     // get one post
     const postDetail = (postId) => {
-        userAxios.get(`/viewposts/${postId}`)
+        userAxios.get(`/viewposts/post/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     currentPost: res.data
-                }))
+                }));
             })
-            .catch(err => { 
-                handleError(err) 
-        })
-    }
+            .catch(err => {
+                handleError(err);
+        });
+    };
 
-    const createPost = (newPost) => {
+    const createPost = newPost => {
         userAxios.post('/api/post', newPost)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -147,26 +147,26 @@ const UserProvider = props => {
                         ...prevUserState.posts,
                         res.data
                     ]
-                }))
+                }));
             })
-            .catch(err => { 
-                handleError(err) 
-        })
+            .catch(err => {
+                handleError(err);
+        });
     };
 
     // delete post
-    const removePost = (postId) => {
+    const removePost = postId => {
         userAxios.delete(`/api/update/${postId}`)
             .then(() => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     posts: prevUserState.posts.filter(post => post._id !== postId)
-                }))
-                goBack()
+                }));
+                goBack();
             })
             .catch(err => { 
-                handleError(err) 
-        })
+                handleError(err);
+        });
     };
 
     // edit post
@@ -176,13 +176,12 @@ const UserProvider = props => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     posts: prevUserState.posts.map(post => (
-                        post._id !== postId ? post : res.data
-                    ))
-                }))
+                        post._id !== postId ? post : res.data))
+                }));
             })
-            .catch(err => { 
-                handleError(err) 
-        })
+            .catch(err => {
+                handleError(err);
+        });
     };
 
     // UP/DOWN VOTING:
@@ -193,8 +192,7 @@ const UserProvider = props => {
                     ...prevUserState, 
                     posts: prevUserState.posts.map(post => (
                         post._id === postId ? res.data : post))
-                    })
-                )
+                }));
             })
             .catch(err => { 
                 handleError(err) 
@@ -209,14 +207,13 @@ const UserProvider = props => {
                     ...prevUserState, 
                     posts: prevUserState.posts.map(post => (
                         post._id === postId ? res.data : post))
-                    })
-                )
+                }));
             })
             .catch(err => { 
-                handleError(err) 
-                alert('You can only vote once per post')
-        })
-    }
+                handleError(err)
+                alert('You can only vote once per post');
+        });
+    };
 
     // COMMENTS:
     const getComments= (postId) => {
@@ -303,4 +300,4 @@ const UserProvider = props => {
     );
 };
 
-export default UserProvider
+export default UserProvider;

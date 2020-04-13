@@ -3,7 +3,11 @@ import FormComponent from './FormComponent';
 import imageUpload from '../../firebase/firebase.js'
 
 const FormContainer = props => {
-    const { createPost, user } = props
+    const { createPost, user } = props;
+
+    // const dateString = date.getFullYear() + '-'
+    // + ('0' + (date.getMonth() + 1)).slice(-2) + '-'
+    // + ('0' + date.getDate()).slice(-2);
 
     const initialInputs = {
         imgUrl: '',
@@ -25,13 +29,13 @@ const FormContainer = props => {
     )};
 
     const onDrop = picture => {
-        setPicture(picture)
+        setPicture(picture);
     };
 
     const handleSubmit = e => {
-        e.preventDefault()
-        imageUpload(picture, user, setUrl)
-    }
+        e.preventDefault();
+        imageUpload(picture, user, setUrl);
+    };
 
     const setUrl = url => {
         setInputs(prevInputs => ({
@@ -53,7 +57,7 @@ const FormContainer = props => {
             handleSubmit={ handleSubmit }
             onDrop={ onDrop }
             inputs={ inputs }
-            buttonText='Create new post'
+            buttonText='submit'
         />
     );
 };

@@ -14,7 +14,7 @@ posts.get('/', (req, res, next) => {
 })
 
 // get one user's posts
-posts.get('/:userId', (req, res, next) => {
+posts.get('/user', (req, res, next) => {
     Post.find({user: req.params.userId}, (err, posts) => {
         if(err){
             res.status(500)
@@ -25,9 +25,9 @@ posts.get('/:userId', (req, res, next) => {
 })
 
 // get one post
-posts.get('/:postId', (req, res, next) => {
+posts.get('/post/:postId', (req, res, next) => {
     Post.findOne(
-        {_id: req.params.postId}, 
+        { _id: req.params.postId},
         (err, post) => {
             if(err){
                 res.status(500)
@@ -38,3 +38,4 @@ posts.get('/:postId', (req, res, next) => {
 })
 
 module.exports = posts
+

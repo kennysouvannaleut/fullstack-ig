@@ -17,6 +17,13 @@ const UserProvider = props => {
     const initialState = {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || '',
+        profile: {
+            image: {
+                imgUrl: '',
+                imgPath: ''
+            },
+            about: ''
+        },
         posts: [],
         currentPost: {
             imgInfo: {
@@ -32,7 +39,7 @@ const UserProvider = props => {
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
-
+    // console.log(initialState)
     const { goBack } = useHistory();
 
     // USER AUTH:
@@ -62,6 +69,7 @@ const UserProvider = props => {
                 const { user, token } = res.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
+                getProfile();
                 currentUserPosts();
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -102,6 +110,33 @@ const UserProvider = props => {
             errMsg: ''
         })
     )};
+
+    // PROFILE:
+    const getProfile = () => {
+        userAxios.get('/api/profile')
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    profile: res.data
+                }))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const addProfile = profile => {
+        userAxios.post('/api/profile', profile)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    profile: res.data
+                }))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     // POSTS:
     // get all posts:
@@ -305,6 +340,8 @@ const UserProvider = props => {
             login,
             logout,
             resetAuthErr,
+            getProfile,
+            addProfile,
             getPosts,
             currentUserPosts,
             selectedUser,

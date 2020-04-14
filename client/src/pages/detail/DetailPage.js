@@ -10,8 +10,9 @@ const DetailPage = () => {
         postDetail, 
         editPost, 
         removePost, 
-        user, 
-        user: { username }
+        user,
+        user: { username },
+        profile
     } = useContext(userContext);
     const {
         imgInfo: {
@@ -66,7 +67,13 @@ const DetailPage = () => {
 
     return(
         <div className='post-detail'>
-            <h3>Posted By: <Link to={`/user/${postedBy}`}>{postedBy}</Link></h3>
+            <div className='detail-user'>
+                <p>Posted By: </p>
+                <Link className='card-username card-title' to={`/user/${ postedBy }`}>
+                    <img className='user-icon' src={profile.image.imgUrl}/>
+                    <p>{ postedBy }</p>
+                </Link>
+            </div>
             {postedBy === username &&
                 <>
                     <button onClick={handleDelete}>Delete Post</button>

@@ -69,7 +69,7 @@ const UserProvider = props => {
                 const { user, token } = res.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
-                getProfile()
+                getProfile();
                 currentUserPosts();
                 setUserState(prevUserState => ({
                     ...prevUserState,

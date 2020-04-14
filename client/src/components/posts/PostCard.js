@@ -6,6 +6,7 @@ const PostCard = props => {
     const { 
         _id,
         user, 
+        profile,
         imgInfo: {
             imgUrl
         }, 
@@ -16,9 +17,17 @@ const PostCard = props => {
         userPage
     } = props;
     const { user: { username } } = useContext(userContext);
-    console.log(user);
+
     return (
         <div className='card'>
+            {!userPage &&
+                <div>
+                    <Link className='card-username' to={`/user/${ user }`}>
+                        <img className='user-icon' src={profile.image.imgUrl}/>
+                        <p>{ user }</p>
+                    </Link>
+                </div>
+            }
             <Link to={`/detail/${ _id }`}>
                 <div 
                     className='card-image' 
@@ -36,13 +45,6 @@ const PostCard = props => {
                 </div>
             </Link>
             <div className='card-info'>
-                <div className='card-title'>
-                    {!userPage &&
-                        <Link to={`/user/${ user }`}>
-                            <p>{ user }</p>
-                        </Link>
-                    }
-                </div>
                 <div className='card-post-section'>
                     {username !== user &&
                         <>
@@ -51,8 +53,7 @@ const PostCard = props => {
                         </>
                     }
                         <span> votes: { votes }</span>
-                    </div>
-                
+                </div>
             </div>
         </div>
     );

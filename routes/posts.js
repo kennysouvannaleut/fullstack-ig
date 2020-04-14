@@ -49,4 +49,3 @@ posts.get('/post/:postId', (req, res, next) => {
 })
 
 module.exports = posts
-

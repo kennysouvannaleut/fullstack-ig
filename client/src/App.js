@@ -5,17 +5,17 @@ import UserContext from './context/userContext';
 
 import Navbar from './components/nav/Navbar';
 import Auth from './components/auth/Auth';
-// import Error from './components/Error';
+import Error from './components/Error';
 import ProtectedRoute from './components/ProtectedRoute.js'
 
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import Post from './pages/post/Post';
-import DetailPage from './pages/detail/DetailPage.js'
-import UserPosts from './pages/userPosts/UserPosts.js'
+import DetailPage from './pages/detail/DetailPage.js';
+import UserPosts from './pages/userPosts/UserPosts.js';
 
 const App = () => {
-    const { token , logout } = useContext(UserContext)
+    const { token , logout } = useContext(UserContext);
 
     return (
         <div className='App'>
@@ -25,7 +25,6 @@ const App = () => {
                     exact path='/'
                     render={ () => token ? <Redirect to='/profile' /> : <Auth /> }
                 /> 
-                {/* <Route path='*' component={ Error } /> */}
                 <ProtectedRoute 
                     path='/profile' 
                     component={ Profile } 
@@ -33,7 +32,7 @@ const App = () => {
                     token={ token } 
                 />
                 <ProtectedRoute 
-                    path='/post' 
+                    path='/current-user' 
                     component={ Post } 
                     redirectTo={ '/' }
                     token={ token }
@@ -46,18 +45,23 @@ const App = () => {
                 />
                 <ProtectedRoute 
                     exact path='/detail/:postId' 
-                    component={DetailPage}
+                    component={ DetailPage }
                     redirectTo='/'
-                    token={token}
+                    token={ token }
                 />
                 <ProtectedRoute 
                     exact path='/user/:username' 
-                    component={UserPosts}
+                    component={ UserPosts }
                     redirectTo='/'
-                    token={token}
+                    token={ token }
+                />
+                <ProtectedRoute 
+                    exact path='*' 
+                    component={ Error }
+                    redirectTo='/'
+                    token={ token }
                 />
             </Switch>
-
         </div>
     ); 
 };

@@ -15,4 +15,15 @@ postNew.post('/', (req, res, next) => {
     })
 })
 
+// get (logged in) user's posts
+postNew.get('/current-user', (req, res, next) => {
+    Post.find({ user: req.user }, (err, posts) => {
+        if(err){
+            res.status(500)
+            return next(err)
+        }
+        return res.status(200).send(posts)
+    })
+})
+
 module.exports = postNew

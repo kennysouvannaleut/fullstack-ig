@@ -7,7 +7,8 @@ const PostCard = props => {
         _id,
         user, 
         imgInfo: {
-            imgUrl
+            imgUrl,
+            imgRef
         }, 
         imgInfo, 
         upvotePost, 
@@ -16,7 +17,7 @@ const PostCard = props => {
         userPage
     } = props;
     const { user: { username } } = useContext(userContext);
-    console.log(user);
+    // console.log(user);
     return (
         <div className='card'>
             <Link to={`/detail/${ _id }`}>
@@ -52,7 +53,7 @@ const PostCard = props => {
                     }
                         <span> votes: { votes }</span>
                     </div>
-                
+                    <br />
             </div>
         </div>
     );

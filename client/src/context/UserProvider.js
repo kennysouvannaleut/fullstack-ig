@@ -62,7 +62,7 @@ const UserProvider = props => {
                 const { user, token } = res.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
-                getPostsById();
+                currentUserPosts();
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     user,
@@ -120,19 +120,19 @@ const UserProvider = props => {
     };
 
     // get (logged in) user's posts
-    const getPostsById = () => {
-        userAxios.get(`/viewposts/user`)
+    const currentUserPosts = () => {
+        userAxios.get(`/api/post/current-user`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    posts: res.data,
+                    currentPost: res.data,
                     loading: false
-                }))
+                }));
             })
             .catch(err => {
-                console.error(err)
-        })
-    }
+                console.error(err);
+        });
+    };
 
     // get (other) user's posts
     const selectedUser = (username) => {
@@ -306,7 +306,7 @@ const UserProvider = props => {
             logout,
             resetAuthErr,
             getPosts,
-            getPostsById,
+            currentUserPosts,
             selectedUser,
             postDetail,
             createPost,

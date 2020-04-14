@@ -1,18 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import UserContext from '../../context/userContext';
-import { useParams } from 'react-router-dom';
 
 const Post = () => {
     const userContext = useContext(UserContext);
-    const { postDetail, currentPost } = userContext;
-    
-    let { postId } = useParams();
+    const { currentUserPosts, currentPost } = userContext;
 
     useEffect(() => {
-        postDetail(postId);
+        currentUserPosts();
     }, []);
-
-    // const currentPostCB = React.useCallback(() => {}, []);
 
     console.log(currentPost);
     
@@ -22,8 +17,10 @@ const Post = () => {
                 <>
                 <div className='post-image'
                 style={{
-                    width: '250%',
-                    height: '300px',
+                    width: '50%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    height: '250px',
                     backgroundImage: `url('${currentPost.imgUrl}')`,
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
@@ -36,7 +33,6 @@ const Post = () => {
                 <div className='post-content'>
                     <p> date: { currentPost.dateAdded }</p>
                     <p> description: { currentPost.description }</p>
-                    <p> postedBy: { currentPost.postedBy }</p>
                     <span> votes: { currentPost.votes }</span>
                 </div>
                 </>

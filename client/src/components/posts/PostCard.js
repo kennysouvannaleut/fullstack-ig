@@ -8,7 +8,8 @@ const PostCard = props => {
         user, 
         profile,
         imgInfo: {
-            imgUrl
+            imgUrl,
+            imgRef
         }, 
         imgInfo, 
         upvotePost, 
@@ -17,7 +18,6 @@ const PostCard = props => {
         userPage
     } = props;
     const { user: { username } } = useContext(userContext);
-
     return (
         <div className='card'>
             {!userPage &&
@@ -53,7 +53,8 @@ const PostCard = props => {
                         </>
                     }
                         <span> votes: { votes }</span>
-                </div>
+                    </div>
+                    <br />
             </div>
         </div>
     );

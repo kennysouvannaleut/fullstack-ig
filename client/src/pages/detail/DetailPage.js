@@ -80,7 +80,23 @@ const DetailPage = () => {
                 </>
             }
             <p>{dateAdded}</p>
-            <img className='detail-image' src={imgUrl} alt='' />
+            {/* <img className='detail-image' src={imgUrl} alt='' /> */}
+                <div 
+                    className='card-image' 
+                    style={{
+                        width: '50%',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                        height: '250px',
+                        backgroundImage: `url('${ imgUrl }')`,
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                        position: 'center',
+                        borderTopLeftRadius: '2px',
+                        borderTopRightRadius: '2px'
+                }}>
+                </div>
             {toggle ? 
                 <>
                     <br/>

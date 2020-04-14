@@ -6,12 +6,12 @@ const Navbar = props => {
     const { token, logout } = props;
 
     return (
-        <div className='navbar'>
+        <div className='nav'>
             { token && <Link to='/profile'>Profile</Link> }
             
             <Navtab to='/home' label='Home' />
             <Navtab to='/profile' label='Profile' />
-            <Navtab to='/post' label='Post' />
+            <Navtab to='/current-user' label='Post' />
 
             <button onClick={ logout }>Logout</button>
         </div>

@@ -8,6 +8,7 @@ const DetailPage = () => {
     const {
         currentPost, 
         postDetail, 
+        getProfile,
         editPost, 
         removePost, 
         user,
@@ -40,6 +41,7 @@ const DetailPage = () => {
     useEffect(() => {
         postDetail(postId)
         setEdits({description: description})
+        getProfile()
     }, [description])
     
     const toggleEdit = () => {
@@ -80,8 +82,8 @@ const DetailPage = () => {
                 </>
             }
             <p>{dateAdded}</p>
-            {/* <img className='detail-image' src={imgUrl} alt='' /> */}
-                <div 
+            <img className='detail-image' src={imgUrl} alt='' />
+                {/* <div 
                     className='card-image' 
                     style={{
                         width: '50%',
@@ -96,7 +98,7 @@ const DetailPage = () => {
                         borderTopLeftRadius: '2px',
                         borderTopRightRadius: '2px'
                 }}>
-                </div>
+                </div> */}
             {toggle ? 
                 <>
                     <br/>

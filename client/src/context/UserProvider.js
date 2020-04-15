@@ -170,7 +170,7 @@ const UserProvider = props => {
     };
 
     // get (other) user's posts
-    const selectedUser = (username) => {
+    const selectedUser = username => {
         userAxios.get(`/viewposts/user/${username}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -184,7 +184,7 @@ const UserProvider = props => {
     };
 
     // get one post
-    const postDetail = (postId) => {
+    const postDetail = postId => {
         userAxios.get(`/viewposts/post/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -244,7 +244,7 @@ const UserProvider = props => {
     };
 
     // UP/DOWN VOTING:
-    const upvotePost = (postId) => {
+    const upvotePost = postId => {
         userAxios.put(`/api/vote/upvote/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -259,7 +259,7 @@ const UserProvider = props => {
         })
     };
 
-    const downvotePost = (postId) => {
+    const downvotePost = postId => {
         userAxios.put(`/api/vote/downvote/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -275,7 +275,7 @@ const UserProvider = props => {
     };
 
     // COMMENTS:
-    const getComments= (postId) => {
+    const getComments= postId => {
         userAxios.get(`/api/comments/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -304,7 +304,7 @@ const UserProvider = props => {
         })
     }
 
-    const removeComment = (commentId) => {
+    const removeComment = commentId => {
         userAxios.delete(`/api/comments/${commentId}`)
             .then(() => {
                 setUserState(prevUserState => ({

@@ -5,17 +5,18 @@ import PostList from '../../components/posts/PostList.js'
 
 const UserPosts = () => {
     const {username} = useParams()
-    const {selectedUser} = useContext(userContext)
+    const {selectedUser, profile} = useContext(userContext)
 
     useEffect(() => {
         selectedUser(username)
     }, [])
-
-    // question about how to use params on this (error when clicking on picture while on this page)
     
     return(
         <div>
-            <h2>@{username}</h2>
+            <div className='card-username'>
+                <img className='user-icon' src={profile.image.imgUrl}/>
+                <p>{ username }</p>
+            </div>
             <PostList userPage={true}/>
         </div>
     )

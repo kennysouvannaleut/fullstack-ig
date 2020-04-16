@@ -7,6 +7,8 @@ const PostList = props => {
     const { 
         getPosts, 
         posts,
+        getProfile,
+        profile,
         loading, 
         upvotePost, 
         downvotePost
@@ -41,6 +43,8 @@ const PostList = props => {
                                 <PostCard 
                                     key={ i }
                                     { ...post }
+                                    getProfile={getProfile}
+                                    profile={profile}
                                     user={ postedBy }
                                     votes={ votes }
                                     imgInfo={ imgInfo.imgUrl }

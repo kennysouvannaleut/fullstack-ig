@@ -2,16 +2,23 @@ import React, {useState, useContext, useEffect} from 'react'
 import {useParams, Link} from 'react-router-dom'
 import userContext from '../../context/userContext'
 import {deleteImage} from '../../firebase/firebase.js'
+import CommentList from '../../components/comments/CommentList.js'
+import CommentForm from '../../components/comments/CommentForm.js'
 
 const DetailPage = () => {
     const {postId} = useParams()
     const {
         currentPost, 
         postDetail, 
+        getProfile,
         editPost, 
         removePost, 
-        user, 
-        user: { username }
+        comments,
+        getComments,
+        createComment,
+        user,
+        user: { username },
+        profile
     } = useContext(userContext);
     const {
         imgInfo: {
@@ -39,8 +46,10 @@ const DetailPage = () => {
     useEffect(() => {
         postDetail(postId)
         setEdits({description: description})
-    }, [description])
-    
+        getProfile(user)
+        getComments(postId)
+    }, [])
+    // infinite loop
     const toggleEdit = () => {
         setToggle(!toggle)
     }
@@ -66,15 +75,23 @@ const DetailPage = () => {
 
     return(
         <div className='post-detail'>
-            <h3>Posted By: <Link to={`/user/${postedBy}`}>{postedBy}</Link></h3>
+            <div className='detail-user'>
+                <p>Posted By: </p>
+                <Link className='card-username card-title' to={`/user/${ postedBy }`}>
+                    {profile.image &&
+                        <img className='user-icon' src={profile.image.imgUrl}/>
+                    }
+                    <p>{ postedBy }</p>
+                </Link>
+            </div>
             {postedBy === username &&
                 <>
                     <button onClick={handleDelete}>Delete Post</button>
                 </>
             }
             <p>{dateAdded}</p>
-            {/* <img className='detail-image' src={imgUrl} alt='' /> */}
-                <div 
+            <img className='detail-image' src={imgUrl} alt='' />
+                {/* <div 
                     className='card-image' 
                     style={{
                         width: '50%',
@@ -89,7 +106,7 @@ const DetailPage = () => {
                         borderTopLeftRadius: '2px',
                         borderTopRightRadius: '2px'
                 }}>
-                </div>
+                </div> */}
             {toggle ? 
                 <>
                     <br/>
@@ -107,6 +124,15 @@ const DetailPage = () => {
                 </>
             }
             <p>Votes: {votes}</p>
+            <h2>Comments</h2>
+            <CommentForm 
+                addOrEditComment={createComment} 
+                commentBtnText='Comment' 
+                postOrCommentId={_id}
+                // toggle={toggleEditComment}
+                // prevComment={comment}
+            />
+            <CommentList />
         </div>
     )
 } 

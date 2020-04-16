@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import userContext from '../../context/userContext';
 
@@ -6,6 +6,8 @@ const PostCard = props => {
     const { 
         _id,
         user, 
+        getProfile,
+        profile,
         imgInfo: {
             imgUrl,
             imgRef
@@ -17,9 +19,25 @@ const PostCard = props => {
         userPage
     } = props;
     const { user: { username } } = useContext(userContext);
-    // console.log(user);
+
+    useEffect(() => {
+        getProfile(user)
+    }, [])
+
+    console.log(profile)
+
     return (
         <div className='card'>
+            {!userPage &&
+                <div>
+                    <Link className='card-username' to={`/user/${ user }`}>
+                        {profile.image &&
+                            <img className='user-icon' src={profile.image.imgUrl}/>
+                        }
+                        <p>{ user }</p>
+                    </Link>
+                </div>
+            }
             <Link to={`/detail/${ _id }`}>
                 <div 
                     className='card-image' 
@@ -37,13 +55,6 @@ const PostCard = props => {
                 </div>
             </Link>
             <div className='card-info'>
-                <div className='card-title'>
-                    {!userPage &&
-                        <Link to={`/user/${ user }`}>
-                            <p>{ user }</p>
-                        </Link>
-                    }
-                </div>
                 <div className='card-post-section'>
                     {username !== user &&
                         <>
@@ -52,8 +63,8 @@ const PostCard = props => {
                         </>
                     }
                         <span> votes: { votes }</span>
-                    </div>
-                    <br />
+                </div>
+                <br />
             </div>
         </div>
     );

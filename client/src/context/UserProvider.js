@@ -17,6 +17,14 @@ const UserProvider = props => {
     const initialState = {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || '',
+        // profile: {
+        //     image: {
+        //         imgUrl: '',
+        //         imgPath: ''
+        //     },
+        //     about: ''
+        // },
+        profile: [],
         posts: [],
         currentPost: {
             imgInfo: {
@@ -32,7 +40,7 @@ const UserProvider = props => {
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
-
+    console.log(userState.profile)
     const { goBack } = useHistory();
 
     // USER AUTH:
@@ -62,6 +70,7 @@ const UserProvider = props => {
                 const { user, token } = res.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
+                getProfile();
                 currentUserPosts();
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -103,6 +112,42 @@ const UserProvider = props => {
         })
     )};
 
+    // PROFILE:
+    const getProfile = username => {
+        userAxios.get(`/api/profile/${username}`)
+            .then(res => {
+                res.data && userState.profile.length >= 1 ?
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    profile: [prevUserState.profile, prevUserState.profile.map(profile => (
+                        profile.username === username ? profile : res.data
+                    ))]
+                }))
+                // NOT WORKING
+                :
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    profile: res.data
+                }))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const addProfile = profile => {
+        userAxios.post('/api/profile', profile)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    profile: [...prevUserState.profile, res.data]
+                }))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     // POSTS:
     // get all posts:
     const getPosts = () => {
@@ -135,7 +180,7 @@ const UserProvider = props => {
     };
 
     // get (other) user's posts
-    const selectedUser = (username) => {
+    const selectedUser = username => {
         userAxios.get(`/viewposts/user/${username}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -149,7 +194,7 @@ const UserProvider = props => {
     };
 
     // get one post
-    const postDetail = (postId) => {
+    const postDetail = postId => {
         userAxios.get(`/viewposts/post/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -209,7 +254,7 @@ const UserProvider = props => {
     };
 
     // UP/DOWN VOTING:
-    const upvotePost = (postId) => {
+    const upvotePost = postId => {
         userAxios.put(`/api/vote/upvote/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -224,7 +269,7 @@ const UserProvider = props => {
         })
     };
 
-    const downvotePost = (postId) => {
+    const downvotePost = postId => {
         userAxios.put(`/api/vote/downvote/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -240,7 +285,7 @@ const UserProvider = props => {
     };
 
     // COMMENTS:
-    const getComments= (postId) => {
+    const getComments= postId => {
         userAxios.get(`/api/comments/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -269,7 +314,7 @@ const UserProvider = props => {
         })
     }
 
-    const removeComment = (commentId) => {
+    const removeComment = commentId => {
         userAxios.delete(`/api/comments/${commentId}`)
             .then(() => {
                 setUserState(prevUserState => ({
@@ -305,6 +350,8 @@ const UserProvider = props => {
             login,
             logout,
             resetAuthErr,
+            getProfile,
+            addProfile,
             getPosts,
             currentUserPosts,
             selectedUser,

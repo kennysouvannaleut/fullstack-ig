@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import userContext from '../../context/userContext';
 
@@ -6,6 +6,7 @@ const PostCard = props => {
     const { 
         _id,
         user, 
+        getProfile,
         profile,
         imgInfo: {
             imgUrl,
@@ -18,13 +19,21 @@ const PostCard = props => {
         userPage
     } = props;
     const { user: { username } } = useContext(userContext);
-    
+
+    useEffect(() => {
+        getProfile(user)
+    }, [])
+
+    console.log(profile)
+
     return (
         <div className='card'>
             {!userPage &&
                 <div>
                     <Link className='card-username' to={`/user/${ user }`}>
-                        <img className='user-icon' src={profile.image.imgUrl}/>
+                        {profile.image &&
+                            <img className='user-icon' src={profile.image.imgUrl}/>
+                        }
                         <p>{ user }</p>
                     </Link>
                 </div>

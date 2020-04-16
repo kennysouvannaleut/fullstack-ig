@@ -17,13 +17,14 @@ const UserProvider = props => {
     const initialState = {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || '',
-        profile: {
-            image: {
-                imgUrl: '',
-                imgPath: ''
-            },
-            about: ''
-        },
+        // profile: {
+        //     image: {
+        //         imgUrl: '',
+        //         imgPath: ''
+        //     },
+        //     about: ''
+        // },
+        profile: [],
         posts: [],
         currentPost: {
             imgInfo: {
@@ -39,7 +40,7 @@ const UserProvider = props => {
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
-    // console.log(initialState)
+    console.log(userState.profile)
     const { goBack } = useHistory();
 
     // USER AUTH:
@@ -112,9 +113,18 @@ const UserProvider = props => {
     )};
 
     // PROFILE:
-    const getProfile = () => {
-        userAxios.get('/api/profile')
+    const getProfile = username => {
+        userAxios.get(`/api/profile/${username}`)
             .then(res => {
+                res.data && userState.profile.length >= 1 ?
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    profile: [prevUserState.profile, prevUserState.profile.map(profile => (
+                        profile.username === username ? profile : res.data
+                    ))]
+                }))
+                // NOT WORKING
+                :
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     profile: res.data
@@ -130,7 +140,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    profile: res.data
+                    profile: [...prevUserState.profile, res.data]
                 }))
             })
             .catch(err => {

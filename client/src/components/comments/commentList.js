@@ -1,9 +1,9 @@
 import React, {useContext} from 'react'
 import Comment from './Comment.js'
-import {UserContext} from '../context/UserProvider.js'
+import userContext from '../../context/userContext.js'
 
 function CommentList(){
-    const {comments, removeComment, user: {username}, editComment} = useContext(UserContext)
+    const {comments, removeComment, user: {username}, editComment} = useContext(userContext)
 
     return(
         <div>

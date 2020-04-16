@@ -1,19 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useContext, useEffect } from 'react';
 import UserContext from '../../context/userContext';
 
 const Post = () => {
     const userContext = useContext(UserContext);
-    const { currentUserPosts, currentPost } = userContext;
+    const { currentUserPosts, posts, _id } = userContext;
 
     useEffect(() => {
         currentUserPosts();
     }, []);
 
-    console.log(currentPost);
+    console.log(posts);
     
     return (
         <div className='post'>
-            { currentPost ? (
+            { _id && posts.user && posts ? (
                 <>
                 <div className='post-image'
                 style={{
@@ -21,7 +21,8 @@ const Post = () => {
                     marginLeft: 'auto',
                     marginRight: 'auto',
                     height: '250px',
-                    backgroundImage: `url('${currentPost.imgUrl}')`,
+                    backgroundImage: `url('${ posts.imgUrl }')`,
+                    backgroundImage: `url('${ posts.imgInfo }')`,
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',
@@ -31,9 +32,9 @@ const Post = () => {
                 }}  >
                 </div>
                 <div className='post-content'>
-                    <p> date: { currentPost.dateAdded }</p>
-                    <p> description: { currentPost.description }</p>
-                    <span> votes: { currentPost.votes }</span>
+                    <p> date: { posts.dateAdded }</p>
+                    <p> description: { posts.description }</p>
+                    <span> votes: { posts.votes }</span>
                 </div>
                 </>
             ) : (

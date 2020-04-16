@@ -125,7 +125,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    currentPost: res.data,
+                    posts: res.data,
                     loading: false
                 }));
             })

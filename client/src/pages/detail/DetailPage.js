@@ -2,6 +2,8 @@ import React, {useState, useContext, useEffect} from 'react'
 import {useParams, Link} from 'react-router-dom'
 import userContext from '../../context/userContext'
 import {deleteImage} from '../../firebase/firebase.js'
+import CommentList from '../../components/comments/CommentList.js'
+import CommentForm from '../../components/comments/CommentForm.js'
 
 const DetailPage = () => {
     const {postId} = useParams()
@@ -11,6 +13,9 @@ const DetailPage = () => {
         getProfile,
         editPost, 
         removePost, 
+        comments,
+        getComments,
+        createComment,
         user,
         user: { username },
         profile
@@ -41,9 +46,10 @@ const DetailPage = () => {
     useEffect(() => {
         postDetail(postId)
         setEdits({description: description})
-        getProfile()
-    }, [description])
-    
+        getProfile(user)
+        getComments(postId)
+    }, [])
+    // infinite loop
     const toggleEdit = () => {
         setToggle(!toggle)
     }
@@ -72,7 +78,9 @@ const DetailPage = () => {
             <div className='detail-user'>
                 <p>Posted By: </p>
                 <Link className='card-username card-title' to={`/user/${ postedBy }`}>
-                    <img className='user-icon' src={profile.image.imgUrl}/>
+                    {profile.image &&
+                        <img className='user-icon' src={profile.image.imgUrl}/>
+                    }
                     <p>{ postedBy }</p>
                 </Link>
             </div>
@@ -116,6 +124,15 @@ const DetailPage = () => {
                 </>
             }
             <p>Votes: {votes}</p>
+            <h2>Comments</h2>
+            <CommentForm 
+                addOrEditComment={createComment} 
+                commentBtnText='Comment' 
+                postOrCommentId={_id}
+                // toggle={toggleEditComment}
+                // prevComment={comment}
+            />
+            <CommentList />
         </div>
     )
 } 

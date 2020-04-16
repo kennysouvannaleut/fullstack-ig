@@ -9,7 +9,6 @@ const SetProfile = props => {
     const initAboutInputs = {image: [], about: ''}
     const [aboutInputs, setAboutInputs] = useState(initAboutInputs)
 
-    console.log(aboutInputs)
     const handlePicChange = e => {
         const pic = e.target.files
         setAboutInputs(prevAboutInputs => ({

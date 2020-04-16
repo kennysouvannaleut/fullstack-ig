@@ -4,7 +4,7 @@ const Profile = require('../models/profile.js')
 
 // add profile
 profile.post('/', (req, res, next) => {
-    req.body.user = req.user._id
+    req.body.username = req.user.username
     const newProfile = new Profile(req.body)
     newProfile.save((err, newProfile) => {
         if(err){
@@ -16,9 +16,9 @@ profile.post('/', (req, res, next) => {
 })
 
 // get profile
-profile.get('/', (req, res, next) => {
+profile.get('/:username', (req, res, next) => {
     Profile.findOne(
-        {user: req.user._id},
+        {username: req.params.username},
         (err, profile) => {
             if(err){
                 res.status(500)

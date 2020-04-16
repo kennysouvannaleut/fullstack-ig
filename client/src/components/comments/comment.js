@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import CommentForm from './CommentForm.js'
 
 function Comment(props){
-    const {comment, commentId, postedBy, deleteComment, user, editComment} = props
+    const {comment, commentId, postedBy, removeComment, user, editComment} = props
     const [toggle, setToggle] = useState(false)
 
     function toggleEditComment(){
@@ -29,7 +29,7 @@ function Comment(props){
             }
             {user === postedBy &&
                 <>
-                    <button onClick={() => deleteComment(commentId)}>X</button>
+                    <button onClick={() => removeComment(commentId)}>X</button>
                     <button onClick={() => toggleEditComment()}>{toggle ? 'Cancel' : 'Edit'}</button>
                 </>
             }

@@ -1,50 +1,43 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import userContext from '../../context/userContext';
 
 const PostCard = props => {
     const { 
         _id,
-        user, 
-        getProfile,
-        profile,
-        imgInfo: {
-            imgUrl,
-            imgRef
-        }, 
-        imgInfo, 
+        // img: {
+        //     imgUrl,
+        //     imgRef
+        // }, ^^ deconstructing throws error...
+        img, 
+        votes,
+        postedBy,
+        userImg,
         upvotePost, 
         downvotePost, 
-        votes,
         userPage
     } = props;
     const { user: { username } } = useContext(userContext);
-
-    useEffect(() => {
-        getProfile(user)
-    }, [])
-
-    console.log(profile)
 
     return (
         <div className='card'>
             {!userPage &&
                 <div>
-                    <Link className='card-username' to={`/user/${ user }`}>
-                        {profile.image &&
-                            <img className='user-icon' src={profile.image.imgUrl}/>
+                    <Link className='card-username' to={`/user/${ postedBy }`}>
+                        {userImg &&
+                            <img className='user-icon' src={userImg}/>
                         }
-                        <p>{ user }</p>
+                        <p>{ postedBy }</p>
                     </Link>
                 </div>
             }
             <Link to={`/detail/${ _id }`}>
-                <div 
+                {/* <div 
                     className='card-image' 
                     style={{
                         width: '300px',
                         height: '250px',
-                        backgroundImage: `url('${ imgInfo }')`,
+                        backgroundImage: `url('${ img }')`,
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover',
@@ -52,11 +45,13 @@ const PostCard = props => {
                         borderTopLeftRadius: '2px',
                         borderTopRightRadius: '2px'
                 }}>
-                </div>
+                </div> */}
+                <img className='card-image' src={img.imgUrl}/>
+                {/* this also throws error wtf */}
             </Link>
             <div className='card-info'>
                 <div className='card-post-section'>
-                    {username !== user &&
+                    {username !== postedBy &&
                         <>
                             <button onClick={ () => upvotePost(_id) }>Upvote</button>
                             <button onClick={ () => downvotePost(_id) }>Downvote</button>

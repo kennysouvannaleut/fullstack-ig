@@ -31,4 +31,20 @@ update.put('/:postId', (req, res, next) => {
     )
 })
 
+// update user icons
+update.put('/profile/:username', (req, res, next) => {
+    Post.updateMany(
+        {postedBy: req.params.username},
+        {userImg: req.body.data},
+        {new: true},
+        (err, updatedPosts) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            return res.status(201).send(updatedPosts)
+        }
+    )
+})
+
 module.exports = update

@@ -1,79 +1,90 @@
 import React, { useState } from 'react'
-import UserContext from '../../context/userContext'
 import {imageUpload} from '../../firebase/firebase.js'
 
 
 const SetProfile = props => {
-    const {user, addProfile} = props
+    const {user, addProfileImg, addBio} = props
 
-    const initAboutInputs = {image: [], about: ''}
-    const [aboutInputs, setAboutInputs] = useState(initAboutInputs)
+    const initProfileInputs = {img: {}, bio: ''}
+    const [profileInputs, setProfileInputs] = useState(initProfileInputs)
 
-    const handlePicChange = e => {
-        const pic = e.target.files
-        setAboutInputs(prevAboutInputs => ({
-            ...prevAboutInputs,
-            image: pic,
-        }))
-    }
-
-    const handleTextChange = e => {
+    const handleBioChange = e => {
         const {value} = e.target
-        setAboutInputs(prevAboutInputs => ({
-            ...prevAboutInputs,
-            about: value
+        setProfileInputs(prevProfileInputs => ({
+            ...prevProfileInputs,
+            bio: value
         }))
     }
 
-    const handleSubmit = (e) => {
+    const handleBioSubmit = (e) => {
         e.preventDefault()
-        const {image, about} = aboutInputs
+        const {bio} = profileInputs
+        addBio(bio)
+    }
+
+    // const handleImgChange = e => {
+    //     const img = e.target.files
+    //     setProfileInputs(prevProfileInputs => ({
+    //         ...prevProfileInputs,
+    //         img: img,
+    //     }))
+    // }
+
+    const handleImgSubmit = (e) => {
+        const img = e.target.files
+        // setProfileInputs(prevProfileInputs => ({
+        //     ...prevProfileInputs,
+        //     img: img,
+        // }))
+        // const {img} = profileInputs
         const path = `${user}/profile`
-        imageUpload(image, path, setUrl)
+        imageUpload(img, path, setUrl)
     }
 
     const setUrl = (url, path) => {
-        setAboutInputs(prevAboutInputs => ({
-            ...prevAboutInputs, 
-            image: {
+        setProfileInputs(prevProfileInputs => ({
+            ...prevProfileInputs, 
+            img: {
                 imgUrl: url,
                 imgRef: path
             }
         }))
-        const inputsWithImgUrl = {...aboutInputs, image: {imgUrl: url, imgRef: path}}
-        finalizeSubmit(inputsWithImgUrl)
+        const inputsWithImgUrl = {imgUrl: url, imgRef: path}
+        finalizeImgSubmit(inputsWithImgUrl)
     }
 
-    const finalizeSubmit = aboutInputs => {
-        addProfile(aboutInputs)
-        setAboutInputs(initAboutInputs)
+    const finalizeImgSubmit = img => {
+        addProfileImg(user, img)
+        setProfileInputs(initProfileInputs)
     }
 
-    const {about} = aboutInputs
+    const {bio} = profileInputs
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
-                <div className='set-profile-pic'>
-                    <input 
-                        className='profile-pic-input' 
-                        name='file' 
-                        type='file'
-                        id='file'
-                        onChange={handlePicChange}
-                    />
-                    <label 
-                        className='profile-pic-label' 
-                        htmlFor='file' 
-                        name='file'
-                    >
-                        Choose a profile picture
-                    </label>
-                </div>
+            {/* <form onSubmit={handleImgSubmit} className='set-profile-pic'> */}
+            <div className={'set-profile-pic'}>
+                <input 
+                    className='profile-pic-input' 
+                    name='file' 
+                    type='file'
+                    id='file'
+                    onChange={handleImgSubmit}
+                />
+                <label 
+                    className='profile-pic-label' 
+                    htmlFor='file' 
+                    name='file'
+                >
+                    Choose a profile picture
+                </label>
+            </div>
+            {/* </form> */}
+            <form onSubmit={handleBioSubmit}>
                 <div>
-                    <textarea value={about} placeholder='About me' onChange={handleTextChange}></textarea>
+                    <textarea value={bio} placeholder='About me' onChange={handleBioChange}></textarea>
                 </div>
-                <button>Set profile!</button>
+                <button>Set bio!</button>
             </form>
         </>
     )

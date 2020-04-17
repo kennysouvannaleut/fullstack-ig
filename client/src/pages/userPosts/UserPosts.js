@@ -5,16 +5,19 @@ import PostList from '../../components/posts/PostList.js'
 
 const UserPosts = () => {
     const {username} = useParams()
-    const {selectedUser, profile} = useContext(userContext)
+    const {selectedUser, getProfile, profile} = useContext(userContext)
 
     useEffect(() => {
         selectedUser(username)
+        getProfile(username)
     }, [])
     
     return(
         <div>
             <div className='card-username'>
-                <img className='user-icon' src={profile.image.imgUrl}/>
+                {profile.img &&
+                    <img className='user-icon' src={profile.img.imgUrl}/>
+                }
                 <p>{ username }</p>
             </div>
             <PostList userPage={true}/>

@@ -18,20 +18,21 @@ const UserProvider = props => {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || '',
         // profile: {
-        //     image: {
+        //     img: {
         //         imgUrl: '',
         //         imgPath: ''
         //     },
-        //     about: ''
+        //     bio: ''
         // },
-        profile: [],
+        profile: {},
         posts: [],
         currentPost: {
-            imgInfo: {
+            img: {
                 imgUrl: '',
                 imgRef: ''
             },
             postedBy: '',
+            userImg: '',
             description: '',
             votes: ''
         },
@@ -40,7 +41,7 @@ const UserProvider = props => {
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
-    console.log(userState.profile)
+
     const { goBack } = useHistory();
 
     // USER AUTH:
@@ -58,8 +59,10 @@ const UserProvider = props => {
                 }));
             })
             .catch(err => {
-                handleAuthErr(err.response.data.errMsg);
-                console.error(err);
+                if(err.response){
+                    handleAuthErr(err.response.data.errMsg);
+                    console.error(err);
+                }
         });
     };
 
@@ -80,8 +83,10 @@ const UserProvider = props => {
                 }));
             })
             .catch(err => {
-                handleAuthErr(err.response.data.errMsg);
-                console.error(err);
+                if(err.response){
+                    handleAuthErr(err.response.data.errMsg);
+                    console.error(err);
+                }
         });
     };
 
@@ -92,6 +97,7 @@ const UserProvider = props => {
             user: '',
             token: '',
             posts: [],
+            profile: {},
             currentPost: null,
             comments: [],
             errMsg: ''
@@ -116,15 +122,6 @@ const UserProvider = props => {
     const getProfile = username => {
         userAxios.get(`/api/profile/${username}`)
             .then(res => {
-                res.data && userState.profile.length >= 1 ?
-                setUserState(prevUserState => ({
-                    ...prevUserState,
-                    profile: [prevUserState.profile, prevUserState.profile.map(profile => (
-                        profile.username === username ? profile : res.data
-                    ))]
-                }))
-                // NOT WORKING
-                :
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     profile: res.data
@@ -135,16 +132,26 @@ const UserProvider = props => {
             })
     }
 
-    const addProfile = profile => {
-        userAxios.post('/api/profile', profile)
-        .then(res => {
-            setUserState(prevUserState => ({
-                ...prevUserState,
-                profile: 
-                // [
-                    // ...prevUserState.profile, 
-                    res.data
-                    // ]
+    const addProfileImg = (username, img) => {
+        editUserIcons(username, img.imgUrl)
+        userAxios.put('/api/profile/img', img)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    profile: {...prevUserState.profile, img: res.data}
+                }))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const addBio = bio => {
+        userAxios.put(`/api/profile/bio`, {data: bio})
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    profile: {...prevUserState.profile, bio: res.data}
                 }))
                 console.log('PREV', res.data.prevUserState)
                 console.log('PROFILE', res.data)
@@ -259,6 +266,20 @@ const UserProvider = props => {
         });
     };
 
+    // add profile pictures to posts
+    const editUserIcons = (username, userImg) => {
+        userAxios.put(`/api/update/profile/${username}`, {data: userImg})
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    posts: prevUserState.posts.map(post => post.postedBy === username ? res.data : post)
+                }))
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
+
     // UP/DOWN VOTING:
     const upvotePost = postId => {
         userAxios.put(`/api/vote/upvote/${postId}`)
@@ -357,7 +378,8 @@ const UserProvider = props => {
             logout,
             resetAuthErr,
             getProfile,
-            addProfile,
+            addProfileImg,
+            addBio,
             getPosts,
             currentUserPosts,
             selectedUser,

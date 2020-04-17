@@ -10,39 +10,43 @@ const Profile = () => {
         profile,
         createPost,
         getProfile,
-        addProfile
+        addProfileImg,
+        addBio,
     } = userContext
-    // const {image: {imgUrl}, about} = profile
+    // const {image: {imgUrl}, about} = profile <-- destructuring sends an error
 
     const [toggle, setToggle] = useState(false)
 
     useEffect(() => {
         getProfile(username)
-    }, [])
+    }, [profile])
 
     const handleToggle = () => {
         setToggle(!toggle)
     }
-
-    // const thisProfile = profile
     
     return (
         <div className='profile'>
             <h1>Welcome { username }</h1>
             {!toggle ? 
                 <>
-                    {profile.image ? 
-                        <img className='profile-pic' src={profile.image.imgUrl}/> :
-                        <SetProfile user={ username } addProfile={addProfile}/>
+                    {
+                    profile && profile.img ? 
+                        <img className='profile-pic' src={profile.img.imgUrl}/> :
+                        <SetProfile user={ username } addProfileImg={addProfileImg} addBio={addBio}/>
                     }
-                    {profile.about &&
+                    {
+                    profile && profile.about &&
                         <p>{profile.about}</p>
                     }
                 </>
                 :
-                <SetProfile user={ username } addProfile={addProfile}/>
+                <SetProfile user={ username } addProfileImg={addProfileImg} addBio={addBio}/>
             }
-            <button onClick={handleToggle}>{toggle ? 'Cancel' : 'Edit Profile'}</button>
+            {
+            profile &&
+                <button onClick={handleToggle}>{toggle ? 'Cancel' : 'Edit Profile'}</button>
+            }
             <h3>Create a new post</h3>
             <FormContainer 
                 createPost={ createPost }

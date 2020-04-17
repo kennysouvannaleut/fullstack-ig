@@ -12,13 +12,12 @@ const postSchema = new Schema({
         ref: 'User',
         required: true
     },
-    imgInfo: {
-        required: true,
-        type: Object
+    userImg: String,
+    img: {
+        type: Object,
+        required: true
     },
-    description: {
-        type: String
-    },
+    description: String,
     votes: {
         type: Number,
         default: 0

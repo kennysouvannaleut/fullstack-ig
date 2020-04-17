@@ -31,29 +31,16 @@ const PostList = props => {
                     <div className='posts-grid-container'>
                         {
                         posts.map((post, i) => {
-                            const {
-                                votes,
-                                imgInfo,
-                                // description,
-                                // dateAdded,
-                                postedBy,
-                                _id
-                            } = post;
                             return (
                                 <PostCard 
                                     key={ i }
                                     { ...post }
                                     getProfile={getProfile}
                                     profile={profile}
-                                    user={ postedBy }
-                                    votes={ votes }
-                                    imgInfo={ imgInfo.imgUrl }
-                                    // description={ description }
-                                    // dateAdded={ dateAdded }
                                     upvotePost={ upvotePost } 
                                     downvotePost={ downvotePost }
                                     userPage={ userPage }
-                                    id={ _id }
+                                    id={ post._id }
                                 />
                             )
                         })

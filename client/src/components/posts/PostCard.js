@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import userContext from '../../context/userContext';
 
@@ -8,11 +8,12 @@ const PostCard = props => {
         user, 
         getProfile,
         profile,
-        imgInfo: {
-            imgUrl,
-            imgRef
-        }, 
+        // imgInfo: {
+        //     imgUrl,
+        //     imgRef
+        // }, ^^ deconstructing throws error...
         imgInfo, 
+        userImg,
         upvotePost, 
         downvotePost, 
         votes,
@@ -20,26 +21,20 @@ const PostCard = props => {
     } = props;
     const { user: { username } } = useContext(userContext);
 
-    useEffect(() => {
-        getProfile(user)
-    }, [])
-
-    console.log(profile)
-
     return (
         <div className='card'>
             {!userPage &&
                 <div>
                     <Link className='card-username' to={`/user/${ user }`}>
-                        {profile.image &&
-                            <img className='user-icon' src={profile.image.imgUrl}/>
+                        {userImg &&
+                            <img className='user-icon' src={userImg}/>
                         }
                         <p>{ user }</p>
                     </Link>
                 </div>
             }
             <Link to={`/detail/${ _id }`}>
-                <div 
+                {/* <div 
                     className='card-image' 
                     style={{
                         width: '300px',
@@ -52,7 +47,9 @@ const PostCard = props => {
                         borderTopLeftRadius: '2px',
                         borderTopRightRadius: '2px'
                 }}>
-                </div>
+                </div> */}
+                <img className='card-image' src={imgInfo.imgUrl}/>
+                {/* this also throws error wtf */}
             </Link>
             <div className='card-info'>
                 <div className='card-post-section'>

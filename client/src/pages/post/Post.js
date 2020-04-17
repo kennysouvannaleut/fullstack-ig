@@ -8,8 +8,6 @@ const Post = () => {
     useEffect(() => {
         currentUserPosts();
     }, []);
-
-    console.log(currentPost);
     
     return (
         <div className='post'>

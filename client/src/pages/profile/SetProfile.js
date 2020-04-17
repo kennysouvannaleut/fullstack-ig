@@ -6,7 +6,7 @@ import {imageUpload} from '../../firebase/firebase.js'
 const SetProfile = props => {
     const {user, addProfile} = props
 
-    const initAboutInputs = {image: [], about: ''}
+    const initAboutInputs = {image: {}, about: ''}
     const [aboutInputs, setAboutInputs] = useState(initAboutInputs)
 
     const handlePicChange = e => {
@@ -27,7 +27,7 @@ const SetProfile = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const {image, about} = aboutInputs
+        const {image} = aboutInputs
         const path = `${user}/profile`
         imageUpload(image, path, setUrl)
     }
@@ -45,7 +45,8 @@ const SetProfile = props => {
     }
 
     const finalizeSubmit = aboutInputs => {
-        addProfile(aboutInputs)
+        console.log(user)
+        addProfile(user, aboutInputs)
         setAboutInputs(initAboutInputs)
     }
 

@@ -5,7 +5,7 @@ const Profile = require('../models/profile.js')
 // get profile
 profile.get('/:username', (req, res, next) => {
     Profile.findOne(
-        {username: req.params.username},
+        {_id: req.user},
         (err, profile) => {
             if(err){
                 res.status(500)
@@ -18,24 +18,32 @@ profile.get('/:username', (req, res, next) => {
 // add profile image
 profile.put('/img', (req, res, next) => {
     Profile.findOneAndUpdate(
-        {username: req.user.username},
-        {img: req.body},
-        {upsert: true},
+        req.user.username, 
+        { $set : req.body }, 
+        { $upsert : true, new: true },
+        // {username: req.user.username},
+        // {img: req.body},
+        // {bio: req.body},
+        // {upsert: true},
         (err, profile) => {
             if(err){
                 res.status(500)
                 return next(err)
             }
             return res.status(201).send(profile)
-        }
-    )
+        })
+        console.log('USER', req.user)
+        console.log('IMG', req.body);
+
 })
 
 // add bio
 profile.put('/bio', (req, res, next) => {
+    console.log(333, req.body)
     Profile.findOneAndUpdate(
         {username: req.user.username},
-        {bio: req.body.data},
+        // {bio: req.body.data},
+        {bio: req.body.bio},
         {upsert: true},
         (err, profile) => {
             if(err){

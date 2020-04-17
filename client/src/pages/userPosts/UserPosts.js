@@ -15,8 +15,8 @@ const UserPosts = () => {
     return(
         <div>
             <div className='card-username'>
-                {profile.image &&
-                    <img className='user-icon' src={profile.image.imgUrl}/>
+                {profile.img &&
+                    <img className='user-icon' src={profile.img.imgUrl}/>
                 }
                 <p>{ username }</p>
             </div>

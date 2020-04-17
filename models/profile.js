@@ -8,10 +8,10 @@ const profileSchema = new Schema({
         required: true,
         unique: true
     },
-    image: {
+    img: {
         type: Object
     },
-    about: {
+    bio: {
         type: String
     }
 })

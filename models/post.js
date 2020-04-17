@@ -13,9 +13,9 @@ const postSchema = new Schema({
         required: true
     },
     userImg: String,
-    imgInfo: {
-        required: true,
-        type: Object
+    img: {
+        type: Object,
+        required: true
     },
     description: String,
     votes: {

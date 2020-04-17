@@ -24,7 +24,7 @@ const DetailPage = () => {
         //     imgUrl,
         //     imgRef
         // }, ^^ destructuring throws error
-        imgInfo,
+        img,
         userImg,
         description, 
         postedBy, 
@@ -35,9 +35,9 @@ const DetailPage = () => {
 
     const [toggle, setToggle] = useState(false)
     const initEdits = {
-        imgInfo: {
-            imgUrl: imgInfo.imUrl,
-            imgRef: imgInfo.imgRef
+        img: {
+            imgUrl: img.imUrl,
+            imgRef: img.imgRef
         },
         user: user,
         description: ''
@@ -69,7 +69,7 @@ const DetailPage = () => {
     }
 
     const handleDelete = () => {
-        deleteImage(imgInfo.imgRef)
+        deleteImage(img.imgRef)
         removePost(_id)
     }
 
@@ -90,7 +90,7 @@ const DetailPage = () => {
                 </>
             }
             <p>{dateAdded}</p>
-            <img className='detail-image' src={imgInfo.imgUrl} alt='' />
+            <img className='detail-image' src={img.imgUrl} alt='' />
                 {/* <div 
                     className='card-image' 
                     style={{
@@ -98,7 +98,7 @@ const DetailPage = () => {
                         marginLeft: 'auto',
                         marginRight: 'auto',
                         height: '250px',
-                        backgroundImage: `url('${ imgInfo.imgUrl }')`,
+                        backgroundImage: `url('${ img.imgUrl }')`,
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover',

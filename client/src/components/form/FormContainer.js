@@ -10,7 +10,7 @@ const FormContainer = props => {
     // + ('0' + date.getDate()).slice(-2);
 
     const initialInputs = {
-        imgInfo: {
+        img: {
             imgUrl: '',
             imgRef: ''
         },
@@ -21,7 +21,7 @@ const FormContainer = props => {
     };
     
     const [inputs, setInputs] = useState(initialInputs);
-    const [picture, setPicture] = useState([]);
+    const [img, setimg] = useState([]);
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -31,24 +31,24 @@ const FormContainer = props => {
         })
     )};
 
-    const onDrop = picture => {
-        setPicture(picture);
+    const onDrop = img => {
+        setimg(img);
     };
 
     const handleSubmit = e => {
         e.preventDefault();
-        imageUpload(picture, user, setUrl);
+        imageUpload(img, user, setUrl);
     };
 
     const setUrl = (url, path) => {
         setInputs(prevInputs => ({
             ...prevInputs, 
-            imgInfo: {
+            img: {
                 imgUrl: url,
                 imgRef: path
             }
         }))
-        const inputsWithImgUrl = {...inputs, imgInfo: {imgUrl: url, imgRef: path}}
+        const inputsWithImgUrl = {...inputs, img: {imgUrl: url, imgRef: path}}
         finalizeSubmit(inputsWithImgUrl)
     }
 

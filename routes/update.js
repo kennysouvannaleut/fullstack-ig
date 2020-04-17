@@ -33,7 +33,6 @@ update.put('/:postId', (req, res, next) => {
 
 // update user icons
 update.put('/profile/:username', (req, res, next) => {
-    console.log(req.body.data)
     Post.updateMany(
         {postedBy: req.params.username},
         {userImg: req.body.data},

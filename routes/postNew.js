@@ -9,7 +9,7 @@ postNew.post('/', async (req, res, next) => {
     try{
         const profile = await Profile.findOne({username: req.user.username})
         if(profile){
-            req.body.userImg = profile.image.imgUrl
+            req.body.userImg = profile.img.imgUrl
         }
         const newPost = new Post(req.body)
         const newPostObj = await newPost.save()

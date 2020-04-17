@@ -18,16 +18,16 @@ const UserProvider = props => {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || '',
         // profile: {
-        //     image: {
+        //     img: {
         //         imgUrl: '',
         //         imgPath: ''
         //     },
-        //     about: ''
+        //     bio: ''
         // },
         profile: {},
         posts: [],
         currentPost: {
-            imgInfo: {
+            img: {
                 imgUrl: '',
                 imgRef: ''
             },
@@ -97,6 +97,7 @@ const UserProvider = props => {
             user: '',
             token: '',
             posts: [],
+            profile: {},
             currentPost: null,
             comments: [],
             errMsg: ''
@@ -131,15 +132,26 @@ const UserProvider = props => {
             })
     }
 
-    const addProfile = (username, profile) => {
-        // const {image: {imgUrl}} = profile
-        console.log(profile)
-        editUserIcons(username, profile.image.imgUrl)
-        userAxios.post('/api/profile', profile)
+    const addProfileImg = (username, img) => {
+        editUserIcons(username, img.imgUrl)
+        userAxios.put('/api/profile/img', img)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    profile: res.data
+                    profile: {...prevUserState.profile, img: res.data}
+                }))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const addBio = bio => {
+        userAxios.put(`/api/profile/bio`, {data: bio})
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    profile: {...prevUserState.profile, bio: res.data}
                 }))
             })
             .catch(err => {
@@ -253,9 +265,8 @@ const UserProvider = props => {
     };
 
     // add profile pictures to posts
-    const editUserIcons = (username, userImage) => {
-        console.log(typeof userImage)
-        userAxios.put(`/api/update/profile/${username}`, {data: userImage})
+    const editUserIcons = (username, userImg) => {
+        userAxios.put(`/api/update/profile/${username}`, {data: userImg})
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -365,7 +376,8 @@ const UserProvider = props => {
             logout,
             resetAuthErr,
             getProfile,
-            addProfile,
+            addProfileImg,
+            addBio,
             getPosts,
             currentUserPosts,
             selectedUser,

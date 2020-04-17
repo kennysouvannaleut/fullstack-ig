@@ -19,7 +19,7 @@ const Post = () => {
                     marginLeft: 'auto',
                     marginRight: 'auto',
                     height: '250px',
-                    backgroundImage: `url('${currentPost.imgUrl}')`,
+                    backgroundImage: `url('${currentPost.img.imgUrl}')`,
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',

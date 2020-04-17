@@ -18,23 +18,23 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-const imageUpload = (picture, user, setUrl) => {
-    const pictureFile = picture[0]
-    const pictureName = picture[0].name
+const imageUpload = (img, user, setUrl) => {
+    const imgFile = img[0]
+    const imgName = img[0].name
     
     const storage = firebase.storage()
     const storageRef = storage.ref()
 
-    // const picRef = storageRef.child(pictureName);
-    const path = `${user}/${pictureName}`
-    const picRef = storageRef.child(path);
+    // const imgRef = storageRef.child(imgName);
+    const path = `${user}/${imgName}`
+    const imgRef = storageRef.child(path);
     
-    if(pictureFile === ''){
-        console.error(`not an image, the image file is a ${typeof(imageAsFile)}`)
+    if(imgFile === ''){
+        console.error(`not an image, the image file is a ${typeof(imgFile)}`)
     }
 
     // uploads picture 
-    const uploadTask = picRef.put(pictureFile)
+    const uploadTask = imgRef.put(imgFile)
 
     // listens for state changes, errors, and completion of upload
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
@@ -88,12 +88,12 @@ const deleteImage = ref => {
     // Create a reference to the file to delete
     const storage = firebase.storage()
     const storageRef = storage.ref()
-    const thisImage = storageRef.child(ref)
+    const thisImg = storageRef.child(ref)
     // var fileRef = storageRef.child(`${user}/${name}`)
     
     // Delete the file
-    thisImage.delete().then(() => {
-        console.log('file deleted successfully')
+    thisImg.delete().then(() => {
+        console.log('image deleted successfully')
     }).catch(error => {
         console.log(error)
     })

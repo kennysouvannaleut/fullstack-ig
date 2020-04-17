@@ -13,7 +13,7 @@ const DetailPage = () => {
         getProfile,
         editPost, 
         removePost, 
-        comments,
+        // comments,
         getComments,
         createComment,
         user,
@@ -32,6 +32,8 @@ const DetailPage = () => {
         votes, 
         _id
     } = currentPost
+
+    console.log(222, currentPost)
 
     const [toggle, setToggle] = useState(false)
     const initEdits = {
@@ -79,7 +81,7 @@ const DetailPage = () => {
                 <p>Posted By: </p>
                 <Link className='card-username card-title' to={`/user/${ postedBy }`}>
                     {userImg &&
-                        <img className='user-icon' src={userImg}/>
+                        <img className='user-icon' alt='' src={userImg}/>
                     }
                     <p>{ postedBy }</p>
                 </Link>

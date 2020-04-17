@@ -8,6 +8,8 @@ const Post = () => {
     useEffect(() => {
         currentUserPosts();
     }, []);
+
+    console.log(111, posts)
     
     return (
         <div className='post'>
@@ -19,7 +21,7 @@ const Post = () => {
                     marginLeft: 'auto',
                     marginRight: 'auto',
                     height: '250px',
-                    backgroundImage: `url('${currentPost.img.imgUrl}')`,
+                    backgroundImage: `url('${posts.userImg}')`,
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',

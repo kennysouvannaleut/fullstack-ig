@@ -24,7 +24,7 @@ profile.put('/img', (req, res, next) => {
         // {username: req.user.username},
         // {img: req.body},
         // {bio: req.body},
-        // {upsert: true},
+        // {upsert: true, new: true},
         (err, profile) => {
             if(err){
                 res.status(500)
@@ -44,7 +44,7 @@ profile.put('/bio', (req, res, next) => {
         {username: req.user.username},
         // {bio: req.body.data},
         {bio: req.body.bio},
-        {upsert: true},
+        {upsert: true, new: true},
         (err, profile) => {
             if(err){
                 res.status(500)

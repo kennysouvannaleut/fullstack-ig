@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserContext from './userContext';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -17,14 +17,13 @@ const UserProvider = props => {
     const initialState = {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || '',
-        // profile: {
-        //     img: {
-        //         imgUrl: '',
-        //         imgPath: ''
-        //     },
-        //     bio: ''
-        // },
-        profile: {},
+        profile: {
+            img: {
+                imgUrl: '',
+                imgPath: ''
+            },
+            bio: ''
+        },
         posts: [],
         currentPost: {
             img: {
@@ -73,7 +72,7 @@ const UserProvider = props => {
                 const { user, token } = res.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
-                getProfile();
+                getProfile(user.username);
                 currentUserPosts();
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -139,7 +138,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    profile: {...prevUserState.profile, img: res.data}
+                    profile: res.data
                 }))
             })
             .catch(err => {
@@ -152,7 +151,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    profile: {...prevUserState.profile, bio: res.data}
+                    profile: res.data
                 }))
                 console.log('PROFILE', res.data)
             })

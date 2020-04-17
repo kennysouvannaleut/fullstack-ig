@@ -25,7 +25,7 @@ const PostCard = props => {
                 <div>
                     <Link className='card-username' to={`/user/${ postedBy }`}>
                         {userImg &&
-                            <img className='user-icon' src={userImg}/>
+                            <img className='user-icon' alt='' src={userImg}/>
                         }
                         <p>{ postedBy }</p>
                     </Link>
@@ -46,7 +46,7 @@ const PostCard = props => {
                         borderTopRightRadius: '2px'
                 }}>
                 </div> */}
-                <img className='card-image' src={img.imgUrl}/>
+                <img className='card-image' alt='' src={img}/>
                 {/* this also throws error wtf */}
             </Link>
             <div className='card-info'>

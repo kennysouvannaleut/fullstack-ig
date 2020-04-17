@@ -20,7 +20,7 @@ profile.put('/img', (req, res, next) => {
     Profile.findOneAndUpdate(
         {username: req.user.username},
         {img: req.body},
-        {upsert: true},
+        {upsert: true, new: true},
         (err, profile) => {
             if(err){
                 res.status(500)
@@ -36,7 +36,7 @@ profile.put('/bio', (req, res, next) => {
     Profile.findOneAndUpdate(
         {username: req.user.username},
         {bio: req.body.data},
-        {upsert: true},
+        {upsert: true, new: true},
         (err, profile) => {
             if(err){
                 res.status(500)

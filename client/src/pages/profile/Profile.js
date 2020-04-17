@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import UserContext from '../../context/userContext';
 import FormContainer from '../../components/form/FormContainer';
-import SetProfile from './SetProfile.js'
+import SetProfileImg from './SetProfileImg.js'
+import SetBio from './SetBio.js'
 
 const Profile = () => {
     const userContext = useContext(UserContext);
@@ -15,37 +16,61 @@ const Profile = () => {
     } = userContext
     // const {image: {imgUrl}, about} = profile <-- destructuring sends an error
 
-    const [toggle, setToggle] = useState(false)
+    const [imgToggle, setImgToggle] = useState(false)
+    const [bioToggle, setBioToggle] = useState(false)
 
     useEffect(() => {
         getProfile(username)
-    }, [profile])
+    }, [])
 
-    const handleToggle = () => {
-        setToggle(!toggle)
+    const handleToggle = selector => {
+        selector === 'Img' ? setImgToggle(!imgToggle) : setBioToggle(!bioToggle)
     }
     
     return (
         <div className='profile'>
-            <h1>Welcome { username }</h1>
-            {!toggle ? 
+            <h1>Welcome {username}</h1>
+            {
+            imgToggle ? 
+                <>
+                    <SetProfileImg user={username} addProfileImg={addProfileImg}/>
+                    <br/>
+                    <button onClick={() => handleToggle('Img')}>Cancel</button> 
+                </>
+            :
                 <>
                     {
                     profile && profile.img ? 
-                        <img className='profile-pic' src={profile.img.imgUrl}/> :
-                        <SetProfile user={ username } addProfileImg={addProfileImg} addBio={addBio}/>
-                    }
-                    {
-                    profile && profile.about &&
-                        <p>{profile.about}</p>
+                        <>
+                            <img className='profile-pic' src={profile.img.imgUrl}/>
+                            <br/>
+                            <button onClick={() => handleToggle('Img')}>Change picture</button> 
+                        </>
+                    :
+                        <>
+                            <SetProfileImg user={username} addProfileImg={addProfileImg}/>
+                        </>
                     }
                 </>
-                :
-                <SetProfile user={ username } addProfileImg={addProfileImg} addBio={addBio}/>
             }
             {
-            profile &&
-                <button onClick={handleToggle}>{toggle ? 'Cancel' : 'Edit Profile'}</button>
+                bioToggle ?
+                    <>
+                        <SetBio addBio={addBio} prevBio={profile.bio} handleToggle={handleToggle}/>
+                        <button onClick={() => handleToggle('Bio')}>Cancel</button>
+                    </>
+                :
+                    <>
+                        {
+                        profile && profile.bio ?
+                            <>
+                                <p>{profile.bio}</p>
+                                <button onClick={() => handleToggle('Bio')}>Edit bio</button>
+                            </>
+                        :
+                            <SetBio addBio={addBio} prevBio={profile.bio}/>
+                    }
+                    </>
             }
             <h3>Create a new post</h3>
             <FormContainer 
@@ -53,7 +78,7 @@ const Profile = () => {
                 user={ username }
             />
         </div>
-    );
-};
+    )
+}
 
-export default Profile;
+export default Profile

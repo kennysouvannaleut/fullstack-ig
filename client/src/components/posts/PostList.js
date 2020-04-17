@@ -47,7 +47,7 @@ const PostList = props => {
                                     profile={profile}
                                     user={ postedBy }
                                     votes={ votes }
-                                    imgInfo={ imgInfo.imgUrl }
+                                    // imgInfo={ imgInfo.imgUrl }
                                     // description={ description }
                                     // dateAdded={ dateAdded }
                                     upvotePost={ upvotePost } 

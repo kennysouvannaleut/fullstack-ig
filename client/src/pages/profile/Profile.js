@@ -12,7 +12,7 @@ const Profile = () => {
         getProfile,
         addProfile
     } = userContext
-    // const {image: {imgUrl}, about} = profile
+    // const {image: {imgUrl}, about} = profile <-- destructuring sends an error
 
     const [toggle, setToggle] = useState(false)
 
@@ -23,19 +23,17 @@ const Profile = () => {
     const handleToggle = () => {
         setToggle(!toggle)
     }
-
-    // const thisProfile = profile
     
     return (
         <div className='profile'>
             <h1>Welcome { username }</h1>
             {!toggle ? 
                 <>
-                    {profile.image ? 
+                    {profile && profile.image ? 
                         <img className='profile-pic' src={profile.image.imgUrl}/> :
                         <SetProfile user={ username } addProfile={addProfile}/>
                     }
-                    {profile.about &&
+                    {profile && profile.about &&
                         <p>{profile.about}</p>
                     }
                 </>

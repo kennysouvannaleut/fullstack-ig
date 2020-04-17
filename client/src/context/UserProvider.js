@@ -24,7 +24,7 @@ const UserProvider = props => {
         //     },
         //     about: ''
         // },
-        profile: [],
+        profile: {},
         posts: [],
         currentPost: {
             imgInfo: {
@@ -32,6 +32,7 @@ const UserProvider = props => {
                 imgRef: ''
             },
             postedBy: '',
+            userImg: '',
             description: '',
             votes: ''
         },
@@ -40,7 +41,7 @@ const UserProvider = props => {
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
-    console.log(userState.profile)
+
     const { goBack } = useHistory();
 
     // USER AUTH:
@@ -58,8 +59,10 @@ const UserProvider = props => {
                 }));
             })
             .catch(err => {
-                handleAuthErr(err.response.data.errMsg);
-                console.error(err);
+                if(err.response){
+                    handleAuthErr(err.response.data.errMsg);
+                    console.error(err);
+                }
         });
     };
 
@@ -80,8 +83,10 @@ const UserProvider = props => {
                 }));
             })
             .catch(err => {
-                handleAuthErr(err.response.data.errMsg);
-                console.error(err);
+                if(err.response){
+                    handleAuthErr(err.response.data.errMsg);
+                    console.error(err);
+                }
         });
     };
 
@@ -116,15 +121,6 @@ const UserProvider = props => {
     const getProfile = username => {
         userAxios.get(`/api/profile/${username}`)
             .then(res => {
-                res.data && userState.profile.length >= 1 ?
-                setUserState(prevUserState => ({
-                    ...prevUserState,
-                    profile: [prevUserState.profile, prevUserState.profile.map(profile => (
-                        profile.username === username ? profile : res.data
-                    ))]
-                }))
-                // NOT WORKING
-                :
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     profile: res.data
@@ -135,12 +131,15 @@ const UserProvider = props => {
             })
     }
 
-    const addProfile = profile => {
+    const addProfile = (username, profile) => {
+        // const {image: {imgUrl}} = profile
+        console.log(profile)
+        editUserIcons(username, profile.image.imgUrl)
         userAxios.post('/api/profile', profile)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    profile: [...prevUserState.profile, res.data]
+                    profile: res.data
                 }))
             })
             .catch(err => {
@@ -252,6 +251,21 @@ const UserProvider = props => {
                alert('Your post has been updated')
         });
     };
+
+    // add profile pictures to posts
+    const editUserIcons = (username, userImage) => {
+        console.log(typeof userImage)
+        userAxios.put(`/api/update/profile/${username}`, {data: userImage})
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    posts: prevUserState.posts.map(post => post.postedBy === username ? res.data : post)
+                }))
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
 
     // UP/DOWN VOTING:
     const upvotePost = postId => {

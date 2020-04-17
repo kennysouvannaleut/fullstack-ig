@@ -17,14 +17,15 @@ const DetailPage = () => {
         getComments,
         createComment,
         user,
-        user: { username },
-        profile
+        user: { username }
     } = useContext(userContext);
     const {
-        imgInfo: {
-            imgUrl,
-            imgRef
-        },
+        // imgInfo: {
+        //     imgUrl,
+        //     imgRef
+        // }, ^^ destructuring throws error
+        imgInfo,
+        userImg,
         description, 
         postedBy, 
         dateAdded, 
@@ -35,8 +36,8 @@ const DetailPage = () => {
     const [toggle, setToggle] = useState(false)
     const initEdits = {
         imgInfo: {
-            imgUrl,
-            imgRef
+            imgUrl: imgInfo.imUrl,
+            imgRef: imgInfo.imgRef
         },
         user: user,
         description: ''
@@ -49,8 +50,7 @@ const DetailPage = () => {
         getProfile(user)
         getComments(postId)
     }, [])
-    // infinite loop
-    const toggleEdit = () => {
+        const toggleEdit = () => {
         setToggle(!toggle)
     }
 
@@ -69,7 +69,7 @@ const DetailPage = () => {
     }
 
     const handleDelete = () => {
-        deleteImage(imgRef)
+        deleteImage(imgInfo.imgRef)
         removePost(_id)
     }
 
@@ -78,8 +78,8 @@ const DetailPage = () => {
             <div className='detail-user'>
                 <p>Posted By: </p>
                 <Link className='card-username card-title' to={`/user/${ postedBy }`}>
-                    {profile.image &&
-                        <img className='user-icon' src={profile.image.imgUrl}/>
+                    {userImg &&
+                        <img className='user-icon' src={userImg}/>
                     }
                     <p>{ postedBy }</p>
                 </Link>
@@ -90,7 +90,7 @@ const DetailPage = () => {
                 </>
             }
             <p>{dateAdded}</p>
-            <img className='detail-image' src={imgUrl} alt='' />
+            <img className='detail-image' src={imgInfo.imgUrl} alt='' />
                 {/* <div 
                     className='card-image' 
                     style={{
@@ -98,7 +98,7 @@ const DetailPage = () => {
                         marginLeft: 'auto',
                         marginRight: 'auto',
                         height: '250px',
-                        backgroundImage: `url('${ imgUrl }')`,
+                        backgroundImage: `url('${ imgInfo.imgUrl }')`,
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover',

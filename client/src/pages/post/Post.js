@@ -13,7 +13,7 @@ const Post = () => {
     
     return (
         <div className='post'>
-            { _id && posts.user && posts ? (
+            { posts ? (
                 <>
                 <div className='post-image'
                 style={{

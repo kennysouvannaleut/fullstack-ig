@@ -137,11 +137,17 @@ const UserProvider = props => {
 
     const addProfile = profile => {
         userAxios.post('/api/profile', profile)
-            .then(res => {
-                setUserState(prevUserState => ({
-                    ...prevUserState,
-                    profile: [...prevUserState.profile, res.data]
+        .then(res => {
+            setUserState(prevUserState => ({
+                ...prevUserState,
+                profile: 
+                // [
+                    // ...prevUserState.profile, 
+                    res.data
+                    // ]
                 }))
+                console.log('PREV', res.data.prevUserState)
+                console.log('PROFILE', res.data)
             })
             .catch(err => {
                 console.log(err)

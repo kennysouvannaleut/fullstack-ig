@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import CommentForm from './commentForm.js'
+import CommentForm from './CommentForm.js'
 
 function Comment(props){
     const {comment, commentId, postedBy, removeComment, user, editComment} = props

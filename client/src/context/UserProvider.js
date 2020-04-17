@@ -121,7 +121,6 @@ const UserProvider = props => {
     const getProfile = username => {
         userAxios.get(`/api/profile/${username}`)
         .then(res => {
-            console.log(11233, res.data)
             setUserState(prevUserState => ({
                 ...prevUserState,
                 profile: res.data

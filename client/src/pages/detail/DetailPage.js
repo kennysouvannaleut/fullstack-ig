@@ -2,8 +2,8 @@ import React, {useState, useContext, useEffect} from 'react'
 import {useParams, Link} from 'react-router-dom'
 import userContext from '../../context/userContext'
 import {deleteImage} from '../../firebase/firebase.js'
-import CommentList from '../../components/comments/commentList.js'
-import CommentForm from '../../components/comments/commentForm.js'
+import CommentList from '../../components/comments/CommentList.js'
+import CommentForm from '../../components/comments/CommentForm.js'
 
 const DetailPage = () => {
     const {postId} = useParams()

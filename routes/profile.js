@@ -5,7 +5,8 @@ const Profile = require('../models/profile.js')
 // get profile
 profile.get('/:username', (req, res, next) => {
     Profile.findOne(
-        {_id: req.user},
+        // {_id: req.user},
+        {username: req.params.username},
         (err, profile) => {
             if(err){
                 res.status(500)
@@ -18,13 +19,13 @@ profile.get('/:username', (req, res, next) => {
 // add profile image
 profile.put('/img', (req, res, next) => {
     Profile.findOneAndUpdate(
-        req.user.username, 
-        { $set : req.body }, 
-        { $upsert : true, new: true },
-        // {username: req.user.username},
-        // {img: req.body},
+        // req.user.username, 
+        // { $set : req.body }, 
+        // { $upsert : true, new: true },
         // {bio: req.body},
-        // {upsert: true, new: true},
+        {username: req.user.username},
+        {img: req.body},
+        {upsert: true, new: true},
         (err, profile) => {
             if(err){
                 res.status(500)
@@ -32,18 +33,14 @@ profile.put('/img', (req, res, next) => {
             }
             return res.status(201).send(profile)
         })
-        console.log('USER', req.user)
-        console.log('IMG', req.body);
-
 })
 
 // add bio
 profile.put('/bio', (req, res, next) => {
-    console.log(333, req.body)
     Profile.findOneAndUpdate(
         {username: req.user.username},
-        // {bio: req.body.data},
-        {bio: req.body.bio},
+        {bio: req.body.data},
+        // {bio: req.body.bio},
         {upsert: true, new: true},
         (err, profile) => {
             if(err){

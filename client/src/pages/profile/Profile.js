@@ -42,7 +42,7 @@ const Profile = () => {
                     {
                     profile && profile.img ? 
                         <>
-                            <img className='profile-pic' src={profile.img.imgUrl}/>
+                            <img className='profile-pic' alt='' src={profile.img.imgUrl}/>
                             <br/>
                             <button onClick={() => handleToggle('Img')}>Change picture</button> 
                         </>

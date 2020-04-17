@@ -16,7 +16,7 @@ const UserPosts = () => {
         <div>
             <div className='card-username'>
                 {profile.img &&
-                    <img className='user-icon' src={profile.img.imgUrl}/>
+                    <img className='user-icon' alt = '' src={profile.img.imgUrl }/>
                 }
                 <p>{ username }</p>
             </div>

@@ -120,15 +120,16 @@ const UserProvider = props => {
     // PROFILE:
     const getProfile = username => {
         userAxios.get(`/api/profile/${username}`)
-            .then(res => {
-                setUserState(prevUserState => ({
-                    ...prevUserState,
-                    profile: res.data
-                }))
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        .then(res => {
+            console.log(11233, res.data)
+            setUserState(prevUserState => ({
+                ...prevUserState,
+                profile: res.data
+            }))
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
 
     const addProfileImg = (username, img) => {
@@ -152,6 +153,7 @@ const UserProvider = props => {
                     ...prevUserState,
                     profile: res.data
                 }))
+                console.log('PROFILE', res.data)
             })
             .catch(err => {
                 console.log(err)
@@ -180,7 +182,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    currentPost: res.data,
+                    posts: res.data,
                     loading: false
                 }));
             })
@@ -269,7 +271,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    posts: prevUserState.posts.map(post => post.postedBy === username ? res.data : post)
+                    posts: prevUserState.posts.map(post => (post.postedBy === username ? res.data : post))
                 }))
             })
             .catch(err => {

@@ -118,29 +118,42 @@ const UserProvider = props => {
         })
     )};
 
+    const getProfile = () => {
+        userAxios.get(`/api/profile`)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    profile: res.data,
+                }));
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    };
+
     // PROFILE:
-    const getProfile = username => {
-        userAxios.get(`/api/profile/${username}`)
-        .then(res => {
-            console.log(11233, res.data)
-            setUserState(prevUserState => ({
-                ...prevUserState,
-                profile: res.data
-            }))
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
+    // const getProfile = () => {
+    //     // userAxios.get(`/api/profile/${username}`)
+    //     .then(res => {
+    //         setUserState(prevUserState => ({
+    //             ...prevUserState,
+    //             profile: res.data 
+    //         }))
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
+    // }
 
     const addProfileImg = (username, img) => {
         editUserIcons(username, img.imgUrl)
-        userAxios.put('/api/profile/img', img)
+        userAxios.put('/api/profile/img', {data: img})
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     profile: {...prevUserState.profile, img: res.data}
                 }))
+                console.log('IMG', res.data)
             })
             .catch(err => {
                 console.log(err)
@@ -154,7 +167,7 @@ const UserProvider = props => {
                     ...prevUserState,
                     profile: {...prevUserState.profile, bio: res.data}
                 }))
-                console.log('PROFILE', res.data)
+                console.log('BIO', res.data)
             })
             .catch(err => {
                 console.log(err)

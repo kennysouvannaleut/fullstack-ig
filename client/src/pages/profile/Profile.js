@@ -32,7 +32,7 @@ const Profile = () => {
                 <>
                     {
                     profile && profile.img ? 
-                        <img className='profile-pic' alt='' src={profile.img.imgUrl}/> :
+                        <img className='profile-pic' src={profile.img.imgUrl}/> :
                         <SetProfile user={ username } addProfileImg={addProfileImg} addBio={addBio}/>
                     }
                     {

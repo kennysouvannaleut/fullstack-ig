@@ -13,7 +13,6 @@ const DetailPage = () => {
         getProfile,
         editPost, 
         removePost, 
-        // comments,
         getComments,
         createComment,
         user,
@@ -33,8 +32,6 @@ const DetailPage = () => {
         _id
     } = currentPost
 
-    console.log(222, currentPost)
-
     const [toggle, setToggle] = useState(false)
     const initEdits = {
         img: {
@@ -49,7 +46,7 @@ const DetailPage = () => {
     useEffect(() => {
         postDetail(postId)
         setEdits({description: description})
-        getProfile(user)
+        getProfile(username)
         getComments(postId)
     }, [])
         const toggleEdit = () => {

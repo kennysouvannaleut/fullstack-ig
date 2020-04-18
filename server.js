@@ -6,10 +6,8 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 
 const auth = require('./routes/userAuth');
-const viewposts = require('./routes/posts');
+const posts = require('./routes/posts');
 const profile = require('./routes/profile')
-const post = require('./routes/postNew');
-const update = require('./routes/update');
 const comments = require('./routes/comments')
 const votes = require('./routes/votes');
 const users = require('./routes/users');
@@ -36,13 +34,11 @@ mongoose.connect (
 )
 
 app.use('/auth', auth);
-app.use('/viewposts', viewposts);
 app.use('/api', expressJWT({ secret: process.env.SECRET }));
+app.use('/api/posts', posts);
+app.use('/api/vote', votes);
 app.use('/api/profile', profile)
 app.use('/api/comments', comments);
-app.use('/api/post', post);
-app.use('/api/update', update);
-app.use('/api/vote', votes);
 app.use('/api/users', users);
 
 app.use((err, req, res, next) => {

@@ -46,7 +46,7 @@ const PostCard = props => {
                         borderTopRightRadius: '2px'
                 }}>
                 </div> */}
-                <img className='card-image' alt='' src={img}/>
+                <img className='card-image' alt='' src={img.imgUrl}/>
                 {/* this also throws error wtf */}
             </Link>
             <div className='card-info'>

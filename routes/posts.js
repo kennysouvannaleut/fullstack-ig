@@ -112,18 +112,18 @@ posts.put('/profile/:username', (req, res, next) => {
             return res.status(201).send(updatedPosts)
         }
     )
-    Comment.updateMany(
-        {postedBy: req.params.username},
-        {userImg: req.body.data},
-        {new: true},
-        (err, updatedPosts) => {
-            if(err){
-                res.status(500)
-                return next(err)
-            }
-            return res.status(201).send(updatedPosts)
-        }
-    )
+//     Comment.updateMany(
+//         {postedBy: req.params.username},
+//         {userImg: req.body.data},
+//         {new: true},
+//         (err, updatedPosts) => {
+//             if(err){
+//                 res.status(500)
+//                 return next(err)
+//             }
+//             return res.status(201).send(updatedPosts)
+//         }
+//     )
 })
 
 module.exports = posts

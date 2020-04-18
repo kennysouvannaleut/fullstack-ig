@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import Comment from './Comment.js'
+import Comment from './comment.js'
 import userContext from '../../context/userContext.js'
 
 function CommentList(){

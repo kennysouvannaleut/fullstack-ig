@@ -127,7 +127,7 @@ const UserProvider = props => {
             }))
         })
         .catch(err => {
-            console.log(err)
+            console.error(err)
         })
     }
 
@@ -139,10 +139,9 @@ const UserProvider = props => {
                     ...prevUserState,
                     profile: res.data
                 }))
-                console.log('IMG', res.data)
             })
             .catch(err => {
-                console.log(err)
+                console.error(err)
             })
     }
 
@@ -153,10 +152,9 @@ const UserProvider = props => {
                     ...prevUserState,
                     profile: res.data
                 }))
-                console.log('BIO', res.data)
             })
             .catch(err => {
-                console.log(err)
+                console.error(err)
             })
     }
 

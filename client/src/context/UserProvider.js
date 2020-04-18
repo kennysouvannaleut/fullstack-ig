@@ -127,13 +127,13 @@ const UserProvider = props => {
             }))
         })
         .catch(err => {
-            console.log(err)
+            console.error(err)
         })
     }
 
     const addProfileImg = (username, img) => {
         editUserIcons(username, img.imgUrl)
-        userAxios.put('/api/profile/img', img)
+        userAxios.put('/api/profile/img', {data: img})
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -141,7 +141,7 @@ const UserProvider = props => {
                 }))
             })
             .catch(err => {
-                console.log(err)
+                console.error(err)
             })
     }
 
@@ -152,10 +152,9 @@ const UserProvider = props => {
                     ...prevUserState,
                     profile: res.data
                 }))
-                console.log('PROFILE', res.data)
             })
             .catch(err => {
-                console.log(err)
+                console.error(err)
             })
     }
 

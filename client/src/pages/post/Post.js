@@ -3,13 +3,13 @@ import UserContext from '../../context/userContext';
 
 const Post = () => {
     const userContext = useContext(UserContext);
-    const { currentUserPosts, posts, _id } = userContext;
+    const { getProfile, posts, _id } = userContext;
 
     useEffect(() => {
-        currentUserPosts();
+        getProfile();
     }, []);
 
-    console.log(111, posts)
+    console.log(111, getProfile.posts)
     
     return (
         <div className='post'>

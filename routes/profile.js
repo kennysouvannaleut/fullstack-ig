@@ -8,29 +8,27 @@ profile.get('/:username', (req, res, next) => {
         // {_id: req.user},
         {username: req.params.username},
         (err, profile) => {
-            if(err){
-                res.status(500)
-                return next(err)
-            }
+        if(err){
+            res.status(500)
+            return next(err)
+        }
         return res.status(200).send(profile)
     })
 })
 
 // add profile image
 profile.put('/img', (req, res, next) => {
+    console.log('all', req.body);
     Profile.findOneAndUpdate(
-        // req.user.username, 
-        // { $set : req.body }, 
-        // { $upsert : true, new: true },
-        // {bio: req.body},
         {username: req.user.username},
+        // { $set : { 'img.data.imgUrl' : req.body.imgUrl } },
         {img: req.body},
         {upsert: true, new: true},
         (err, profile) => {
-            if(err){
-                res.status(500)
-                return next(err)
-            }
+            if (err) {
+                res.status(500);
+                return next(err);
+            };
             return res.status(201).send(profile)
         })
 })
@@ -40,16 +38,14 @@ profile.put('/bio', (req, res, next) => {
     Profile.findOneAndUpdate(
         {username: req.user.username},
         {bio: req.body.data},
-        // {bio: req.body.bio},
         {upsert: true, new: true},
         (err, profile) => {
             if(err){
                 res.status(500)
                 return next(err)
-            }
+            };
             return res.status(201).send(profile)
-        }
-    )
-})
+        });
+    });
 
 module.exports = profile

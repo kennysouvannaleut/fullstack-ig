@@ -16,9 +16,10 @@ const UserPosts = () => {
         <div>
             <div className='card-username'>
                 {profile.img &&
-                    <img className='user-icon' alt = '' src={profile.img.imgUrl }/>
-                }
-                <p>{ username }</p>
+                    <img className='user-icon' alt = '' src={profile.img.imgUrl }/>}
+                <h3>{ username }</h3>
+                {profile.bio && 
+                        <p className='user-posts-bio'>{profile.bio}</p>}
             </div>
             <PostList userPage={true}/>
         </div>

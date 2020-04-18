@@ -1,6 +1,26 @@
 const express = require('express')
 const comments = express.Router()
 const Comment = require('../models/comment.js')
+const Profile = require('../models/profile.js')
+
+comments.post('/post/:postId', async (req, res, next) => {
+    req.body.post = req.params.postId
+    req.body.user = req.user._id
+    req.body.postedBy = req.user.username
+    try{
+        const profile = await Profile.findOne({username: req.user.username})
+        if(profile){
+            req.body.userImg = profile.img.imgUrl
+        }
+        const newComment = new Comment(req.body)
+        const newCommentObj = await newComment.save()
+        return res.status(201).send(newCommentObj)
+    }
+    catch(err){
+        res.status(500)
+        return next(err)
+    }
+})
 
 comments.get('/:postId', (req, res, next) => {
     Comment.find({post: req.params.postId}, (err, comments) => {
@@ -12,19 +32,6 @@ comments.get('/:postId', (req, res, next) => {
     })
 })
 
-comments.post('/post/:postId', (req, res, next) => {
-    req.body.post = req.params.postId
-    req.body.user = req.user._id
-    req.body.postedBy = req.user.username
-    const newComment = new Comment(req.body)
-    newComment.save((err, comment) => {
-        if(err){
-            res.status(500)
-            return next(err)
-        }
-        return res.status(201).send(comment)
-    })
-})
 
 comments.delete('/:commentId', (req, res, next) => {
     Comment.findOneAndDelete(
@@ -52,5 +59,21 @@ comments.put('/:commentId', (req, res, next) => {
         }
     )
 })
+
+// update user icons
+// posts.put('/profile/:username', (req, res, next) => {
+//     Post.updateMany(
+//         {postedBy: req.params.username},
+//         {userImg: req.body.data},
+//         {new: true},
+//         (err, updatedPosts) => {
+//             if(err){
+//                 res.status(500)
+//                 return next(err)
+//             }
+//             return res.status(201).send(updatedPosts)
+//         }
+//     )
+// })
 
 module.exports = comments

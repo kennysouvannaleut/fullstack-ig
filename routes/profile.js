@@ -2,9 +2,11 @@ const express = require('express')
 const profile = express.Router()
 const Profile = require('../models/profile.js')
 
-
-profile.get('/', (req, res, next) => {
-    Profile.find({ username: req.user.username }, 
+// get profile
+profile.get('/:username', (req, res, next) => {
+    Profile.findOne(
+        // {_id: req.user},
+        {username: req.params.username},
         (err, profile) => {
         if(err){
             res.status(500)
@@ -13,21 +15,6 @@ profile.get('/', (req, res, next) => {
         return res.status(200).send(profile)
     })
 })
-
-
-// get profile
-// profile.get('/username', (req, res, next) => {
-//     Profile.find({ username: req.username },
-//     // Profile.findOne(
-//     //     {username: req.params.username},
-//         (err, profile) => {
-//             if(err){
-//                 res.status(500)
-//                 return next(err)
-//             }
-//         return res.status(200).send(profile)
-//     })
-// })
 
 // add profile image
 // profile.put('/img', (req, res, next) => {
@@ -48,17 +35,21 @@ profile.get('/', (req, res, next) => {
 profile.put('/img', (req, res, next) => {
     console.log(111, req.body);
     Profile.findOneAndUpdate(
-        { username : req.user.username },
-        { $set : { 'img.imgUrl' : req.body.imgUrl }},
-        { upsert : true },
+        // req.user.username, 
+        // { $set : req.body }, 
+        // { $upsert : true, new: true },
+        // {bio: req.body},
+        {username: req.user.username},
+        {img: req.body},
+        {upsert: true, new: true},
         (err, profile) => {
             if (err) {
                 res.status(500);
                 return next(err);
             };
             return res.status(201).send(profile)
-        });
-    });
+        })
+})
 
 // add bio
 // profile.put('/bio', (req, res, next) => {
@@ -78,11 +69,11 @@ profile.put('/img', (req, res, next) => {
 // })
 
 profile.put('/bio', (req, res, next) => {
-    console.log(222, req.body)
     Profile.findOneAndUpdate(
-        { username: req.user.username },
-        { $set : { bio: req.body.bio }},
-        {upsert : true},
+        {username: req.user.username},
+        {bio: req.body.data},
+        // {bio: req.body.bio},
+        {upsert: true, new: true},
         (err, profile) => {
             if(err){
                 res.status(500)

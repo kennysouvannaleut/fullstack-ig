@@ -20,7 +20,8 @@ const commentSchema = new Schema({
         type: Schema.Types.String,
         ref: 'User',
         required: true
-    }
+    },
+    userImg: String
 })
 
 module.exports = mongoose.model('Comment', commentSchema)

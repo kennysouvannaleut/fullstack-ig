@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import CommentForm from './commentForm.js'
+import CommentForm from './CommentForm.js'
 
 function Comment(props){
-    const {comment, commentId, postedBy, removeComment, user, editComment} = props
+    const {comment, commentId, postedBy, userImg, removeComment, user, editComment} = props
     const [toggle, setToggle] = useState(false)
 
     function toggleEditComment(){
@@ -11,7 +11,8 @@ function Comment(props){
 
     return(
         <div>
-            <h3>@{postedBy}</h3>
+            <h3>{postedBy}</h3>
+            <img className='comment-icon' src={userImg} alt=''/>
             {toggle ? 
                 <>
                     <CommentForm 

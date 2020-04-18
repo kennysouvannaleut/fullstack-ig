@@ -8,12 +8,8 @@ const profileSchema = new Schema({
         required: true,
         unique: true
     },
-    img: {
-        type: Object
-    },
-    bio: {
-        type: String
-    }
+    img: Object,
+    bio: String
 })
 
 module.exports = mongoose.model('Profile', profileSchema)

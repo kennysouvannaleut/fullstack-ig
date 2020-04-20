@@ -14,7 +14,6 @@ const SetBio = props => {
         e.preventDefault()
         addBio(bioInput);
         handleToggle && handleToggle('bio')
-        // handleToggle('bio')
     }
 
     return (

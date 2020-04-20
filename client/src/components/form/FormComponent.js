@@ -26,7 +26,7 @@ const FormComponent = props => {
                 withPreview={ true }
                 singleImage={ true }
                 imgExtension={ ['.jpg', '.gif', '.png', '.jpeg'] }
-                maxFileSize={ 5242880 }
+                maxFileSize={ 10000000 }
                 fileSizeError='file size is to big'
                 fileTypeError='is not supported file extension'
                 buttonText='upload an image'

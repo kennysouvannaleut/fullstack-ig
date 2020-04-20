@@ -17,6 +17,7 @@ const PostList = props => {
 
     useEffect(() => {
         getPosts();
+        getProfile()
     }, [loading]);
 
     return (
@@ -35,8 +36,6 @@ const PostList = props => {
                                 <PostCard 
                                     key={ i }
                                     { ...post }
-                                    getProfile={getProfile}
-                                    profile={profile}
                                     upvotePost={ upvotePost } 
                                     downvotePost={ downvotePost }
                                     userPage={ userPage }

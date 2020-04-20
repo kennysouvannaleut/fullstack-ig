@@ -1,47 +1,13 @@
-import React, {useContext, useEffect } from 'react';
-import UserContext from '../../context/userContext';
+import React from 'react';
+import CurrentList from '../../components/posts/CurrentList';
 
 const Post = () => {
-    const userContext = useContext(UserContext);
-    const { getProfile, posts, _id } = userContext;
 
-    useEffect(() => {
-        getProfile();
-    }, []);
-
-    console.log(111, getProfile.posts)
-    
     return (
-        <div className='post'>
-            { posts ? (
-                <>
-                <div className='post-image'
-                style={{
-                    width: '50%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    height: '250px',
-                    backgroundImage: `url('${posts.userImg}')`,
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
-                    position: 'relative',
-                    borderTopLeftRadius: '2px',
-                    borderTopRightRadius: '2px',                        
-                }}  >
-                </div>
-                <div className='post-content'>
-                    <p> date: { posts.dateAdded }</p>
-                    <p> description: { posts.description }</p>
-                    <span> votes: { posts.votes }</span>
-                </div>
-                </>
-            ) : (
-                <div>Loading...</div>
-            )}
+        <div className='current-post'>
+            <CurrentList />
         </div>
     );
 };
 
-export default Post;  
-
+export default Post;

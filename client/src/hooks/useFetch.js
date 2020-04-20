@@ -1,24 +1,35 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const useFetch = (url, options) => {
-    const [response, setResponse] = useState(null);
-    const [error, setError] = useState(null);
-    // const [isLoading, setIsLoading] = useState(false);
+axios.interceptors.request.use(config => {
+    const token = localStorage.getItem('token');
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+});
+
+// custom hook for performing get request
+const useFetch = (url, initValue) => {
+    const [data, setData] = useState(initValue);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const fetchData = async () => {
-            // setIsLoading(true);
         try {
-            const res = await axios.get(url, options);
-            const json = await res.json();
-            setResponse(json);
-            // setIsLoading(false);
+            setLoading(true);
+            const res = await axios.get(url);
+            if (res.status === 200) {
+            setData(res.data);
+            }
         } catch (error) {
-            setError(error);
+          throw error;    
+        } finally {
+            setLoading(false);
         }
     };
+
     fetchData();
-}, []);
-    return { response, error };
+    }, [url]);
+    return { loading, data };
 };
 
+export default useFetch;

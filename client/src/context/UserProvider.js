@@ -199,8 +199,8 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    posts: res.data,
-                    loading: false
+                    posts: res.data
+                    // loading: false
                 }));
             })
             .catch(err => {

@@ -40,7 +40,7 @@ const UserProvider = props => {
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
-    console.log(userState)
+
     const { goBack } = useHistory();
 
     // USER AUTH:
@@ -118,8 +118,8 @@ const UserProvider = props => {
     )};
 
     // PROFILE:
-    const getProfile = username => {
-        userAxios.get(`/api/profile/${username}`)
+    const getProfile = () => {
+        userAxios.get('/api/profile')
         .then(res => {
             setUserState(prevUserState => ({
                 ...prevUserState,
@@ -131,9 +131,11 @@ const UserProvider = props => {
         })
     }
 
-    const addProfileImg = (username, img) => {
-        editUserIcons(username, img.imgUrl)
-        userAxios.put('/api/profile/img', {data: img})
+    const addProfileImg = img => {
+        const {imgUrl} = img
+        editPostIcons(imgUrl)
+        editCommentIcons(imgUrl)
+        userAxios.put('/api/profile/img', img)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -265,12 +267,13 @@ const UserProvider = props => {
     };
 
     // add profile pictures to posts
-    const editUserIcons = (username, userImg) => {
-        userAxios.put(`/api/posts/profile/${username}`, {data: userImg})
+    const editPostIcons = userImg => {
+        userAxios.put(`/api/posts/profile/${userState.user.username}`, {data: userImg})
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    posts: prevUserState.posts.map(post => (post.postedBy === username ? res.data : post))
+                    posts: prevUserState.posts.map(post => 
+                        (post.postedBy === prevUserState.user.username ? res.data : post))
                 }))
             })
             .catch(err => {
@@ -367,18 +370,20 @@ const UserProvider = props => {
         });
     };
 
-    // const editUserIcons = (username, userImg) => {
-    //     userAxios.put(`/api/posts/profile/${username}`, {data: userImg})
-    //         .then(res => {
-    //             setUserState(prevUserState => ({
-    //                 ...prevUserState,
-    //                 posts: prevUserState.posts.map(post => (post.postedBy === username ? res.data : post))
-    //             }))
-    //         })
-    //         .catch(err => {
-    //             console.error(err)
-    //         })
-    // }
+    // add profile icons to comments
+    const editCommentIcons = userImg => {
+        userAxios.put(`/api/comments/profile/${userState.user.username}`, {data: userImg})
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    comments: prevUserState.comments.map(comment => 
+                        (comment.postedBy === prevUserState.user.username ? res.data : comment))
+                }))
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
 
     return (
         <UserContext.Provider 

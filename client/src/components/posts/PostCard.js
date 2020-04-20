@@ -12,7 +12,7 @@ const PostCard = props => {
         img, 
         votes,
         postedBy,
-        userImg,
+        profile,
         upvotePost, 
         downvotePost, 
         userPage
@@ -24,8 +24,8 @@ const PostCard = props => {
             {!userPage &&
                 <div>
                     <Link className='card-username' to={`/user/${ postedBy }`}>
-                        {userImg &&
-                            <img className='user-icon' alt='' src={userImg}/>
+                        {profile && profile.img &&
+                            <img className='user-icon' alt='' src={profile.img.userImg}/>
                         }
                         <p>{ postedBy }</p>
                     </Link>

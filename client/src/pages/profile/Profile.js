@@ -15,7 +15,7 @@ const Profile = () => {
         addBio,
     } = userContext
     // const {image: {imgUrl}, about} = profile <-- destructuring sends an error
-    console.log(profile)
+
     const [imgToggle, setImgToggle] = useState(false)
     const [bioToggle, setBioToggle] = useState(false)
 

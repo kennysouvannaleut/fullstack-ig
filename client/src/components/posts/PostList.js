@@ -36,9 +36,6 @@ const PostList = props => {
                                 <PostCard 
                                     key={ i }
                                     { ...post }
-                                    getProfile={getProfile}
-                                    profile={profile}
-                                    userImg={profile}
                                     upvotePost={ upvotePost } 
                                     downvotePost={ downvotePost }
                                     userPage={ userPage }

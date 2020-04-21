@@ -78,7 +78,9 @@ const SetProfileImg = props => {
                 htmlFor='image' 
                 name='image'
             >
-                Choose a profile picture
+                <div className='label-styling'>
+                    Choose a profile picture
+                </div>
             </label>
         </div>
     )

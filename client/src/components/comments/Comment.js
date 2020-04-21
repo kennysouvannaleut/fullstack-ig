@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import CommentForm from './CommentForm.js'
+import DefaultAvatar from '../../media/blank-avatar.png'
 
 function Comment(props){
     const {comment, commentId, postedBy, userImg, removeComment, user, editComment} = props
@@ -12,7 +13,10 @@ function Comment(props){
     return(
         <div>
             <h3>{postedBy}</h3>
-            {userImg && <img className='comment-icon' src={userImg} alt=''/>}
+            {userImg ?
+                <img className='comment-icon' src={userImg} alt=''/> :
+                <img className='comment-icon' src={DefaultAvatar}/>
+            }
             {toggle ? 
                 <>
                     <CommentForm 

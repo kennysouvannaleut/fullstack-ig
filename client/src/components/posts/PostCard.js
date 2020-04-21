@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import userContext from '../../context/userContext';
+import DefaultAvatar from '../../media/blank-avatar.png'
 
 const PostCard = props => {
     const { 
@@ -24,8 +25,9 @@ const PostCard = props => {
             {!userPage &&
                 <div>
                     <Link className='card-username' to={`/user/${ postedBy }`}>
-                        {userImg &&
-                            <img className='user-icon' alt='' src={userImg}/>
+                        {userImg ?
+                            <img className='user-icon' src={userImg} alt=''/> :
+                            <img className='user-icon' src={DefaultAvatar} alt=''/>
                         }
                         <p>{ postedBy }</p>
                     </Link>

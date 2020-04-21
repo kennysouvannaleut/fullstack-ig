@@ -4,6 +4,7 @@ import userContext from '../../context/userContext'
 import {deleteImage} from '../../firebase/firebase.js'
 import CommentList from '../../components/comments/CommentList.js'
 import CommentForm from '../../components/comments/CommentForm.js'
+import DefaultAvatar from '../../media/blank-avatar.png'
 
 const DetailPage = () => {
     const {postId} = useParams()
@@ -77,8 +78,9 @@ const DetailPage = () => {
             <div className='detail-user'>
                 <p>Posted By: </p>
                 <Link className='card-username card-title' to={`/user/${ postedBy }`}>
-                    {userImg &&
-                        <img className='user-icon' alt='' src={userImg}/>
+                    {userImg ?
+                        <img className='user-icon' alt='' src={userImg}/> :
+                        <img className='user-icon' alt='' src={DefaultAvatar}/>
                     }
                     <p>{ postedBy }</p>
                 </Link>

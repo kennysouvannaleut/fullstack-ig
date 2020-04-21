@@ -25,13 +25,13 @@
 }
 
 .set-profile-pic {
-    border: solid rgb(139, 139, 139) 1px;
-    color: rgb(85, 85, 85);
     width: 120px;
     height: 120px;
     text-align: center;
     padding-top: 40px;
     border-radius: 60px;
+    background-image: url('../media/blank-avatar.png');
+    background-size: contain
 }
 
 .profile-pic-input {
@@ -43,13 +43,21 @@
 	z-index: -1
 }
 
-.profile-pic-label {
+.label-styling {
+    border-radius: 60px;
+    width: 120px;
+    height: 120px;
+    margin-top: -40px;
+    padding-top: 42px;
     cursor: pointer;
-    transition: color .5s
+    color: transparent;
+    font-size: 13pt;
+    transition: .3s
 }
 
-.profile-pic-label:hover {
-    color: darkcyan
+.label-styling:hover {
+    color: #e5e6e7;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .profile-pic-input:focus + label {

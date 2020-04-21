@@ -10,12 +10,11 @@ const CurrentList = () => {
             { data && 
                 data.length > 0 && 
                 data.map(post => 
-                    <p key={ post.id } >
-                    <img src={post.img} alt='' />
-                    <p>Posted: { post.dateAdded } </p> 
+                    <p key={ post._id } >
+                    <img src={post.img.imgUrl} alt='' />
+                    <p>Date: { post.dateAdded } </p> 
                     <p>Description: { post.description } </p> 
-                    <span>Votes: { post.votes } </span> 
-                    <p>Comments: </p> { post.comments } </p> 
+                    Votes: { post.votes } </p> 
                 )}
         </div>
     );

@@ -55,6 +55,7 @@ const FormContainer = props => {
     const finalizeSubmit = inputs => {
         createPost(inputs)
         setInputs(initialInputs)
+        window.location.reload(true)
     }
 
     return (

@@ -1,32 +1,20 @@
 import React from 'react'
-import {imageUpload} from '../../firebase/firebase.js'
+import {imageUpload, deleteImage} from '../../firebase/firebase.js'
+import DefaultAvatar from '../../media/blank-avatar.png'
 
 const SetProfileImg = props => {
-    const {user, addProfileImg} = props
+    const {user, addProfileImg, profile, handleToggle} = props
 
     const handleImgSubmit = e => {
         const img = e.target.files
-        // if(maxSelectFile(e) && checkMimeType(e) && checkFileSize(e)){
         if(checkMimeType(e) && checkFileSize(e)){
             const path = `${user}/profile`
+            profile && deleteImage(profile.img.imgRef)
             imageUpload(img, path, setUrl)
+            handleToggle && console.log('should work')
+            handleToggle && handleToggle('Img')
         }
-        // } else{
-        //     console.log('Error uploading file')
-        // }
     }
-
-    // const maxSelectFile = e => {
-    //     let img = e.target.files
-    //         if (img.length > 1) { 
-    //             const msg = 'Only 1 image can be uploaded at a time'
-    //             // e.target.value = null
-    //             console.log(msg)
-    //             return false
-    //         }
-    //     return true
-    // }
-    // ^^ not working, if selecting multiple images, only accepts last image for some reason
 
     const checkMimeType = e => {
         let img = e.target.files 
@@ -64,7 +52,10 @@ const SetProfileImg = props => {
     }
 
     return (
-        <div className={'set-profile-pic'}>
+        <div 
+            className={'set-profile-pic'} 
+            style={{'backgroundImage': `url(${profile ? profile.img.imgUrl : DefaultAvatar}`}}
+        >
             <input 
                 className='profile-pic-input' 
                 name='image' 
@@ -79,7 +70,7 @@ const SetProfileImg = props => {
                 name='image'
             >
                 <div className='label-styling'>
-                    Choose a profile picture
+                    {profile ? 'Change profile picture' : 'Choose a profile picture'}
                 </div>
             </label>
         </div>

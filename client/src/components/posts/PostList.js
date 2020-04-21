@@ -17,7 +17,7 @@ const PostList = props => {
 
     useEffect(() => {
         getPosts();
-        getProfile()
+        getProfile(profile.user)
     }, [loading]);
 
     return (

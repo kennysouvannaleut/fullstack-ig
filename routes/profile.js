@@ -3,9 +3,9 @@ const profile = express.Router()
 const Profile = require('../models/profile.js')
 
 // get profile
-profile.get('/', (req, res, next) => {
+profile.get('/:username', (req, res, next) => {
     Profile.findOne(
-        {username: req.user.username},
+        {username: req.params.username},
         (err, profile) => {
         if(err){
             res.status(500)

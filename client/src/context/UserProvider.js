@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import UserContext from './userContext';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import '../media/blank-avatar.png'
+// import DefaultAvatar from '../media/blank-avatar.png'
 
 const userAxios = axios.create();
 
@@ -20,8 +20,9 @@ const UserProvider = props => {
         token: localStorage.getItem('token') || '',
         profile: {
             img: {
-                imgUrl: '../media/blank-avatar.png',
-                imgPath: ''
+                // imgUrl: DefaultAvatar,
+                imgUrl: '',
+                imgRef: ''
             },
             bio: ''
         },

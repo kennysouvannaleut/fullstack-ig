@@ -15,7 +15,7 @@ function Comment(props){
             <h3>{postedBy}</h3>
             {userImg ?
                 <img className='comment-icon' src={userImg} alt=''/> :
-                <img className='comment-icon' src={DefaultAvatar}/>
+                <img className='comment-icon' src={DefaultAvatar} alt='' />
             }
             {toggle ? 
                 <>

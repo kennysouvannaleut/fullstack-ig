@@ -16,48 +16,29 @@ const Profile = () => {
     } = userContext
     // const {image: {imgUrl}, about} = profile <-- destructuring sends an error
 
-    const [imgToggle, setImgToggle] = useState(false)
     const [bioToggle, setBioToggle] = useState(false)
 
     useEffect(() => {
         getProfile(username)
     }, [])
 
-    const handleToggle = selector => {
-        selector === 'Img' ? setImgToggle(!imgToggle) : setBioToggle(!bioToggle)
+    const handleToggle = () => {
+        setBioToggle(!bioToggle)
     }
     
     return (
         <div className='profile'>
             <h1>Welcome {username}</h1>
-            {
-            imgToggle ? 
-                <>
-                    <SetProfileImg user={username} addProfileImg={addProfileImg}/>
-                    <br/>
-                    <button onClick={() => handleToggle('Img')}>Cancel</button> 
-                </>
-            :
-                <>
-                    {
-                    profile && profile.img ? 
-                        <>
-                            <img className='profile-pic' alt='' src={profile.img.imgUrl}/>
-                            <br/>
-                            <button onClick={() => handleToggle('Img')}>Change picture</button> 
-                        </>
-                    :
-                        <>
-                            <SetProfileImg user={username} addProfileImg={addProfileImg}/>
-                        </>
-                    }
-                </>
-            }
+            <SetProfileImg 
+                user={username} 
+                addProfileImg={addProfileImg} 
+                profile={profile}
+            />
             {
                 bioToggle ?
                     <>
                         <SetBio addBio={addBio} prevBio={profile.bio} handleToggle={handleToggle}/>
-                        <button onClick={() => handleToggle('Bio')}>Cancel</button>
+                        <button onClick={() => handleToggle()}>Cancel</button>
                     </>
                 :
                     <>
@@ -65,7 +46,7 @@ const Profile = () => {
                         profile && profile.bio ?
                             <>
                                 <p>{profile.bio}</p>
-                                <button onClick={() => handleToggle('Bio')}>Edit bio</button>
+                                <button onClick={() => handleToggle()}>Edit bio</button>
                             </>
                         :
                             <SetBio addBio={addBio} prevBio={profile.bio}/>

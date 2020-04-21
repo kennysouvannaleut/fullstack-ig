@@ -1,11 +1,11 @@
 import React from 'react';
-import CurrentList from '../../components/posts/CurrentList';
+import CurrentPost from '../../components/posts/CurrentPost';
 
 const Post = () => {
 
     return (
         <div className='current-post'>
-            <CurrentList />
+            <CurrentPost />
         </div>
     );
 };

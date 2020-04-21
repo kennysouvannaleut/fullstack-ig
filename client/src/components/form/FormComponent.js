@@ -21,8 +21,9 @@ const FormComponent = props => {
                 rows={ 10 } 
             />
             <ImageUploader 
+                {...props}
                 onChange={ onDrop }
-                withIcon={ false }
+                // withIcon={ true }
                 withPreview={ true }
                 singleImage={ true }
                 imgExtension={ ['.jpg', '.gif', '.png', '.jpeg'] }
@@ -30,6 +31,7 @@ const FormComponent = props => {
                 fileSizeError='file size is to big'
                 fileTypeError='is not supported file extension'
                 buttonText='upload an image'
+                label='Max file size 10mb, accepted: jpg, png, gif'
             />
             <button>{ buttonText }</button>
         </form>

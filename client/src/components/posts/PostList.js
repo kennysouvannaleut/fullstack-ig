@@ -8,7 +8,7 @@ const PostList = props => {
         getPosts, 
         posts,
         getProfile,
-        profile,
+        // profile,
         loading, 
         upvotePost, 
         downvotePost

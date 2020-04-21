@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import UserContext from './userContext';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';

@@ -54,7 +54,7 @@ const SetProfileImg = props => {
     return (
         <div 
             className={'set-profile-pic'} 
-            style={{'backgroundImage': `url(${profile ? profile.img.imgUrl : DefaultAvatar}`}}
+            style={{'backgroundImage': `url(${profile.img ? profile.img.imgUrl : DefaultAvatar}`}}
         >
             <input 
                 className='profile-pic-input' 

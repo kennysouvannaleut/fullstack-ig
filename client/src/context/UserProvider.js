@@ -120,8 +120,8 @@ const UserProvider = props => {
     )};
 
     // PROFILE:
-    const getProfile = () => {
-        userAxios.get('/api/profile')
+    const getProfile = username => {
+        userAxios.get(`/api/profile/${username}`)
         .then(res => {
             setUserState(prevUserState => ({
                 ...prevUserState,
@@ -216,7 +216,8 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    posts: res.data
+                    posts: res.data,
+                    loading: false
                 }));
             })
             .catch(err => {

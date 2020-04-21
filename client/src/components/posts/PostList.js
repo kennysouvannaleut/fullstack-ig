@@ -8,7 +8,7 @@ const PostList = props => {
         getPosts, 
         posts,
         getProfile,
-        // profile,
+        profile,
         loading, 
         upvotePost, 
         downvotePost
@@ -16,8 +16,10 @@ const PostList = props => {
     const { userPage } = props;
 
     useEffect(() => {
-        getPosts();
-        getProfile(profile.user)
+        if(!userPage){
+            getPosts();
+            getProfile(profile.user)
+        }
     }, [loading]);
 
     return (

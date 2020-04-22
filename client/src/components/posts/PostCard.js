@@ -23,31 +23,19 @@ const PostCard = props => {
     return (
         <div className='card'>
             {!userPage &&
-                <div>
-                    <Link className='card-username' to={`/user/${ postedBy }`}>
-                        {userImg ?
-                            <img className='user-icon' src={userImg} alt=''/> :
-                            <img className='user-icon' src={DefaultAvatar} alt=''/>
-                        }
-                        <p>{ postedBy }</p>
-                    </Link>
+                <div className='card-user'>
+                    <div className='card-user-icon-box'>
+                        <Link to={`/user/${ postedBy }`}>
+                            {userImg ?
+                                <img className='card-user-icon' src={userImg} alt=''/> :
+                                <img className='card-user-icon' src={DefaultAvatar} alt=''/>
+                            }
+                        </Link>
+                    </div>
+                    <Link className='card-username-link' to={`/user/${ postedBy }`}><p class='card-username'>{ postedBy }</p></Link>
                 </div>
             }
             <Link to={`/detail/${ _id }`}>
-                {/* <div 
-                    className='card-image' 
-                    style={{
-                        width: '300px',
-                        height: '250px',
-                        backgroundImage: `url('${ img }')`,
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
-                        position: 'relative',
-                        borderTopLeftRadius: '2px',
-                        borderTopRightRadius: '2px'
-                }}>
-                </div> */}
                 <img className='card-image' alt='' src={img.imgUrl}/>
                 {/* this also throws error wtf */}
             </Link>

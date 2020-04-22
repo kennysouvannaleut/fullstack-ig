@@ -12,14 +12,6 @@ const FormComponent = props => {
 
     return (
         <form onSubmit={ handleSubmit }>
-            <textarea
-                name='description'
-                value={ description }
-                onChange={ handleChange }
-                placeholder='provide an image description'
-                cols={ 50 }
-                rows={ 10 } 
-            />
             <ImageUploader 
                 {...props}
                 onChange={ onDrop }
@@ -32,6 +24,14 @@ const FormComponent = props => {
                 fileTypeError='is not supported file extension'
                 buttonText='upload an image'
                 label='Max file size 10mb, accepted: jpg, png, gif'
+            />
+            <textarea
+                name='description'
+                value={ description }
+                onChange={ handleChange }
+                placeholder='provide an image description'
+                cols={ 50 }
+                rows={ 3 } 
             />
             <button>{ buttonText }</button>
         </form>

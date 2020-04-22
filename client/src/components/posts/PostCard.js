@@ -32,7 +32,7 @@ const PostCard = props => {
                             }
                         </Link>
                     </div>
-                    <Link className='card-username-link' to={`/user/${ postedBy }`}><p class='card-username'>{ postedBy }</p></Link>
+                    <Link className='card-username-link' to={`/user/${ postedBy }`}><p className='card-username'>{ postedBy }</p></Link>
                 </div>
             }
             <Link to={`/detail/${ _id }`}>

@@ -24,33 +24,27 @@ const PostList = props => {
 
     return (
         <div className='posts'>
-            <div className='container'>
-                {
-                !userPage && 
-                    <h2>Posts</h2>
+            {
+            !loading ? (
+                <div className='posts-grid-container'>
+                    {
+                    posts.map((post, i) => {
+                        return (
+                            <PostCard 
+                                key={ i }
+                                { ...post }
+                                upvotePost={ upvotePost } 
+                                downvotePost={ downvotePost }
+                                userPage={ userPage }
+                                id={ post._id }
+                            />
+                        )
+                    })
                 }
-                {
-                !loading ? (
-                    <div className='posts-grid-container'>
-                        {
-                        posts.map((post, i) => {
-                            return (
-                                <PostCard 
-                                    key={ i }
-                                    { ...post }
-                                    upvotePost={ upvotePost } 
-                                    downvotePost={ downvotePost }
-                                    userPage={ userPage }
-                                    id={ post._id }
-                                />
-                            )
-                        })
-                    }
-                    </div>
-                ) : (
-                    <div>Loading...</div>
-                )}
-            </div>
+                </div>
+            ) : (
+                <div>Loading...</div>
+            )}
         </div>
     );
 };

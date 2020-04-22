@@ -77,11 +77,12 @@ const DetailPage = () => {
         <div className='post-detail'>
             <div className='detail-user'>
                 <p>Posted By: </p>
-                <Link className='card-username card-title' to={`/user/${ postedBy }`}>
+                <Link className='detail-icon-box' to={`/user/${ postedBy }`}>
                     {userImg ?
-                        <img className='user-icon' alt='' src={userImg}/> :
-                        <img className='user-icon' alt='' src={DefaultAvatar}/>
-                    }
+                        <img className='detail-icon' alt='' src={userImg}/> :
+                        <img className='detail-icon' alt='' src={DefaultAvatar}/>}
+                </Link>
+                <Link className='detail-username' to={`/user/${ postedBy }`}>
                     <p>{ postedBy }</p>
                 </Link>
             </div>

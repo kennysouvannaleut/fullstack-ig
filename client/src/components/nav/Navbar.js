@@ -8,12 +8,12 @@ const Navbar = props => {
     return (
         <div className='nav'>
             { token && <Link to='/profile'>Profile</Link> }
-            
-            <Navtab to='/home' label='Home' />
-            <Navtab to='/profile' label='Profile' />
-            <Navtab to='/current-user' label='Post' />
-
-            <button onClick={ logout }>Logout</button>
+            <div className='nav-box'>
+                <Navtab to='/home' label='Home' />
+                <Navtab to='/profile' label='Profile' />
+                <Navtab to='/current-user' label='Post' />
+            </div>
+            <button className='nav-button' onClick={ logout }>Logout</button>
         </div>
     );
 };

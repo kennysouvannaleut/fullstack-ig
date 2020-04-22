@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    margin: 0;
 }
 
 .App {
@@ -8,20 +9,139 @@
     font-family: 'Roboto';
 }
 
-.card-image {
-    max-width: 400px;
+body {
+    background-color: whitesmoke
 }
 
+/* auth */
+.auth-container {
+    border: solid rgb(224, 224, 224) 1px;
+    width: 600px;
+    background-color: white;
+    margin: 40px auto;
+    padding: 10px;
+    text-align: center;
+}
+
+/* nav */
+.nav {
+    border: solid rgb(224, 224, 224) 1px;
+    background-color: white;
+    padding: 8px;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    /* margin-top: -70px */
+}
+
+.nav-box {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: auto
+}
+
+.nav-link {
+    text-decoration: none;
+    font-size: 13pt;
+    color: black;
+    margin-left: 30px;
+    transition: .3s
+}
+
+.nav-link:hover {
+    color: #b3b322
+}
+
+.nav-button {
+    font-size: 13px;
+    align-self: center;
+    margin-top: -21px;
+    float: right
+}
+
+/* posts */
+.postlist-container {
+    margin-top: 30px
+}
+
+.posts {
+    padding-top: 40px
+}
+
+.card {
+    background-color: white;
+    border: solid rgb(224, 224, 224) 1px;
+    max-width: 602px;
+    border-radius: 4px;
+    margin: 30px auto;
+    /* padding */
+}
+
+.card-image {
+    max-width: 600px;
+}
+
+.card-user {
+    display: flex;
+    align-items: center;
+}
+
+.card-username-link {
+    text-decoration: none;
+}
+
+.card-username {
+    font-size: 16pt;
+    color: rgb(53, 53, 53);
+    transition: color .5s
+}
+
+.card-username:hover {
+    color: darkcyan
+}
+
+.card-user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 60px;
+}
+
+.card-user-icon-box {
+    margin: 5px 15px;
+}
+
+/* detail */
 .detail-image {
     max-width: 80%;
 }
 
 .post-detail {
-    text-align: center
+    text-align: center;
+    padding-top: 60px
 }
 
-.card-title {
-    justify-content: center
+.detail-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 60px
+}
+
+.detail-username {
+    font-size: 16pt;
+    color: rgb(53, 53, 53);
+    transition: color .5s
+}
+
+/* profile */
+.profile {
+    width: 600px;
+    margin: auto;
+    padding-top: 40px;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 4px;
+    background-color: white;
 }
 
 .set-profile-pic {
@@ -71,26 +191,28 @@
     border-radius: 60px;
 }
 
-.user-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 60px;
-    margin: 5px
+/* logged in user posts */
+.current-user-post {
+    padding-top: 50px;
+    text-align: center;
 }
 
-.card-username {
-    font-size: 18pt;
-    text-decoration: none;
-    color: rgb(53, 53, 53);
-    display: flex;
-    align-items: center;
-    transition: color .5s
+.user-post-list {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
 }
 
-.card-username:hover {
-    color: darkcyan
+.user-post {
+    max-width: 400px;
+    border: solid rgb(224, 224, 224) 1px;
+    margin: 20px
 }
 
+.user-post-img {
+    max-width: 400px;
+}
+
+/* comments */
 .comment-icon {
     width: 30px;
     height: 30px;
@@ -98,6 +220,13 @@
     margin: 5px
 }
 
+/* user page */
 .user-posts-bio {
     margin-left: 20px
+}
+
+.user-post-detail {
+    padding-top: 50px;
+    align-items: center;
+    text-align: center;
 }

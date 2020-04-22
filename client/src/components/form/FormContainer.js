@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Redirect} from 'react-router-dom'
 import FormComponent from './FormComponent';
 import {imageUpload} from '../../firebase/firebase.js'
 
@@ -22,6 +23,7 @@ const FormContainer = props => {
     
     const [inputs, setInputs] = useState(initialInputs);
     const [img, setimg] = useState([]);
+    const [redirect, setRedirect] = useState(false)
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -55,10 +57,12 @@ const FormContainer = props => {
     const finalizeSubmit = inputs => {
         createPost(inputs)
         setInputs(initialInputs)
-        window.location.reload(true)
+        setRedirect(true)
     }
 
     return (
+        redirect ? 
+        <Redirect to='/current-user'/> :
         <FormComponent 
             handleChange={ handleChange }
             handleSubmit={ handleSubmit }

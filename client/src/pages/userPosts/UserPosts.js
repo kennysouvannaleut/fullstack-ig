@@ -14,11 +14,11 @@ const UserPosts = () => {
     }, [])
     
     return(
-        <div>
+        <div className='user-post-detail'>
             <div className='card-username'>
                 {profile.img ?
-                    <img className='user-icon' alt='' src={profile.img.imgUrl }/> :
-                    <img className='user-icon' alt='' src={DefaultAvatar}/>
+                    <img className='detail-icon' alt='' src={profile.img.imgUrl }/> :
+                    <img className='detail-icon' alt='' src={DefaultAvatar}/>
                 }
                 <h3>{ username }</h3>
                 {profile.bio && <p className='user-posts-bio'>{profile.bio}</p>}

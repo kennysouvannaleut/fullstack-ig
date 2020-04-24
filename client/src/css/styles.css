@@ -1,6 +1,10 @@
 * {
     box-sizing: border-box;
-    margin: 0;
+    margin: 0
+}
+
+body {
+    background-color: whitesmoke
 }
 
 .App {
@@ -9,14 +13,19 @@
     font-family: 'Roboto';
 }
 
-body {
-    background-color: whitesmoke
+.button {
+    border-radius: 5px;
+    background-color: whitesmoke;
+}
+
+.button:focus {
+    background-color: rgb(116, 154, 177);
 }
 
 /* auth */
 .auth-container {
     border: solid rgb(224, 224, 224) 1px;
-    width: 600px;
+    width: 700px;
     background-color: white;
     margin: 40px auto;
     padding: 10px;
@@ -31,11 +40,10 @@ body {
     align-items: center;
     position: fixed;
     width: 100%;
-    /* margin-top: -70px */
 }
 
 .nav-box {
-    width: 600px;
+    width: 700px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -51,7 +59,7 @@ body {
 }
 
 .nav-link:hover {
-    color: #b3b322
+    color: rgb(116, 154, 177)
 }
 
 .nav-button {
@@ -73,14 +81,13 @@ body {
 .card {
     background-color: white;
     border: solid rgb(224, 224, 224) 1px;
-    max-width: 602px;
+    max-width: 702px;
     border-radius: 4px;
-    margin: 30px auto;
-    /* padding */
+    margin: 10px auto 25px
 }
 
 .card-image {
-    max-width: 600px;
+    max-width: 700px;
 }
 
 .card-user {
@@ -99,7 +106,7 @@ body {
 }
 
 .card-username:hover {
-    color: darkcyan
+    color: rgb(116, 154, 177)
 }
 
 .card-user-icon {
@@ -113,71 +120,124 @@ body {
 }
 
 /* detail */
-.detail-image {
-    max-width: 80%;
-}
-
 .post-detail {
     text-align: center;
-    padding-top: 60px
+    padding-top: 60px;
+    width: 700px;
+    margin: auto;
+    background-color: white;
+}
+
+.detail-info {
+    display: grid;
+    /* grid-template-columns: 100px auto auto; */
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.detail-user {
+    grid-column: 1 / 2;
+    display: flex;
+    margin-left: 15px
 }
 
 .detail-icon {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 60px
 }
 
 .detail-username {
-    font-size: 16pt;
+    font-size: 18pt;
     color: rgb(53, 53, 53);
-    transition: color .5s
+    transition: color .5s;
+    align-self: center;
+    text-decoration: none;
+    margin-left: 10px
+}
+
+.detail-username:hover {
+    color: rgb(116, 154, 177)
+}
+
+.delete-button {
+    width: 120px;
+    height: 26px;
+    font-size: 14px;
+    justify-self: right;
+    align-self: center;
+    margin-right: 15px
+}
+
+.detail-date {
+    margin: 10px
+}
+
+.detail-image {
+    max-width: 700px;
 }
 
 /* profile */
 .profile {
-    width: 600px;
+    padding-top: 50px;
+}
+
+.profile-edit {
+    display: grid;
+    grid-template-columns: 200px auto;
+    width: 700px;
     margin: auto;
-    padding-top: 40px;
+    padding: 10px;
     border: solid rgb(224, 224, 224) 1px;
     border-radius: 4px;
     background-color: white;
 }
 
-.profile-edit {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    /* justify-content: space-evenly; */
-}
-
-.profile-icon {
-    grid-column: 1 / 2;
-    grid-row: 1 / 3;
-    justify-self: space-evenly;
-    
+.profile-edit-text {
+    grid-column: 2 / 3
 }
 
 .profile-username {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2
+    margin: 14px
+}
+
+.profile-postnum {
+    margin-left: 14px
 }
 
 .profile-bio {
-    grid-column: 2 / 3;
-    grid-row: 2 / 3
+    margin: 20px 14px;
 }
 
-.profile-post {
-    display: grid;
-    text-align: center;
+.bio-p {
+    margin-bottom: 17px;
+    background-color: whitesmoke;
+    border-radius: 4px;
+}
+
+.bio-textarea {
+    width: 80%;
+}
+
+.profile-bio-button {
+    width: 80px;
+    float: left
+}
+
+.set-bio-button {
+    width: 80px;
+    float: left
 }
 
 .set-profile-pic {
-    width: 120px;
-    height: 120px;
+    grid-column: 1 / 2;
+    align-self: center;
+    justify-self: center;
+    margin: 20px;
+    width: 150px;
+    height: 150px;
     text-align: center;
     padding-top: 40px;
-    border-radius: 60px;
+    border-radius: 80px;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -219,25 +279,46 @@ body {
     border-radius: 60px;
 }
 
+.profile-post {
+    display: grid;
+    text-align: center;
+    width: 700px;
+    margin: 14px auto;
+    padding: 20px;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.post-submit-button {
+    margin-top: 10px;
+    width: 100px;
+    font-size: 12pt;
+    padding: 6px
+}
+
 /* logged in user posts */
 .current-user-post {
     padding-top: 50px;
     text-align: center;
+    width: 700px;
+    margin: auto;
 }
 
 .user-post-list {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 8px
 }
 
 .user-post {
-    max-width: 400px;
-    border: solid rgb(224, 224, 224) 1px;
-    margin: 20px
+    max-width: 200px;
+    margin: auto;
+    padding: 10px
 }
 
 .user-post-img {
-    max-width: 400px;
+    max-width: 100%;
 }
 
 /* comments */

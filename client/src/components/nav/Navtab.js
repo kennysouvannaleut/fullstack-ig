@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const activeStyle = { color: '#b3b322', fontWeight: 'bold' };
+const activeStyle = { color: 'rgb(116, 154, 177)', fontWeight: 'bold' };
 
 const Navtab = props => {
     const {to, label} = props

@@ -39,7 +39,9 @@ const FormContainer = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        imageUpload(img, user, setUrl);
+        img.length === 0 ?
+            alert("You must choose a picture") :
+            imageUpload(img, user, setUrl);
     };
 
     const setUrl = (url, path) => {
@@ -68,7 +70,7 @@ const FormContainer = props => {
             handleSubmit={ handleSubmit }
             onDrop={ onDrop }
             inputs={ inputs }
-            buttonText='submit'
+            buttonText='Submit'
         />
     );
 };

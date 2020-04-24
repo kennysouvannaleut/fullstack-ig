@@ -34,8 +34,8 @@ function Comment(props){
             }
             {user === postedBy &&
                 <>
-                    <button onClick={() => removeComment(commentId)}>X</button>
-                    <button onClick={() => toggleEditComment()}>{toggle ? 'Cancel' : 'Edit'}</button>
+                    <button className='button' onClick={() => removeComment(commentId)}>X</button>
+                    <button className='button' onClick={() => toggleEditComment()}>{toggle ? 'Cancel' : 'Edit'}</button>
                 </>
             }
         </div>

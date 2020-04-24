@@ -15,25 +15,31 @@ const FormComponent = props => {
             <ImageUploader 
                 {...props}
                 onChange={ onDrop }
-                // withIcon={ true }
+                buttonStyles={{
+                    'backgroundColor': 'whitesmoke', 
+                    'color': 'black', 
+                    'border': 'solid rgb(190, 190, 190) 1px', 
+                    'borderRadius': '5px'
+                }}
                 withPreview={ true }
                 singleImage={ true }
                 imgExtension={ ['.jpg', '.gif', '.png', '.jpeg'] }
                 maxFileSize={ 10000000 }
                 fileSizeError='file size is to big'
                 fileTypeError='is not supported file extension'
-                buttonText='upload an image'
+                buttonText='Upload An Image'
                 label='Max file size 10mb, accepted: jpg, png, gif'
             />
             <textarea
                 name='description'
                 value={ description }
                 onChange={ handleChange }
-                placeholder='provide an image description'
+                placeholder='Provide an image description (optional)'
                 cols={ 50 }
                 rows={ 3 } 
             />
-            <button>{ buttonText }</button>
+            <br/>
+            <button className='post-submit-button button'>{ buttonText }</button>
         </form>
     );
 };

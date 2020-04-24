@@ -13,6 +13,8 @@ const Profile = () => {
         getProfile,
         addProfileImg,
         addBio,
+        currentUserPosts,
+        posts
     } = userContext
     // const {image: {imgUrl}, about} = profile <-- destructuring sends an error
 
@@ -20,6 +22,7 @@ const Profile = () => {
 
     useEffect(() => {
         getProfile(username)
+        currentUserPosts()
     }, [])
 
     const handleToggle = () => {
@@ -29,34 +32,45 @@ const Profile = () => {
     return (
         <div className='profile'>
             <div className='profile-edit'>
-                <h1 className='profile-username'>{username}</h1>
                 <SetProfileImg 
-                    className='profile-icon'
                     user={username} 
                     addProfileImg={addProfileImg} 
                     profile={profile}
                 />
-                {
-                    bioToggle ?
-                        <div className='profile-bio'>
-                            <SetBio addBio={addBio} prevBio={profile.bio} handleToggle={handleToggle}/>
-                            <button onClick={() => handleToggle()}>Cancel</button>
-                        </div>
-                    :
-                        <>
-                            {
-                            profile && profile.bio ?
-                                <div className='profile-bio'>
-                                    <p>{profile.bio}</p>
-                                    <button onClick={() => handleToggle()}>Edit bio</button>
-                                </div>
-                            :
-                                <SetBio addBio={addBio} prevBio={profile.bio}/>
-                        }
-                        </>
-                }
+                <div className='profile-edit-text'>
+                    <h1 className='profile-username'>{username}</h1>
+                    <p className='profile-postnum'><b>{posts.length}</b> posts</p>
+                    {
+                        bioToggle ?
+                            <div className='profile-bio'>
+                                <SetBio addBio={addBio} prevBio={profile.bio} handleToggle={handleToggle}/>
+                                <button 
+                                    className='profile-bio-button button' 
+                                    onClick={() => handleToggle()}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        :
+                            <>
+                                {
+                                profile && profile.bio ?
+                                    <div className='profile-bio'>
+                                        <p className='bio-p'>{profile.bio}</p>
+                                        <button 
+                                            className='profile-bio-button button' 
+                                            onClick={() => handleToggle()}
+                                        >
+                                            Edit Bio
+                                        </button>
+                                    </div>
+                                :
+                                    <SetBio addBio={addBio} prevBio={profile.bio}/>
+                            }
+                            </>
+                    }
+                </div>
             </div>
-            <hr/>
             <div className='profile-post'>
                 <h3>Create a new post</h3>
                 <FormContainer 

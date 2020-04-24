@@ -1,9 +1,12 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 
 const CurrentCard = props => {
     return (
         <div className='card'>
-            <img className='user-post-img' src={ props.img.imgUrl } alt='' />
+            <Link to={`/detail/${ props._id }`}>
+                <img className='user-post-img' src={ props.img.imgUrl } alt='' />
+            </Link>
                 <div className='user-post'> 
                     <p>{ props.dateAdded }</p>
                     <p>{ props.description }</p>

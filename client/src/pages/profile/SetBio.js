@@ -18,7 +18,7 @@ const SetBio = props => {
 
     return (
         <form onSubmit={handleBioSubmit}>
-            <div>
+            <div className='profile-bio'>
                 <textarea 
                     value={bioInput} 
                     placeholder='About me' 

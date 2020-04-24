@@ -4,12 +4,12 @@ import DefaultAvatar from '../../media/blank-avatar.png'
 
 const SetProfileImg = props => {
     const {user, addProfileImg, profile, handleToggle} = props
-
+    console.log(profile)
     const handleImgSubmit = e => {
         const img = e.target.files
         if(checkMimeType(e) && checkFileSize(e)){
             const path = `${user}/profile`
-            profile && deleteImage(profile.img.imgRef)
+            profile && profile.img && deleteImage(profile.img.imgRef)
             imageUpload(img, path, setUrl)
             handleToggle && console.log('should work')
             handleToggle && handleToggle('Img')

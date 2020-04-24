@@ -23,8 +23,7 @@ const postSchema = new Schema({
         default: 0
     },
     dateAdded: {
-        type: Date,
-        default: Date.now()
+        type: String
     },
     usersWhoHaveVoted: {
         type: [Schema.Types.ObjectId],

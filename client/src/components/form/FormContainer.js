@@ -9,7 +9,12 @@ const FormContainer = props => {
     // const dateString = date.getFullYear() + '-'
     // + ('0' + (date.getMonth() + 1)).slice(-2) + '-'
     // + ('0' + date.getDate()).slice(-2);
-
+    const createDate = () => {
+        const month = new Date().toLocaleString('default', { month: 'long' })
+        const dateArr = Date().split(' ')
+        return `${month} ${dateArr[2]}, ${dateArr[3]}`
+    }
+    
     const initialInputs = {
         img: {
             imgUrl: '',
@@ -18,12 +23,14 @@ const FormContainer = props => {
         user: user,
         description: '',
         likes: '',
-        dateAdded: Date.now()
+        dateAdded: createDate()
     };
     
     const [inputs, setInputs] = useState(initialInputs);
     const [img, setimg] = useState([]);
     const [redirect, setRedirect] = useState(false)
+    console.log(inputs)
+    
 
     const handleChange = e => {
         const { name, value } = e.target;

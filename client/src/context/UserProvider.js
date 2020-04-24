@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import UserContext from './userContext';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-// import DefaultAvatar from '../media/blank-avatar.png'
 
 const userAxios = axios.create();
 
@@ -20,7 +19,6 @@ const UserProvider = props => {
         token: localStorage.getItem('token') || '',
         profile: {
             img: {
-                // imgUrl: DefaultAvatar,
                 imgUrl: '',
                 imgRef: ''
             },
@@ -165,6 +163,7 @@ const UserProvider = props => {
     // POSTS:
     // new post
     const createPost = newPost => {
+        console.log(newPost)
         userAxios.post('/api/posts', newPost)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -262,10 +261,10 @@ const UserProvider = props => {
                     ...prevUserState,
                     currentPost: res.data
                 }));
+                // alert('Your post has been updated')
             })
             .catch(err => {
                console.error(err);
-               alert('Your post has been updated')
         });
     };
 

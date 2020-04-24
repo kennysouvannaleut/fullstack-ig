@@ -42,7 +42,7 @@ const Profile = () => {
                     <p className='profile-postnum'><b>{posts.length}</b> posts</p>
                     {
                         bioToggle ?
-                            <div className='profile-bio'>
+                            <div>
                                 <SetBio addBio={addBio} prevBio={profile.bio} handleToggle={handleToggle}/>
                                 <button 
                                     className='profile-bio-button button' 

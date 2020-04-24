@@ -40,19 +40,24 @@ const DetailPage = () => {
             imgRef: img.imgRef
         },
         user: user,
-        description: ''
+        description: description
     };
     const [edits, setEdits] = useState(initEdits)
 
     useEffect(() => {
         postDetail(postId)
-        setEdits({description: description})
         getProfile(username)
         getComments(postId)
+        setEdits(prevEdits => ({
+            ...prevEdits,
+            description: description
+        }))
     }, [])
-        const toggleEdit = () => {
+
+    const toggleEdit = () => {
         setToggle(!toggle)
     }
+    console.log(edits)
 
     const handleChange = (e) => {
         const {value} = e.target
@@ -107,7 +112,12 @@ const DetailPage = () => {
             }
             {postedBy === username &&
                 <>
-                    <button className='button' onClick={toggleEdit}>{toggle ? 'Cancel' : 'Edit Description'}</button>
+                    <button 
+                        className='button' 
+                        onClick={toggleEdit}
+                    >
+                        {toggle ? 'Cancel' : description ? 'Edit Description' : 'Add Description'}
+                    </button>
                 </>
             }
             <p>Votes: {votes}</p>

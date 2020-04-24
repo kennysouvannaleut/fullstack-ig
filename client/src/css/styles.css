@@ -205,11 +205,11 @@ body {
 }
 
 .profile-bio {
-    margin: 20px 14px;
+    margin: 14px 0 10px 14px;
 }
 
 .bio-p {
-    margin-bottom: 17px;
+    margin-bottom: 10px;
     background-color: whitesmoke;
     border-radius: 4px;
 }
@@ -220,12 +220,13 @@ body {
 
 .profile-bio-button {
     width: 80px;
-    float: left
+    float: left;
 }
 
 .set-bio-button {
     width: 80px;
-    float: left
+    float: left;
+    margin-left: 14px
 }
 
 .set-profile-pic {
@@ -252,11 +253,11 @@ body {
 }
 
 .label-styling {
-    border-radius: 60px;
-    width: 120px;
-    height: 120px;
+    border-radius: 80px;
+    width: 150px;
+    height: 150px;
     margin-top: -40px;
-    padding-top: 42px;
+    padding-top: 56px;
     cursor: pointer;
     color: transparent;
     font-size: 13pt;

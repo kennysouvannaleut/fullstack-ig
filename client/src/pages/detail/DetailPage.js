@@ -43,7 +43,7 @@ const DetailPage = () => {
         description: description
     };
     const [edits, setEdits] = useState(initEdits)
-
+    // need to figure out why description isn't filling ^^^
     useEffect(() => {
         postDetail(postId)
         getProfile(username)
@@ -57,7 +57,6 @@ const DetailPage = () => {
     const toggleEdit = () => {
         setToggle(!toggle)
     }
-    console.log(edits)
 
     const handleChange = (e) => {
         const {value} = e.target

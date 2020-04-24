@@ -20,7 +20,7 @@ function CommentForm(props){
         <div>
             <form onSubmit={handleSubmit}>
                 <input onChange={handleChange} type='text' value={comment.comment}/>
-                <button>{commentBtnText}</button>
+                <button className='button'>{commentBtnText}</button>
             </form>
         </div>
     )

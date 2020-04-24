@@ -75,46 +75,31 @@ const DetailPage = () => {
 
     return(
         <div className='post-detail'>
-            <div className='detail-user'>
-                <p>Posted By: </p>
-                <Link className='detail-icon-box' to={`/user/${ postedBy }`}>
-                    {userImg ?
-                        <img className='detail-icon' alt='' src={userImg}/> :
-                        <img className='detail-icon' alt='' src={DefaultAvatar}/>}
-                </Link>
-                <Link className='detail-username' to={`/user/${ postedBy }`}>
-                    <p>{ postedBy }</p>
-                </Link>
-            </div>
+            <div className='detail-info'>
+                <div className='detail-user'>
+                    <Link className='detail-icon-box' to={`/user/${ postedBy }`}>
+                        {userImg ?
+                            <img className='detail-icon' alt='' src={userImg}/> :
+                            <img className='detail-icon' alt='' src={DefaultAvatar}/>}
+                    </Link>
+                    <Link className='detail-username' to={`/user/${ postedBy }`}>
+                        <p>{ postedBy }</p>
+                    </Link>
+                </div>
             {postedBy === username &&
                 <>
-                    <button onClick={handleDelete}>Delete Post</button>
+                    <button className='delete-button button' onClick={handleDelete}>Delete Post</button>
                 </>
             }
-            <p>{dateAdded}</p>
+            </div>
+            <p className='detail-date'>{dateAdded}</p>
             <img className='detail-image' src={img.imgUrl} alt='' />
-                {/* <div 
-                    className='card-image' 
-                    style={{
-                        width: '50%',
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                        height: '250px',
-                        backgroundImage: `url('${ img.imgUrl }')`,
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
-                        position: 'center',
-                        borderTopLeftRadius: '2px',
-                        borderTopRightRadius: '2px'
-                }}>
-                </div> */}
             {toggle ? 
                 <>
                     <br/>
                     <form onSubmit={handleSubmit}>
                         <input onChange={handleChange} value={edits.description}/> 
-                        <button>Save</button>
+                        <button className='button'>Save</button>
                     </form>
                 </>
                 :
@@ -122,7 +107,7 @@ const DetailPage = () => {
             }
             {postedBy === username &&
                 <>
-                    <button onClick={toggleEdit}>{toggle ? 'Cancel' : 'Edit Description'}</button>
+                    <button className='button' onClick={toggleEdit}>{toggle ? 'Cancel' : 'Edit Description'}</button>
                 </>
             }
             <p>Votes: {votes}</p>

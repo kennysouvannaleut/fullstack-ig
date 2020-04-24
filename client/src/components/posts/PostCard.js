@@ -32,7 +32,9 @@ const PostCard = props => {
                             }
                         </Link>
                     </div>
-                    <Link className='card-username-link' to={`/user/${ postedBy }`}><p className='card-username'>{ postedBy }</p></Link>
+                    <Link className='card-username-link' to={`/user/${ postedBy }`}>
+                        <p className='card-username'>{ postedBy }</p>
+                    </Link>
                 </div>
             }
             <Link to={`/detail/${ _id }`}>
@@ -43,8 +45,8 @@ const PostCard = props => {
                 <div className='card-post-section'>
                     {username !== postedBy &&
                         <>
-                            <button onClick={ () => upvotePost(_id) }>Upvote</button>
-                            <button onClick={ () => downvotePost(_id) }>Downvote</button>
+                            <button className='button' onClick={ () => upvotePost(_id) }>Upvote</button>
+                            <button className='button' onClick={ () => downvotePost(_id) }>Downvote</button>
                         </>
                     }
                         <span> votes: { votes }</span>

@@ -3,6 +3,7 @@ import UserContext from '../../context/userContext';
 import FormContainer from '../../components/form/FormContainer';
 import SetProfileImg from './SetProfileImg.js'
 import SetBio from './SetBio.js'
+// import {progress} from '../../firebase/firebase.js'
 
 const Profile = () => {
     const userContext = useContext(UserContext);
@@ -20,6 +21,7 @@ const Profile = () => {
 
     const [bioToggle, setBioToggle] = useState(false)
 
+    // console.log(222, progress)
     useEffect(() => {
         getProfile(username)
         currentUserPosts()
@@ -39,7 +41,7 @@ const Profile = () => {
                 />
                 <div className='profile-edit-text'>
                     <h1 className='profile-username'>{username}</h1>
-                    <p className='profile-postnum'><b>{posts.length}</b> posts</p>
+                    <p className='profile-postnum'><b>{posts.length}</b> post{posts.length > 1 && 's'}</p>
                     {
                         bioToggle ?
                             <div>

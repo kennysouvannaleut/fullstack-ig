@@ -1,5 +1,9 @@
+// import React, {useState} from 'react'
 import firebase from 'firebase/app'
 import 'firebase/storage'
+
+// let progress = 0
+// console.log(progress)
 
 const dotENV = require('dotenv')
 dotENV.config()

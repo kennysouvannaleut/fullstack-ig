@@ -23,8 +23,8 @@ const SetBio = props => {
                     value={bioInput} 
                     placeholder='About me' 
                     onChange={handleBioChange}
-                    className='bio-textarea'
-                    maxLength='300'
+                    className='bio-textarea input'
+                    maxLength={300}
                 >
                 </textarea>
             </div>

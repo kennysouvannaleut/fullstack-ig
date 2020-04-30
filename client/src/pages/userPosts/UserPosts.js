@@ -6,22 +6,27 @@ import DefaultAvatar from '../../media/blank-avatar.png'
 
 const UserPosts = () => {
     const {username} = useParams()
-    const {selectedUser, getProfile, profile} = useContext(userContext)
+    const {selectedUser, getProfile, profile, posts} = useContext(userContext)
 
     useEffect(() => {
         selectedUser(username)
         getProfile(username)
     }, [])
-    
+
     return(
-        <div className='user-post-detail'>
-            <div className='card-username'>
+        <div className='user-detail'>
+            <div className='user-detail-info'>
                 {profile.img ?
-                    <img className='detail-icon' alt='' src={profile.img.imgUrl }/> :
-                    <img className='detail-icon' alt='' src={DefaultAvatar}/>
+                    <img className='user-detail-icon' alt='' src={profile.img.imgUrl }/> :
+                    <img className='user-detail-icon' alt='' src={DefaultAvatar}/>
                 }
-                <h3>{ username }</h3>
-                {profile.bio && <p className='user-posts-bio'>{profile.bio}</p>}
+                <div className='user-detail-text'>
+                    <h2>{ username }</h2>
+                    <p className='user-detail-post-num'>
+                        <b>{posts.length}</b> post{(posts.length > 1 || posts.length === 0) && 's'}
+                    </p>
+                    {profile.bio && <p className='user-posts-bio'>{profile.bio}</p>}
+                </div>
             </div>
             <PostList userPage={true}/>
         </div>

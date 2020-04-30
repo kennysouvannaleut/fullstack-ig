@@ -32,11 +32,13 @@ const FormComponent = props => {
             />
             <textarea
                 name='description'
+                className='input'
                 value={ description }
                 onChange={ handleChange }
                 placeholder='Provide an image description (optional)'
                 cols={ 50 }
                 rows={ 3 } 
+                maxLength={300}
             />
             <br/>
             <button className='post-submit-button button'>{ buttonText }</button>

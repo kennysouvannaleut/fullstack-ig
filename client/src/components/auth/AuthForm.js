@@ -13,13 +13,14 @@ const AuthForm = props => {
     } = props;
     
     return (
-        <form onSubmit={ handleSubmit }>
+        <form className='auth-form' onSubmit={ handleSubmit }>
             <input 
                 type='text'
                 name='username'
                 value={ username }
                 onChange={ handleChange }
                 placeholder='Username'
+                autoFocus
             />
             <input
                 type='password'
@@ -28,7 +29,7 @@ const AuthForm = props => {
                 onChange={ handleChange }
                 placeholder='Password'
             />
-            <button>{ buttonText }</button>
+            <button className='button'>{ buttonText }</button>
             { errMsg && <p style={{ color: 'red' }}>{ errMsg }</p> }
         </form>
     );

@@ -16,20 +16,72 @@ body {
 .button {
     border-radius: 5px;
     background-color: whitesmoke;
+    transition: border .3s;
+    outline: none
 }
 
-.button:focus {
+.button:hover {
+    border: solid rgb(112, 112, 112) 1px;
+    cursor: pointer
+}
+
+.button:active {
     background-color: rgb(116, 154, 177);
+    box-shadow: 2px 2px rgb(182, 182, 182);
+    transform: translateY(2px);
+}
+
+.input {
+    padding: 16px;
+    border-radius: 5px;
+    resize: none;
+    border: solid rgb(112, 112, 112) 1px;
+    outline: none;
+    background-color: whitesmoke
+}
+
+.input:focus {
+    background-color: white;
 }
 
 /* auth */
-.auth-container {
+.auth-page {
     border: solid rgb(224, 224, 224) 1px;
     width: 700px;
     background-color: white;
     margin: 40px auto;
     padding: 10px;
     text-align: center;
+}
+
+.auth-container {
+    margin: 20px
+}
+
+.auth-form {
+    margin: 10px;
+    margin-bottom: 20px;
+}
+
+.auth-form > input {
+    border-radius: 4px;
+    margin: 3px;
+    background-color: whitesmoke;
+    outline: none;
+    padding: 4px;
+    border: none;
+    border-bottom: solid rgb(116, 154, 177) 2px;
+    border-right: solid rgb(116, 154, 177) 2px;
+}
+
+.auth-form > input:focus {
+    background-color: white;
+    border-left: solid whitesmoke 1px;
+    border-top: solid whitesmoke 1px
+}
+
+.auth-toggle-button {
+    margin-left: 8px
 }
 
 /* nav */
@@ -39,6 +91,7 @@ body {
     padding: 8px;
     align-items: center;
     position: fixed;
+    z-index: 10;
     width: 100%;
 }
 
@@ -86,27 +139,10 @@ body {
     margin: 10px auto 25px
 }
 
-.card-image {
-    max-width: 700px;
-}
-
 .card-user {
     display: flex;
     align-items: center;
-}
-
-.card-username-link {
-    text-decoration: none;
-}
-
-.card-username {
-    font-size: 16pt;
-    color: rgb(53, 53, 53);
-    transition: color .5s
-}
-
-.card-username:hover {
-    color: rgb(116, 154, 177)
+    margin: 8px 0 4px 0
 }
 
 .card-user-icon {
@@ -116,22 +152,59 @@ body {
 }
 
 .card-user-icon-box {
-    margin: 5px 15px;
+    margin: 5px 10px;
+}
+
+.card-username-link {
+    text-decoration: none;
+}
+
+.card-username {
+    font-size: 16pt;
+    color: rgb(53, 53, 53);
+    transition: color .3s;
+    margin-top: -8px
+}
+
+.card-username:hover {
+    color: rgb(116, 154, 177)
+}
+
+.card-date {
+    position: relative;
+    float: right;
+    margin-top: -42px;
+    margin-right: 10px;
+    /* z-index: auto */
+}
+
+.card-image {
+    max-width: 700px;
+}
+
+.card-votes {
+    margin: 10px 0 -2px 16px
 }
 
 /* detail */
+.post-detail-container {
+    padding-top: 50px;
+    padding-bottom: 20px
+}
+
 .post-detail {
-    text-align: center;
-    padding-top: 60px;
+    padding-bottom: 14px;
     width: 700px;
     margin: auto;
     background-color: white;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 4px
 }
 
-.detail-info {
+.detail-top-box {
     display: grid;
-    /* grid-template-columns: 100px auto auto; */
     grid-template-columns: repeat(2, 1fr);
+    padding-top: 20px
 }
 
 .detail-user {
@@ -149,7 +222,7 @@ body {
 .detail-username {
     font-size: 18pt;
     color: rgb(53, 53, 53);
-    transition: color .5s;
+    transition: color .3s;
     align-self: center;
     text-decoration: none;
     margin-left: 10px
@@ -169,11 +242,119 @@ body {
 }
 
 .detail-date {
-    margin: 10px
+    margin-bottom: 10px;
+    margin-top: -10px;
+    text-align: center;
 }
 
 .detail-image {
     max-width: 700px;
+}
+
+.detail-votes {
+    margin: 10px 0 0 10px
+}
+
+.detail-description-button {
+    float: right;
+    margin-top: -18px;
+    margin-right: 10px
+}
+
+.detail-description-input {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.detail-save-description {
+    margin-left: 6px;
+    position: absolute;
+    margin-top: 22px;
+    font-size: 11pt;
+    height: 30px;
+    width: 60px
+}
+
+.detail-description {
+    margin: 20px;
+    word-break: break-word
+}
+
+/* comments */
+.comments-box {
+    margin-top: 10px;
+    width: 432px;
+    margin: auto
+}
+
+.comments-title {
+    text-align: center;
+}
+
+.comment-form {
+    margin: 10px
+}
+
+.comment-form-button {
+    position: absolute;
+    margin-left: 8px;
+    margin-top: 10px;
+    height: 26px
+}
+
+.comment {
+    margin-left: 4px;
+    margin-bottom: 20px;
+    margin: 20px 4px;
+    padding-right: 12px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.comment-user {
+    display: flex;
+    align-items: center;
+    margin-top: -3px
+}
+
+.comment-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 60px;
+    margin-bottom: -5px
+}
+
+.comment-username-link {
+    text-decoration: none;
+    margin-left: 5px;
+    color: rgb(53, 53, 53);
+    transition: color .3s
+}
+
+.comment-username-link:hover {
+    color: rgb(116, 154, 177)
+}
+
+.comment > p {
+    margin-left: 6px;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+.comment-buttons {
+    float: right;
+    margin-right: -56px;
+}
+
+.comment-save-button {
+    height: 18px;
+    margin-top: -9.5px;
+    margin-left: 21px
+}
+
+.edit-comment-input {
+    width: 90%;
+    margin-top: -9px
 }
 
 /* profile */
@@ -210,8 +391,8 @@ body {
 
 .bio-p {
     margin-bottom: 10px;
-    background-color: whitesmoke;
     border-radius: 4px;
+    word-break: break-word;
 }
 
 .bio-textarea {
@@ -298,21 +479,39 @@ body {
     padding: 6px
 }
 
-/* logged in user posts */
-.current-user-post {
+/* logged in user posts (my album page) */
+.current-user-posts-page {
     padding-top: 50px;
     text-align: center;
     width: 700px;
     margin: auto;
 }
 
-.user-post-list {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    grid-gap: 8px
+.current-user-title {
+    font-size: 16pt;
+    margin: 10px;
+    margin-bottom: 20px
 }
 
-.user-post {
+.user-post-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    /* align-content: flex-end */
+    /* grid-template-columns: repeat(2, auto); */
+    /* grid-gap: 8px */
+}
+
+.current-user-card {
+    max-width: 330px;
+    /* margin: 10px */
+    /* justify-items: stretch; */
+}
+
+.user-post-info {
+    display: none;
+    /* ^^^^ NEEDS WORK */
     max-width: 200px;
     margin: auto;
     padding: 10px
@@ -322,21 +521,170 @@ body {
     max-width: 100%;
 }
 
-/* comments */
-.comment-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 60px;
-    margin: 5px
+.user-post-description {
+    word-break: break-word;
 }
 
-/* user page */
-.user-posts-bio {
-    margin-left: 20px
-}
-
-.user-post-detail {
+/* (other) user page */
+.user-detail {
     padding-top: 50px;
-    align-items: center;
-    text-align: center;
+}
+
+.user-detail-info {
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 4px;
+    background-color: white;
+    max-width: 700px;
+    margin: auto;
+    margin-bottom: -26px;
+    display: grid;
+    grid-template-columns: 200px auto;
+}
+
+.user-detail-icon {
+    width: 130px;
+    height: 130px;
+    border-radius: 80px;
+    margin: 20px;
+    grid-column: 1 / 2;
+    justify-self: center;
+}
+
+.user-detail-text {
+    padding: 10px;
+    padding-top: 16px
+}
+
+.user-detail-post-num {
+    margin-top: 10px
+}
+
+.user-posts-bio {
+    margin: 14px 14px 10px 0
+}
+
+.user-detail-date {
+    float: right;
+    margin-right: 16px;
+    margin-top: -16px;
+}
+
+@media only screen and (max-width: 880px){
+    .nav-box {
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .nav-link {
+        margin-left: 0;
+        margin-right: 30px
+    }
+
+    .bio-textarea {
+        width: 96%;
+    }
+}
+
+@media only screen and (max-width: 740px){
+    .auth-page {
+        width: 96%
+    }
+
+    .nav-box {
+        width: 96%
+    }
+
+    .card-image {
+        max-width: 100%
+    }
+
+    .post-detail {
+        width: 100%
+    }
+
+    .detail-image {
+        max-width: 100%;
+    }
+
+    .profile-edit {
+        width: 96%
+    }
+
+    .profile-post {
+        width: 96%
+    }
+
+    .current-user-posts-page {
+        width: 100%
+    }
+
+    .user-detail-info {
+        max-width: 96%
+    }
+}
+
+@media only screen and (max-width: 700px){
+    .user-post-list {
+        display: block
+    }
+
+    .current-user-card {
+        max-width: 100%
+    }
+}
+
+@media only screen and (max-width: 580px){
+    .comment {
+        padding-right: 0;
+    }
+
+    .comment-form-button {
+        position: relative;
+        width: 80px;
+        float: left;
+        left: 50%;
+        margin-left: -40px;
+        /* margin-bottom: -40px */
+    }
+
+    .comments-box {
+        /* margin-top: 10px; */
+        width: 90%;
+        margin: auto
+    }
+
+    .comment-buttons {
+        float: none;
+        margin-bottom: -70px;
+        margin-top: 80px;
+        width: 200px;
+        margin-left: 4px
+    }
+    
+    .comment-save-button {
+        /* height: 18px; */
+        margin-top: 40px;
+        width: 51px;
+        height: 30px;
+        left: 0;
+        margin-left: -71px;
+    }
+    
+    .edit-comment-input {
+        width: 100%;
+        margin-top: -9px
+    }
+}
+
+@media only screen and (max-width: 450px){
+    /* .comment-form > textarea{
+        max-width: 50%;
+    } */
+}
+
+@media only screen and (max-width: 340px){
+    .nav-link {
+        font-size: 12pt;
+        margin-right: 26px
+    }
 }

@@ -40,7 +40,6 @@ const UserProvider = props => {
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
-
     const { goBack } = useHistory();
 
     // USER AUTH:
@@ -73,7 +72,7 @@ const UserProvider = props => {
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
                 getProfile(user.username);
-                currentUserPosts();
+                // currentUserPosts();
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     user,
@@ -254,14 +253,17 @@ const UserProvider = props => {
     };
 
     // edit post
-    const editPost = (postId, update) => {
-        userAxios.put(`/api/posts/${postId}`, update)
+    const editPost = (postId, description) => {
+        const editedPost = {
+            ...userState.currentPost,
+            description: description
+        }
+        userAxios.put(`/api/posts/${postId}`, editedPost)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
                     currentPost: res.data
                 }));
-                // alert('Your post has been updated')
             })
             .catch(err => {
                console.error(err);
@@ -320,7 +322,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    comments: res.data
+                    comments: [...res.data.reverse()]
                 }))
             })
             .catch(err => { 
@@ -333,10 +335,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    comments: [ 
-                        ...prevUserState.comments,
-                        res.data
-                    ]
+                    comments: [res.data, ...prevUserState.comments]
                 }))
             })
             .catch(err => { 

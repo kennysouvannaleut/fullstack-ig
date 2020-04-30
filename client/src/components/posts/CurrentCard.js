@@ -3,13 +3,13 @@ import {Link} from 'react-router-dom'
 
 const CurrentCard = props => {
     return (
-        <div className='card'>
+        <div className='current-user-card'>
             <Link to={`/detail/${ props._id }`}>
                 <img className='user-post-img' src={ props.img.imgUrl } alt='' />
             </Link>
-                <div className='user-post'> 
+                <div className='user-post-info'> 
                     <p>{ props.dateAdded }</p>
-                    <p>{ props.description }</p>
+                    <p className='user-post-description'>{ props.description }</p>
                     <p> Votes: { props.votes }</p>
                 </div>
         </div>

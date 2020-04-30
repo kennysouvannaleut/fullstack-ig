@@ -11,7 +11,7 @@ const Navbar = props => {
             <div className='nav-box'>
                 <Navtab to='/home' label='Home' />
                 <Navtab to='/profile' label='Profile' />
-                <Navtab to='/current-user' label='Album' />
+                <Navtab to='/current-user' label='My Album' />
             </div>
             <button className='nav-button button' onClick={ logout }>Logout</button>
         </div>

@@ -11,6 +11,7 @@ const PostCard = props => {
         //     imgRef
         // }, ^^ deconstructing throws error...
         img, 
+        dateAdded,
         votes,
         postedBy,
         userImg,
@@ -37,6 +38,7 @@ const PostCard = props => {
                     </Link>
                 </div>
             }
+            {!userPage && <p className='card-date'>{dateAdded}</p>}
             <Link to={`/detail/${ _id }`}>
                 <img className='card-image' alt='' src={img.imgUrl}/>
                 {/* this also throws error wtf */}
@@ -49,7 +51,8 @@ const PostCard = props => {
                             <button className='button' onClick={ () => downvotePost(_id) }>Downvote</button>
                         </>
                     }
-                        <span> votes: { votes }</span>
+                        <p className='card-votes'> votes: { votes }</p>
+                        {userPage && <p className='user-detail-date'>{dateAdded}</p>}
                 </div>
                 <br />
             </div>

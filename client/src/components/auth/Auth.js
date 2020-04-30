@@ -35,21 +35,22 @@ const Auth = () => {
     };
 
     return (
-        <div className='auth-container'>
-            <h1>IG Group Project</h1>
-            { !toggle ?
-            <>
+        <div className='auth-page'>
+            <h1>Photo Sharing</h1>
+            { toggle ?
+            <div className='auth-container'>
                 <AuthForm 
                     handleChange={ handleChange }
                     handleSubmit={ handleSignup }
                     inputs={ inputs }
-                    buttonText='Signup'
+                    buttonText='Create Account'
                     errMsg={ errMsg }
                 />
-                <p onClick={ toggleForm }>Already have an account? Sign in</p>  
-            </>
+                <span>Already have an account?</span>
+                <button className='button auth-toggle-button' onClick={ toggleForm }>Go to Sign in</button>
+            </div>
         :
-            <>
+            <div className='auth-container'>
                 <AuthForm 
                     handleChange={ handleChange }
                     handleSubmit={ handleLogin }
@@ -57,8 +58,9 @@ const Auth = () => {
                     buttonText='Login'
                     errMsg={ errMsg }
                 />
-                <p onClick={ toggleForm }>New users? Sign up</p>
-            </>
+                <span>New user?</span>
+                <button className='button auth-toggle-button' onClick={ toggleForm }>Go to Sign up</button>
+            </div>
             }
         </div>
     );

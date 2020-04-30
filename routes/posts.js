@@ -9,7 +9,7 @@ posts.post('/', async (req, res, next) => {
     req.body.postedBy = req.user.username
     try{
         const profile = await Profile.findOne({username: req.user.username})
-        if(profile){
+        if(profile && profile.img){
             req.body.userImg = profile.img.imgUrl
         }
         const newPost = new Post(req.body)
@@ -92,7 +92,7 @@ posts.put('/:postId', (req, res, next) => {
                 res.status(500)
                 return next(err)
             }
-            return res.status(201).send(`Your post was updated` + updatedPost)
+            return res.status(201).send(updatedPost)
         }
     )
 })

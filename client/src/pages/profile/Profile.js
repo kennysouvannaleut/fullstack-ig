@@ -11,17 +11,16 @@ const Profile = () => {
         user: { username },
         profile,
         createPost,
+        currentUserPosts,
         getProfile,
         addProfileImg,
         addBio,
-        currentUserPosts,
         posts
     } = userContext
     // const {image: {imgUrl}, about} = profile <-- destructuring sends an error
 
     const [bioToggle, setBioToggle] = useState(false)
 
-    // console.log(222, progress)
     useEffect(() => {
         getProfile(username)
         currentUserPosts()
@@ -30,7 +29,7 @@ const Profile = () => {
     const handleToggle = () => {
         setBioToggle(!bioToggle)
     }
-    
+
     return (
         <div className='profile'>
             <div className='profile-edit'>
@@ -41,7 +40,9 @@ const Profile = () => {
                 />
                 <div className='profile-edit-text'>
                     <h1 className='profile-username'>{username}</h1>
-                    <p className='profile-postnum'><b>{posts.length}</b> post{posts.length > 1 && 's'}</p>
+                    <p className='profile-postnum'>
+                        <b>{posts.length}</b> post{(posts.length > 1 || posts.length === 0) && 's'}
+                    </p>
                     {
                         bioToggle ?
                             <div>

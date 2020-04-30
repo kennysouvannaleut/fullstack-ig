@@ -4,7 +4,6 @@ import userContext from '../../context/userContext.js'
 
 function CommentList(){
     const {comments, removeComment, user: {username}, editComment} = useContext(userContext)
-
     return(
         <div>
             {comments.map(comment => 

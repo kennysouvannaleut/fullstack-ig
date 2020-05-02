@@ -40,19 +40,19 @@ const PostCard = props => {
             }
             {!userPage && <p className='card-date'>{dateAdded}</p>}
             <Link to={`/detail/${ _id }`}>
-                <img className='card-image' alt='' src={img.imgUrl}/>
+                <img className='card-image' alt='' src={img && img.imgUrl}/>
                 {/* this also throws error wtf */}
             </Link>
             <div className='card-info'>
                 <div className='card-post-section'>
+                    <p className='card-votes'> votes: { votes }</p>
                     {username !== postedBy &&
-                        <>
+                        <div className='vote-buttons'>
                             <button className='button' onClick={ () => upvotePost(_id) }>Upvote</button>
                             <button className='button' onClick={ () => downvotePost(_id) }>Downvote</button>
-                        </>
+                        </div>
                     }
-                        <p className='card-votes'> votes: { votes }</p>
-                        {userPage && <p className='user-detail-date'>{dateAdded}</p>}
+                    {userPage && <p className='user-detail-date'>{dateAdded}</p>}
                 </div>
                 <br />
             </div>

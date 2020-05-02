@@ -34,7 +34,7 @@ function CommentForm(props){
                     placeholder='Add a comment'
                     rows={1} 
                     cols={60}
-                    className={`input ${formType}`}
+                    className={`input comment-input ${formType}`}
                     maxLength={200}
                 />
                 <button className={`button comment-form-button ${btnType}`}>{commentBtnText}</button>

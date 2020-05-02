@@ -80,6 +80,10 @@ body {
     border-top: solid whitesmoke 1px
 }
 
+.auth-button {
+    height: 23px
+}
+
 .auth-toggle-button {
     margin-left: 8px
 }
@@ -175,7 +179,6 @@ body {
     float: right;
     margin-top: -42px;
     margin-right: 10px;
-    /* z-index: auto */
 }
 
 .card-image {
@@ -184,6 +187,11 @@ body {
 
 .card-votes {
     margin: 10px 0 -2px 16px
+}
+
+.vote-buttons {
+    margin-left: 14px;
+    margin-top: 6px
 }
 
 /* detail */
@@ -252,7 +260,7 @@ body {
 }
 
 .detail-votes {
-    margin: 10px 0 0 10px
+    margin: 10px 0 0 16px
 }
 
 .detail-description-button {
@@ -462,7 +470,6 @@ body {
 }
 
 .profile-post {
-    display: grid;
     text-align: center;
     width: 700px;
     margin: 14px auto;
@@ -638,13 +645,24 @@ body {
         padding-right: 0;
     }
 
+    .comment-form {
+        text-align: center;
+        margin-bottom: 34px
+    }
+
+    .comment-input {
+        width: 100%;
+        margin: auto;
+        margin-left: -40px
+    }
+
     .comment-form-button {
         position: relative;
         width: 80px;
         float: left;
         left: 50%;
         margin-left: -40px;
-        /* margin-bottom: -40px */
+        margin-top: 60px;
     }
 
     .comments-box {
@@ -662,7 +680,6 @@ body {
     }
     
     .comment-save-button {
-        /* height: 18px; */
         margin-top: 40px;
         width: 51px;
         height: 30px;
@@ -676,10 +693,75 @@ body {
     }
 }
 
+@media only screen and (max-width: 500px){
+    .detail-save-description {
+        display: block;
+        position: relative;
+        margin: 8px auto 16px auto
+    }
+}
+
 @media only screen and (max-width: 450px){
-    /* .comment-form > textarea{
-        max-width: 50%;
-    } */
+    .user-detail-info {
+        display: block;
+        text-align: center
+    }
+
+    .user-detail-icon {
+        margin-bottom: 0
+    }
+
+    .user-detail-text {
+        padding-top: 0
+    }
+
+    .profile-edit {
+        display: block;
+        text-align: center
+    }
+
+    .set-profile-pic {
+        margin: auto
+    }
+
+    .profile-postnum {
+        margin-left: 0
+    }
+
+    .profile-bio {
+        margin-left: 0
+    }
+
+    .profile-bio-button {
+        float: none
+    }
+
+    .set-bio-button {
+        margin-left: 0;
+        float: none;
+        height: 40px;
+        margin-bottom: 5px
+    }
+
+    .post-form {
+        width: 100%;
+    }
+
+    .image-uploader {
+        width: 90%;
+    }
+
+    .post-description-textarea {
+        max-width: 90%;
+    }
+}
+
+@media only screen and (max-width: 425px){
+    .auth-button {
+        display: block;
+        margin: auto;
+        margin-top: 8px;
+    }
 }
 
 @media only screen and (max-width: 340px){

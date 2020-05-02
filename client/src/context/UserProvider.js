@@ -49,12 +49,12 @@ const UserProvider = props => {
                 const { user, token } = res.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
-                setUserState(prevUserState => ({
-                    ...prevUserState,
+                setUserState({
+                    ...initialState,
                     user,
                     token,
                     success: true
-                }));
+                });
             })
             .catch(err => {
                 if(err.response){
@@ -73,12 +73,12 @@ const UserProvider = props => {
                 localStorage.setItem('user', JSON.stringify(user));
                 getProfile(user.username);
                 // currentUserPosts();
-                setUserState(prevUserState => ({
-                    ...prevUserState,
+                setUserState({
+                    ...initialState,
                     user,
                     token,
                     success: true
-                }));
+                });
             })
             .catch(err => {
                 if(err.response){
@@ -162,7 +162,6 @@ const UserProvider = props => {
     // POSTS:
     // new post
     const createPost = newPost => {
-        console.log(newPost)
         userAxios.post('/api/posts', newPost)
             .then(res => {
                 setUserState(prevUserState => ({
@@ -184,7 +183,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({ 
                     ...prevUserState,
-                    posts: res.data,
+                    posts: res.data.reverse(),
                     loading: false
                 }));
             })
@@ -199,7 +198,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    posts: res.data
+                    posts: res.data.reverse()
                     // loading: false
                 }));
             })
@@ -214,7 +213,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    posts: res.data,
+                    posts: res.data.reverse(),
                     loading: false
                 }));
             })
@@ -292,7 +291,8 @@ const UserProvider = props => {
                 setUserState(prevUserState => ({
                     ...prevUserState, 
                     posts: prevUserState.posts.map(post => (
-                        post._id === postId ? res.data : post))
+                        post._id === postId ? res.data : post)),
+                    currentPost: res.data
                 }));
             })
             .catch(err => { 

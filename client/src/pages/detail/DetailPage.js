@@ -16,9 +16,9 @@ const DetailPage = () => {
         removePost, 
         getComments,
         createComment,
-        user,
         user: { username },
-        comments
+        upvotePost,
+        downvotePost
     } = useContext(userContext);
 
     const {
@@ -34,53 +34,26 @@ const DetailPage = () => {
         votes, 
         _id
     } = currentPost
-    // console.log(user)
-    // console.log(currentPost)
+    
     const [toggle, setToggle] = useState(false)
 
-    // const initEdits = {
-    //     img: {
-    //         imgUrl: img.imgUrl && img.imgUrl,
-    //         imgRef: img.imgRef && img.imgRef
-    //     },
-    //     user: user,
-    //     description: description
-    // };
-    console.log(description)
-    const [descriptionInput, setDescriptionInput] = useState(description && description)
-    // also can't figure out how to get description to fill but doesn't make sense (check console logs)
-    console.log(descriptionInput)
-    // console.log(edits.img)
-    // console.log(img)
-
-    // need to figure out why description isn't filling ^^^
-    // ASK SAM about how to set the info before useEffect even gets it...
-    // had to change it to pull the object from UserProvider...
+    const [descriptionInput, setDescriptionInput] = useState(description)
 
     useEffect(() => {
         postDetail(postId)
         getProfile(username)
         getComments(postId)
-        // setEdits({
-        //     img: {
-        //         imgUrl: img && img.imgUrl,
-        //         imgRef: img.imgRef
-        //     },
-        //     user: user,
-        //     description: description
-        //     })
     }, [])
 
     const toggleEdit = () => {
         setToggle(!toggle)
+        setDescriptionInput(description)
+        // for some reason I had to set state here because it wasn't setting the init state as 'description'
+        // also had to pull the rest of the object from UserProvider...
     }
 
     const handleChange = e => {
         const {value} = e.target
-        // setEdits(prevEdits => ({
-        //     ...prevEdits,
-        //     description: value
-        // }))
         setDescriptionInput(value)
     }
 
@@ -117,7 +90,13 @@ const DetailPage = () => {
                 </div>
                 <p className='detail-date'>{dateAdded}</p>
                 <img className='detail-image' src={img.imgUrl} alt='' />
-                <p className='detail-votes'>Votes: {votes}</p>
+                <p className='detail-votes'>votes: {votes}</p>
+                {username !== postedBy &&
+                    <div className='vote-buttons'>
+                        <button className='button' onClick={ () => upvotePost(_id) }>Upvote</button>
+                        <button className='button' onClick={ () => downvotePost(_id) }>Downvote</button>
+                    </div>
+                }
                 {postedBy === username &&
                     <>
                         <button 
@@ -133,9 +112,9 @@ const DetailPage = () => {
                         <br/>
                         <form className='detail-description-input' onSubmit={handleSubmit}>
                             <textarea 
-                                className='input'
+                                className='input post-description-textarea'
                                 onChange={handleChange} 
-                                value={descriptionInput.text} 
+                                value={descriptionInput} 
                                 cols={50} 
                                 rows={3}
                                 maxLength={300}

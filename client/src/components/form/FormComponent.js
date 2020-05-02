@@ -11,16 +11,10 @@ const FormComponent = props => {
     } = props;
 
     return (
-        <form onSubmit={ handleSubmit }>
+        <form onSubmit={ handleSubmit } className='post-form'>
             <ImageUploader 
                 {...props}
                 onChange={ onDrop }
-                buttonStyles={{
-                    'backgroundColor': 'whitesmoke', 
-                    'color': 'black', 
-                    'border': 'solid rgb(190, 190, 190) 1px', 
-                    'borderRadius': '5px'
-                }}
                 withPreview={ true }
                 singleImage={ true }
                 imgExtension={ ['.jpg', '.gif', '.png', '.jpeg'] }
@@ -29,10 +23,16 @@ const FormComponent = props => {
                 fileTypeError='is not supported file extension'
                 buttonText='Upload An Image'
                 label='Max file size 10mb, accepted: jpg, png, gif'
+                buttonStyles={{
+                    'backgroundColor': 'whitesmoke', 
+                    'color': 'black', 
+                    'border': 'solid rgb(190, 190, 190) 1px', 
+                    'borderRadius': '5px'
+                }}
             />
             <textarea
                 name='description'
-                className='input'
+                className='input post-description-textarea'
                 value={ description }
                 onChange={ handleChange }
                 placeholder='Provide an image description (optional)'

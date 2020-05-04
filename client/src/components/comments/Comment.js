@@ -27,9 +27,6 @@ function Comment(props){
                             <img className='comment-icon' src={DefaultAvatar} alt='' />
                         }
                     </Link>
-                    <Link className='comment-username-link' to={`/user/${ postedBy }`}>
-                        <p><b>{postedBy}</b></p>
-                    </Link>
                 </div>
                 {toggle ? 
                     <>
@@ -44,9 +41,12 @@ function Comment(props){
                         />
                     </>
                     :
-                    <>
-                        <p>{comment}</p>
-                    </>
+                    <p className='user-comment-box'>
+                        <Link className='comment-username-link' to={`/user/${ postedBy }`}>
+                            <b className='comment-username'>{postedBy}</b>
+                        </Link>
+                        {comment}
+                    </p>
                 }
             </div>
         </div>

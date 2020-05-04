@@ -19,10 +19,8 @@ const Auth = () => {
         })
     )};
 
-    function noSpaces(e) {
-        const k = e ? e.which : e.keyCode
-        console.log(k)
-        if(k == 32) return false
+    const noSpaces = e => {
+        e.which === 32 && e.preventDefault()
     }
 
     const handleSignup = e => {

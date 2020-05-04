@@ -79,7 +79,7 @@ const DetailPage = () => {
                                 <img className='detail-icon' alt='' src={DefaultAvatar}/>}
                         </Link>
                         <Link className='detail-username' to={`/user/${ postedBy }`}>
-                            <p>{ postedBy }</p>
+                            <p className='detail-username-text'>{ postedBy }</p>
                         </Link>
                     </div>
                 {postedBy === username &&

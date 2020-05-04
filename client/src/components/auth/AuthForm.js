@@ -20,10 +20,9 @@ const AuthForm = props => {
                 name='username'
                 value={ username }
                 onChange={ handleChange }
-                // onKeyPress={ return noSpaces() }
-                // keydown=
+                onKeyDown={ noSpaces }
                 placeholder='Username'
-                maxLength={18}
+                maxLength={15}
                 autoFocus
             />
             <input

@@ -10,9 +10,9 @@ import ProtectedRoute from './components/ProtectedRoute.js'
 
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
-import Post from './pages/post/Post';
-import DetailPage from './pages/detail/DetailPage.js';
-import UserPosts from './pages/userPosts/UserPosts.js';
+import UserAlbum from './pages/userAlbum/UserAlbum.js';
+import PostDetail from './pages/postDetail/PostDetail.js';
+import UserDetail from './pages/userDetail/UserDetail.js';
 
 const App = () => {
     const { token , logout } = useContext(UserContext);
@@ -33,7 +33,7 @@ const App = () => {
                 />
                 <ProtectedRoute 
                     path='/current-user' 
-                    component={ Post } 
+                    component={ UserAlbum } 
                     redirectTo={ '/' }
                     token={ token }
                 />
@@ -45,13 +45,13 @@ const App = () => {
                 />
                 <ProtectedRoute 
                     exact path='/detail/:postId' 
-                    component={ DetailPage }
+                    component={ PostDetail }
                     redirectTo='/'
                     token={ token }
                 />
                 <ProtectedRoute 
                     exact path='/user/:username' 
-                    component={ UserPosts }
+                    component={ UserDetail }
                     redirectTo='/'
                     token={ token }
                 />

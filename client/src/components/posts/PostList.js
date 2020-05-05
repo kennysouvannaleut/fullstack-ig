@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import UserContext from '../../context/userContext';
-import PostCard from './PostCard';
+import Post from './Post';
 
 const PostList = props => {
     const userContext = useContext(UserContext);
@@ -30,7 +30,7 @@ const PostList = props => {
                     {
                     posts.map((post, i) => {
                         return (
-                            <PostCard 
+                            <Post 
                                 key={ i }
                                 { ...post }
                                 upvotePost={ upvotePost } 

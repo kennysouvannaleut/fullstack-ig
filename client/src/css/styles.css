@@ -10,7 +10,7 @@ body {
 .App {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto';
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .button {
@@ -175,6 +175,8 @@ body {
 }
 
 .card-date {
+    color: rgb(124, 124, 124);
+    font-size: 11pt;
     position: relative;
     float: right;
     margin-top: -42px;
@@ -250,6 +252,8 @@ body {
 }
 
 .detail-date {
+    color: rgb(124, 124, 124);
+    font-size: 11pt;
     margin-bottom: 10px;
     margin-top: -10px;
     text-align: center;
@@ -363,6 +367,28 @@ body {
     margin-right: -56px;
 }
 
+.custom-alert {
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0 20px 75px rgba(0, 0, 0, 0.13);
+    padding: 20px;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 10px;
+    animation: 0.5s 0.2s forwards;
+    color: rgb(53, 53, 53);
+    text-align: center
+}
+
+.custom-alert > p {
+    margin: 20px 0
+}
+
+.custom-alert > button {
+    margin: 0 10px;
+    height: 30px;
+    width: 50px
+}
+
 .comment-save-button {
     height: 18px;
     margin-top: -10px;
@@ -396,7 +422,6 @@ body {
 
 .profile-username {
     margin: 14px;
-    /* font-size: 14pt */
 }
 
 .profile-postnum {
@@ -504,42 +529,43 @@ body {
     margin: auto;
 }
 
-.current-user-title {
-    font-size: 16pt;
-    margin: 10px;
-    margin-bottom: 20px
-}
-
 .user-post-list {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    /* align-content: flex-end */
-    /* grid-template-columns: repeat(2, auto); */
-    /* grid-gap: 8px */
+    flex-wrap: wrap
 }
 
-.current-user-card {
-    max-width: 330px;
-    /* margin: 10px */
-    /* justify-items: stretch; */
+.post-column-1 {
+    flex: 50%;
+    max-width: 50%;
+    padding-right: 4px
 }
 
-.user-post-info {
-    display: none;
-    /* ^^^^ NEEDS WORK */
-    max-width: 200px;
-    margin: auto;
-    padding: 10px
+.post-column-2 {
+    flex: 50%;
+    max-width: 50%;
+    padding-left: 4px
 }
 
 .user-post-img {
     max-width: 100%;
+    margin-top: 8px;
+    vertical-align: middle
 }
 
-.user-post-description {
-    word-break: break-word;
+.user-post-info {
+    display: none;
+    /* max-width: 200px;
+    margin: auto;
+    padding: 10px */
+}
+
+.user-post:hover .user-post-info {
+    display: block;
+    /* position: sticky; */
+    /* height: 800px;
+    width: 800px;
+    background-color: blue;
+    color: white */
 }
 
 /* (other) user page */
@@ -581,9 +607,10 @@ body {
 }
 
 .user-detail-date {
+    color: rgb(124, 124, 124);
+    font-size: 11pt;
     float: right;
     margin-right: 16px;
-    margin-top: -16px;
 }
 
 @media only screen and (max-width: 880px){
@@ -632,21 +659,23 @@ body {
     }
 
     .current-user-posts-page {
-        width: 100%
+        width: 98%
+    }
+
+    .post-column-1 {
+        padding-right: 2px
+    }
+    
+    .post-column-2 {
+        padding-left: 2px
+    }
+    
+    .user-post-img {
+        margin-top: 4px
     }
 
     .user-detail-info {
         max-width: 96%
-    }
-}
-
-@media only screen and (max-width: 700px){
-    .user-post-list {
-        display: block
-    }
-
-    .current-user-card {
-        max-width: 100%
     }
 }
 
@@ -694,15 +723,9 @@ body {
     }
     
     .comment-save-button {
-        /* margin-top: -65px;
-        margin-right: 32px; */
-        /* margin-right: 50px; */
-        /* margin-left: -20px; */
         width: 51px;
         height: 30px;
         margin-top: 5px
-        /* float: right; */
-        /* margin-right: 60px; */
     }
     
     .edit-comment-input {
@@ -719,6 +742,10 @@ body {
 @media only screen and (max-width: 530px){
     .detail-username-text {
         font-size: 14pt
+    }
+
+    .detail-date {
+        font-size: 9pt
     }
 
     .profile-username {
@@ -739,6 +766,10 @@ body {
 }
 
 @media only screen and (max-width: 450px){
+    .card-username {
+        font-size: 14pt
+    }
+
     .user-detail-info {
         display: block;
         text-align: center
@@ -756,6 +787,7 @@ body {
     .detail-date {
         float: left;
         margin: 10px;
+        margin-top: 12px;
         margin-left: 20px
     }
 
@@ -818,6 +850,24 @@ body {
         display: block;
         margin: auto;
         margin-top: 8px;
+    }
+
+    .card-username {
+        font-size: 13pt
+    }
+
+    .custom-alert {
+        width: 96%;
+        margin: auto
+    }
+}
+
+@media only screen and (max-width: 390px){
+    .card-date {
+        float: right;
+        margin-bottom: 10px;
+        margin-top: -16px;
+        font-size: 10pt
     }
 }
 

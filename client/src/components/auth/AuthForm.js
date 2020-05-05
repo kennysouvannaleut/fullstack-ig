@@ -31,7 +31,6 @@ const AuthForm = props => {
                 value={ password }
                 onChange={ handleChange }
                 placeholder='Password'
-                minLength={6}
                 maxLength={20}
             />
             <button className='button auth-button'>{ buttonText }</button>

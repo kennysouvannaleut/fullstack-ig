@@ -4,7 +4,7 @@ import userContext from '../../context/userContext'
 import PostList from '../../components/posts/PostList.js'
 import DefaultAvatar from '../../media/blank-avatar.png'
 
-const UserPosts = () => {
+const UserDetail = () => {
     const {username} = useParams()
     const {selectedUser, getProfile, profile, posts} = useContext(userContext)
 
@@ -33,4 +33,4 @@ const UserPosts = () => {
     )
 }
 
-export default UserPosts
+export default UserDetail

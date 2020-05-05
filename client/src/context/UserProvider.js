@@ -344,8 +344,6 @@ const UserProvider = props => {
     }
 
     const removeComment = commentId => {
-        // const confirmDelComment = confirm('Are you sure you want to delete your comment?')
-
         userAxios.delete(`/api/comments/${commentId}`)
             .then(() => {
                 setUserState(prevUserState => ({
@@ -355,7 +353,7 @@ const UserProvider = props => {
             })
             .catch(err => { 
                 console.error(err) 
-        })
+            })
     }
 
     const editComment = (commentId, updatedComment) => {

@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import userContext from '../../context/userContext';
 import DefaultAvatar from '../../media/blank-avatar.png'
 
-const PostCard = props => {
+const Post = props => {
     const { 
         _id,
-        // img: {
-        //     imgUrl,
-        //     imgRef
-        // }, ^^ deconstructing throws error...
-        img, 
+        img: {
+            imgUrl,
+            imgRef
+        },
         dateAdded,
         votes,
         postedBy,
@@ -40,11 +39,11 @@ const PostCard = props => {
             }
             {!userPage && <p className='card-date'>{dateAdded}</p>}
             <Link to={`/detail/${ _id }`}>
-                <img className='card-image' alt='' src={img && img.imgUrl}/>
-                {/* this also throws error wtf */}
+                <img className='card-image' alt='' src={imgUrl}/>
             </Link>
             <div className='card-info'>
                 <div className='card-post-section'>
+                    {userPage && <p className='user-detail-date'>{dateAdded}</p>}
                     <p className='card-votes'> votes: { votes }</p>
                     {username !== postedBy &&
                         <div className='vote-buttons'>
@@ -52,7 +51,6 @@ const PostCard = props => {
                             <button className='button' onClick={ () => downvotePost(_id) }>Downvote</button>
                         </div>
                     }
-                    {userPage && <p className='user-detail-date'>{dateAdded}</p>}
                 </div>
                 <br />
             </div>
@@ -60,4 +58,4 @@ const PostCard = props => {
     );
 };
 
-export default PostCard;
+export default Post;

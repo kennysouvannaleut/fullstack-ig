@@ -5,8 +5,10 @@ import {deleteImage} from '../../firebase/firebase.js'
 import CommentList from '../../components/comments/CommentList.js'
 import CommentForm from '../../components/comments/CommentForm.js'
 import DefaultAvatar from '../../media/blank-avatar.png'
+import {confirmAlert} from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
-const DetailPage = () => {
+const PostDetail = () => {
     const {postId} = useParams()
     const {
         currentPost, 
@@ -22,11 +24,10 @@ const DetailPage = () => {
     } = useContext(userContext);
 
     const {
-        // img: {
-        //     imgUrl,
-        //     imgRef
-        // }, ^^ destructuring throws error
-        img,
+        img: {
+            imgUrl,
+            imgRef
+        },
         userImg,
         description, 
         postedBy, 
@@ -48,8 +49,6 @@ const DetailPage = () => {
     const toggleEdit = () => {
         setToggle(!toggle)
         setDescriptionInput(description)
-        // for some reason I had to set state here because it wasn't setting the init state as 'description'
-        // also had to pull the rest of the object from UserProvider...
     }
 
     const handleChange = e => {
@@ -64,8 +63,27 @@ const DetailPage = () => {
     }
 
     const handleDelete = () => {
-        deleteImage(img.imgRef)
-        removePost(_id)
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div className='custom-alert'>
+                        <h2>Confirm Delete</h2>
+                        <p>Are you sure you want to delete your image?</p>
+                        <button onClick={onClose} className='button'>No</button>
+                        <button
+                            className='button'
+                            onClick={() => {
+                                deleteImage(imgRef)
+                                removePost(_id)
+                                onClose()
+                            }}
+                        >
+                            Yes
+                        </button>
+                    </div>
+                )
+            }
+        })
     }
 
     return(
@@ -89,7 +107,7 @@ const DetailPage = () => {
                 }
                 </div>
                 <p className='detail-date'>{dateAdded}</p>
-                <img className='detail-image' src={img.imgUrl} alt='' />
+                <img className='detail-image' src={imgUrl} alt='' />
                 <p className='detail-votes'>votes: {votes}</p>
                 {username !== postedBy &&
                     <div className='vote-buttons'>
@@ -139,4 +157,4 @@ const DetailPage = () => {
     )
 } 
 
-export default DetailPage
+export default PostDetail

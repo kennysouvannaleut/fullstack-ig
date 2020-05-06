@@ -7,8 +7,7 @@ const Post = props => {
     const { 
         _id,
         img: {
-            imgUrl,
-            imgRef
+            imgUrl
         },
         dateAdded,
         votes,

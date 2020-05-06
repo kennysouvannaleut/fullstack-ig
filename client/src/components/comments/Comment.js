@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import CommentForm from './CommentForm.js'
 import DefaultAvatar from '../../media/blank-avatar.png'
 import {confirmAlert} from 'react-confirm-alert'
-import '../../pages/postDetail/node_modules/react-confirm-alert/src/react-confirm-alert.css'
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 function Comment(props){
     const {comment, commentId, postedBy, userImg, removeComment, user, editComment} = props

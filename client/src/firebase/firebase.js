@@ -1,8 +1,8 @@
-// import React, {useState} from 'react'
+import React, {useState} from 'react'
 import firebase from 'firebase/app'
 import 'firebase/storage'
 
-// let progress = 0
+let progress
 // console.log(progress)
 
 const dotENV = require('dotenv')
@@ -44,7 +44,7 @@ const imageUpload = (img, user, setUrl) => {
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
         (snapshot) => {
             // task progress
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
             console.log(`Upload is ${progress}% done`)
             switch(snapshot.state){
                 case firebase.storage.TaskState.PAUSED:
@@ -103,4 +103,4 @@ const deleteImage = ref => {
     })
 }
 
-export {imageUpload, deleteImage}
+export {imageUpload, deleteImage, progress}

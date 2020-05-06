@@ -119,11 +119,30 @@ body {
     color: rgb(116, 154, 177)
 }
 
+.nav-user {
+    display: flex;
+    margin-top: -21px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.navbar-icon-link {
+    height: 22px;
+    width: 22px;
+    border-radius: 20px;
+    margin-right: 8px
+}
+
+.navbar-icon {
+    height: 22px;
+    width: 22px;
+    border-radius: 20px;
+    margin-left: 1px;
+    margin-top: 1px
+}
+
 .nav-button {
     font-size: 13px;
-    align-self: center;
-    margin-top: -21px;
-    float: right
 }
 
 /* posts */
@@ -411,6 +430,7 @@ body {
     width: 700px;
     margin: auto;
     padding: 10px;
+    padding-bottom: 20px;
     border: solid rgb(224, 224, 224) 1px;
     border-radius: 4px;
     background-color: white;
@@ -473,7 +493,7 @@ body {
 	opacity: 0;
 	overflow: hidden;
 	position: absolute;
-	z-index: -1
+    z-index: -1;
 }
 
 .label-styling {
@@ -485,7 +505,11 @@ body {
     cursor: pointer;
     color: transparent;
     font-size: 13pt;
-    transition: .3s
+    transition: .3s;
+}
+
+.size-limit {
+    font-size: 8pt
 }
 
 .label-styling:hover {
@@ -502,6 +526,13 @@ body {
     width: 120px;
     height: 120px;
     border-radius: 60px;
+}
+
+.profile-upload-error {
+    color: red;
+    font-size: 9pt;
+    text-align: center;
+    margin-top: -12px
 }
 
 .profile-post {
@@ -547,25 +578,9 @@ body {
 }
 
 .user-post-img {
-    max-width: 100%;
+    width: 100%;
     margin-top: 8px;
     vertical-align: middle
-}
-
-.user-post-info {
-    display: none;
-    /* max-width: 200px;
-    margin: auto;
-    padding: 10px */
-}
-
-.user-post:hover .user-post-info {
-    display: block;
-    /* position: sticky; */
-    /* height: 800px;
-    width: 800px;
-    background-color: blue;
-    color: white */
 }
 
 /* (other) user page */
@@ -811,6 +826,14 @@ body {
 
     .set-profile-pic {
         margin: auto
+    }
+
+    .profile-upload-error {
+        margin-top: 4px
+    }
+
+    .profile-username {
+        margin-top: 10px
     }
 
     .profile-postnum {

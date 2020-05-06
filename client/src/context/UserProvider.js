@@ -17,6 +17,13 @@ const UserProvider = props => {
     const initialState = {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || '',
+        currentProfile: {
+            img: {
+                imgUrl: '',
+                imgRef: ''
+            },
+            bio: ''
+        },
         profile: {
             img: {
                 imgUrl: '',
@@ -72,7 +79,6 @@ const UserProvider = props => {
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
                 getProfile(user.username);
-                // currentUserPosts();
                 setUserState({
                     ...initialState,
                     user,
@@ -92,17 +98,13 @@ const UserProvider = props => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         setUserState({
+            ...initialState,
             user: '',
-            token: '',
-            posts: [],
-            profile: {},
-            currentPost: null,
-            comments: [],
-            errMsg: ''
+            token: ''
         })
     };
 
-    const handleAuthErr = (errMsg) => {
+    const handleAuthErr = errMsg => {
         setUserState(prevUserState => ({
             ...prevUserState,
             errMsg
@@ -117,6 +119,22 @@ const UserProvider = props => {
     )};
 
     // PROFILE:
+    // get logged in user's profile
+    const getCurrentProfile = () => {
+        const {user: {username}} = userState
+        userAxios.get(`/api/profile/${username}`)
+        .then(res => {
+            setUserState(prevUserState => ({
+                ...prevUserState,
+                currentProfile: res.data
+            }))
+        })
+        .catch(err => {
+            console.error(err)
+        })
+    }
+
+    // get other user's profile
     const getProfile = username => {
         userAxios.get(`/api/profile/${username}`)
         .then(res => {
@@ -138,7 +156,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    profile: res.data
+                    currentProfile: res.data
                 }))
             })
             .catch(err => {
@@ -151,7 +169,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    profile: res.data
+                    currentProfile: res.data
                 }))
             })
             .catch(err => {
@@ -394,6 +412,7 @@ const UserProvider = props => {
             login,
             logout,
             resetAuthErr,
+            getCurrentProfile,
             getProfile,
             addProfileImg,
             addBio,

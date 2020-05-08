@@ -39,35 +39,38 @@ const Auth = () => {
     };
 
     return (
-        <div className='auth-page'>
-            <h1>Photo Sharing</h1>
-            { toggle ?
-            <div className='auth-container'>
-                <AuthForm 
-                    handleChange={ handleChange }
-                    noSpaces={ noSpaces }
-                    handleSubmit={ handleSignup }
-                    inputs={ inputs }
-                    buttonText='Create Account'
-                    errMsg={ errMsg }
-                />
-                <span>Already have an account?</span>
-                <button className='button auth-toggle-button' onClick={ toggleForm }>Go to Sign in</button>
+        <div className='auth-page-container'>
+            <div className='auth-page'>
+                <h1>Photo Sharing</h1>
+                { 
+                toggle ?
+                    <div className='auth-container'>
+                        <AuthForm 
+                            handleChange={ handleChange }
+                            noSpaces={ noSpaces }
+                            handleSubmit={ handleSignup }
+                            inputs={ inputs }
+                            buttonText='Create Account'
+                            errMsg={ errMsg }
+                        />
+                        <span>Already have an account?</span>
+                        <button className='button auth-toggle-button' onClick={ toggleForm }>Go to Sign in</button>
+                    </div>
+                :
+                    <div className='auth-container'>
+                        <AuthForm 
+                            handleChange={ handleChange }
+                            noSpaces={ noSpaces }
+                            handleSubmit={ handleLogin }
+                            inputs={ inputs }
+                            buttonText='Login'
+                            errMsg={ errMsg }
+                        />
+                        <span>New user?</span>
+                        <button className='button auth-toggle-button' onClick={ toggleForm }>Go to Sign up</button>
+                    </div>
+                }
             </div>
-        :
-            <div className='auth-container'>
-                <AuthForm 
-                    handleChange={ handleChange }
-                    noSpaces={ noSpaces }
-                    handleSubmit={ handleLogin }
-                    inputs={ inputs }
-                    buttonText='Login'
-                    errMsg={ errMsg }
-                />
-                <span>New user?</span>
-                <button className='button auth-toggle-button' onClick={ toggleForm }>Go to Sign up</button>
-            </div>
-            }
         </div>
     );
 };

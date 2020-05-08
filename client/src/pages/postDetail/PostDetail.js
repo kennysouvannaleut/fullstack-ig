@@ -1,16 +1,18 @@
 import React, {useState, useContext, useEffect} from 'react'
 import {useParams, Link} from 'react-router-dom'
+import {confirmAlert} from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
 import userContext from '../../context/userContext'
 import {deleteImage} from '../../firebase/firebase.js'
 import CommentList from '../../components/comments/CommentList.js'
 import CommentForm from '../../components/comments/CommentForm.js'
 import DefaultAvatar from '../../media/blank-avatar.png'
-import {confirmAlert} from 'react-confirm-alert'
-import 'react-confirm-alert/src/react-confirm-alert.css'
 
 const PostDetail = () => {
     const {postId} = useParams()
     const {
+        user: { username, _id: userId },
+        token,
         currentPost, 
         postDetail, 
         getProfile,
@@ -18,7 +20,6 @@ const PostDetail = () => {
         removePost, 
         getComments,
         createComment,
-        user: { username },
         upvotePost,
         downvotePost
     } = useContext(userContext);
@@ -32,6 +33,7 @@ const PostDetail = () => {
         description, 
         postedBy, 
         dateAdded, 
+        usersWhoHaveVoted,
         votes, 
         _id
     } = currentPost
@@ -45,6 +47,15 @@ const PostDetail = () => {
         getProfile(username)
         getComments(postId)
     }, [])
+
+    // const sendMail = postId => {
+    //     const subject = 'Image Flagged'
+    //     window.open(`mailto:evantaylor667@gmail.com?subject=${subject}&body=`)
+    //             //  + "?cc=myCCaddress@example.com"
+    //             //  + '\nsubject=' + escape('Image Flagged')
+    //              + '&body=' + escape(`Photo with id ${postId} flagged.`)
+    //     // window.location.href = link
+    // }
 
     const toggleEdit = () => {
         setToggle(!toggle)
@@ -92,27 +103,42 @@ const PostDetail = () => {
                 <div className='detail-top-box'>
                     <div className='detail-user'>
                         <Link to={`/user/${ postedBy }`}>
-                            {userImg ?
-                                <img className='detail-icon' alt='' src={userImg}/> :
-                                <img className='detail-icon' alt='' src={DefaultAvatar}/>}
+                            <div 
+                                className={'detail-icon'} 
+                                style={{'backgroundImage': `url(${userImg ? userImg : DefaultAvatar})`}}
+                            >
+                            </div>
                         </Link>
                         <Link className='detail-username' to={`/user/${ postedBy }`}>
                             <p className='detail-username-text'>{ postedBy }</p>
                         </Link>
                     </div>
-                {postedBy === username &&
-                    <>
-                        <button className='delete-button button' onClick={handleDelete}>Delete Post</button>
-                    </>
+                {
+                postedBy === username &&
+                    <button className='delete-button button' onClick={handleDelete}>Delete Post</button>
+                // :
+                    // <button onClick={() => sendMail(postId) }>Report Image</button>
                 }
                 </div>
                 <p className='detail-date'>{dateAdded}</p>
                 <img className='detail-image' src={imgUrl} alt='' />
                 <p className='detail-votes'>votes: {votes}</p>
-                {username !== postedBy &&
+                {username !== postedBy && token &&
                     <div className='vote-buttons'>
-                        <button className='button' onClick={ () => upvotePost(_id) }>Upvote</button>
-                        <button className='button' onClick={ () => downvotePost(_id) }>Downvote</button>
+                        <button 
+                            className='button' 
+                            onClick={ () => upvotePost(_id) }
+                            disabled={usersWhoHaveVoted && usersWhoHaveVoted.includes(userId) && true}
+                        >
+                            Upvote
+                        </button>
+                        <button 
+                            className='button' 
+                            onClick={ () => downvotePost(_id) }
+                            disabled={usersWhoHaveVoted && usersWhoHaveVoted.includes(userId) && true}
+                        >
+                            Downvote
+                        </button>
                     </div>
                 }
                 {postedBy === username &&
@@ -145,11 +171,14 @@ const PostDetail = () => {
                 }
                 <div className='comments-box'>
                     <h2 className='comments-title'>Comments</h2>
-                    <CommentForm 
-                        addOrEditComment={createComment} 
-                        commentBtnText='Comment' 
-                        postOrCommentId={_id}
-                    />
+                    {
+                    token &&
+                        <CommentForm 
+                            addOrEditComment={createComment} 
+                            commentBtnText='Comment' 
+                            postOrCommentId={_id}
+                        />
+                    }
                     <CommentList/>
                 </div>
             </div>

@@ -19,41 +19,36 @@ const App = () => {
 
     return (
         <div className='App'>
-            { token && <Navbar logout={ logout }/> }
+            {/* { token && <Navbar logout={ logout }/> } */}
+            <Navbar logout={ logout }/>
             <Switch>
                 <Route 
-                    exact path='/'
+                    path='/auth'
                     render={ () => token ? <Redirect to='/profile' /> : <Auth /> }
                 /> 
                 <ProtectedRoute 
                     path='/profile' 
                     component={ Profile } 
-                    redirectTo={ '/' }
+                    redirectTo={ '/auth' }
                     token={ token } 
                 />
                 <ProtectedRoute 
                     path='/current-user' 
                     component={ UserAlbum } 
-                    redirectTo={ '/' }
+                    redirectTo={ '/auth' }
                     token={ token }
                 />
-                <ProtectedRoute
-                    path='/home'
+                <Route
+                    exact path='/'
                     component={ Home }
-                    redirectTo={ '/' }
-                    token={ token }
                 />
-                <ProtectedRoute 
+                <Route 
                     exact path='/detail/:postId' 
                     component={ PostDetail }
-                    redirectTo='/'
-                    token={ token }
                 />
-                <ProtectedRoute 
+                <Route 
                     exact path='/user/:username' 
                     component={ UserDetail }
-                    redirectTo='/'
-                    token={ token }
                 />
                 <ProtectedRoute 
                     exact path='*' 

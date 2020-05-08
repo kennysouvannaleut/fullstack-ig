@@ -10,7 +10,7 @@ const Navtab = props => {
         <NavLink 
             className='nav-link'
             activeStyle={ activeStyle } 
-            to={ to } 
+            to={to}
         >
             { label }
         </NavLink>

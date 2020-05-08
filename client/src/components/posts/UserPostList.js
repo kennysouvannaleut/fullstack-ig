@@ -12,6 +12,8 @@ const UserPostList = () => {
         currentUserPosts()
     }, [])
 
+    // this page isn't always getting posts after adding post
+
     return (
         <div className='current-user-posts-page'>
             { loading && <div className='loader' /> }

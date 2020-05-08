@@ -16,10 +16,16 @@ const UserDetail = () => {
     return(
         <div className='user-detail'>
             <div className='user-detail-info'>
-                {profile.img ?
-                    <img className='user-detail-icon' alt='' src={profile.img.imgUrl }/> :
-                    <img className='user-detail-icon' alt='' src={DefaultAvatar}/>
-                }
+                <div 
+                    className={'user-detail-icon'} 
+                    style={{
+                        'backgroundImage': `url(${profile.img && profile.img.imgUrl ? 
+                            profile.img.imgUrl 
+                        : 
+                            DefaultAvatar})`
+                    }}
+                >
+                </div>
                 <div className='user-detail-text'>
                     <h2>{ username }</h2>
                     <p className='user-detail-post-num'>

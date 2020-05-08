@@ -1,19 +1,33 @@
-import React, {useState} from 'react'
-import {imageUpload, deleteImage, progress} from '../../firebase/firebase.js'
+import React, {useState, useEffect} from 'react'
+import {imageUpload, firebaseOn, firebaseOff, deleteImage} from '../../firebase/firebase.js'
 import DefaultAvatar from '../../media/blank-avatar.png'
-console.log(progress)
+
 const SetProfileImg = props => {
     const {user, addProfileImg, profile} = props
 
+    const [firebaseId, setFirebaseId] = useState('')
+    const [showProgressBar, setShowProgressBar] = useState(false)
+    const [uploadProgress, setUploadProgress] = useState(0)
     const [errMsg, setErrMsg] = useState('')
+
+    useEffect(() => {
+        const id = firebaseOn(progress => {
+            setUploadProgress(progress)
+        })
+        setFirebaseId(id)
+        return function cleanUp(){
+            firebaseOff(firebaseId)
+        }
+    }, [])
 
     const handleImgSubmit = e => {
         setErrMsg('')
         const img = e.target.files
         if(img.length > 0 && checkMimeType(img) && checkFileSize(img)){
             const path = `${user}/profile`
-            profile && profile.img && deleteImage(profile.img.imgRef)
+            profile && profile.img !== '' && deleteImage(profile.img.imgRef)
             imageUpload(img, path, setUrl)
+            setShowProgressBar(true)
         }
     }
 
@@ -24,7 +38,7 @@ const SetProfileImg = props => {
             if(types.every(type => img[x].type !== type)){
                 err += `${img[x].type} is not a supported format`
                 setErrMsg(err)
-        }
+            }
         }
         if(err !== ''){
             console.log(err)
@@ -52,13 +66,20 @@ const SetProfileImg = props => {
     const setUrl = (url, path) => {
         const img = {imgUrl: url, imgRef: path}
         addProfileImg(img)
+        setUploadProgress(0)
+        setShowProgressBar(false)
     }
 
     return (
         <div>
             <div 
                 className={'set-profile-pic'} 
-                style={{'backgroundImage': `url(${profile.img && profile.img.imgUrl ? profile.img.imgUrl : DefaultAvatar})`}}
+                style={{
+                    'backgroundImage': `url(${profile.img && profile.img.imgUrl ? 
+                        profile.img.imgUrl 
+                    : 
+                        DefaultAvatar})`
+                }}
             >
                 <input 
                     className='profile-pic-input' 
@@ -79,8 +100,22 @@ const SetProfileImg = props => {
                     </div>
                 </label>
             </div>
+            <div className={
+                showProgressBar ? 
+                    'upload-progress-active' 
+                : 
+                    'upload-progress'
+            }>
+                <div className='loading-bar-container'>
+                    <div 
+                        className='loading-bar' 
+                        style={{'width': `${uploadProgress}%`}}
+                    >
+                        {Math.round(uploadProgress, 2)}%
+                    </div>
+                </div>
+            </div>
             <p className='profile-upload-error'>{errMsg}</p>
-            <p>{progress}</p>
         </div>
     )
 }

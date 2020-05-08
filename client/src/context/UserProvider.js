@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import UserContext from './userContext';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 
 const userAxios = axios.create();
 
@@ -47,8 +47,10 @@ const UserProvider = props => {
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
+    const [redirect, setRedirect] = useState(false)
     const { goBack } = useHistory();
 
+    // console.log(userState)
     // USER AUTH:
     const signup = credentials => {
         axios.post('/auth/signup', credentials)
@@ -70,6 +72,22 @@ const UserProvider = props => {
                 }
         });
     };
+
+    // delete user (deletes user / user's profile, posts, comments, and other's comments on user's posts)
+    const deleteUser = () => {
+        userAxios.delete('/api/users/delete-user')
+            .then(res => {
+                console.log(res)
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                setUserState(initialState)
+                setRedirect(true)
+                // not working
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     // login
     const login = credentials => {
@@ -97,11 +115,18 @@ const UserProvider = props => {
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        setUserState({
-            ...initialState,
+        setUserState(prevUserState => ({
+            ...prevUserState,
             user: '',
-            token: ''
-        })
+            token: '',
+            currentProfile: {
+                img: {
+                    imgUrl: '',
+                    imgRef: ''
+                },
+                bio: ''
+            }
+        }))
     };
 
     const handleAuthErr = errMsg => {
@@ -123,29 +148,29 @@ const UserProvider = props => {
     const getCurrentProfile = () => {
         const {user: {username}} = userState
         userAxios.get(`/api/profile/${username}`)
-        .then(res => {
-            setUserState(prevUserState => ({
-                ...prevUserState,
-                currentProfile: res.data
-            }))
-        })
-        .catch(err => {
-            console.error(err)
-        })
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    currentProfile: res.data
+                }))
+            })
+            .catch(err => {
+                console.error(err)
+            })
     }
 
     // get other user's profile
     const getProfile = username => {
-        userAxios.get(`/api/profile/${username}`)
-        .then(res => {
-            setUserState(prevUserState => ({
-                ...prevUserState,
-                profile: res.data
-            }))
-        })
-        .catch(err => {
-            console.error(err)
-        })
+        axios.get(`/profile/${username}`)
+            .then(res => {
+                setUserState(prevUserState => ({
+                    ...prevUserState,
+                    profile: res.data
+                }))
+            })
+            .catch(err => {
+                console.error(err)
+            })
     }
 
     const addProfileImg = img => {
@@ -184,10 +209,7 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    posts: [ 
-                        ...prevUserState.posts,
-                        res.data
-                    ]
+                    posts: [res.data, ...prevUserState.posts]
                 }));
             })
             .catch(err => {
@@ -197,7 +219,7 @@ const UserProvider = props => {
 
     // get all posts:
     const getPosts = () => {
-        userAxios.get('/api/posts')
+        axios.get('/posts')
             .then(res => {
                 setUserState(prevUserState => ({ 
                     ...prevUserState,
@@ -216,8 +238,8 @@ const UserProvider = props => {
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
-                    posts: res.data.reverse()
-                    // loading: false
+                    posts: res.data.reverse(),
+                    loading: false
                 }));
             })
             .catch(err => {
@@ -227,7 +249,7 @@ const UserProvider = props => {
 
     // get (other) user's posts
     const selectedUser = username => {
-        userAxios.get(`/api/posts/user/${username}`)
+        axios.get(`/posts/user/${username}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -242,7 +264,7 @@ const UserProvider = props => {
 
     // get one post
     const postDetail = postId => {
-        userAxios.get(`/api/posts/detail/${postId}`)
+        axios.get(`/posts/detail/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -336,7 +358,7 @@ const UserProvider = props => {
 
     // COMMENTS:
     const getComments= postId => {
-        userAxios.get(`/api/comments/${postId}`)
+        axios.get(`/comments/${postId}`)
             .then(res => {
                 setUserState(prevUserState => ({
                     ...prevUserState,
@@ -405,34 +427,42 @@ const UserProvider = props => {
     }
 
     return (
-        <UserContext.Provider 
-        value={{ 
-            ...userState,
-            signup,
-            login,
-            logout,
-            resetAuthErr,
-            getCurrentProfile,
-            getProfile,
-            addProfileImg,
-            addBio,
-            getPosts,
-            currentUserPosts,
-            selectedUser,
-            postDetail,
-            createPost,
-            removePost,
-            editPost,
-            upvotePost,
-            downvotePost,
-            getComments,
-            createComment,
-            removeComment,
-            editComment
-        }} 
-            >
-            { props.children }
-        </UserContext.Provider>
+        <>
+            {
+            redirect ?
+                <Redirect to='/auth'/> 
+            :
+                <UserContext.Provider 
+                    value={{ 
+                        ...userState,
+                        signup,
+                        deleteUser,
+                        login,
+                        logout,
+                        resetAuthErr,
+                        getCurrentProfile,
+                        getProfile,
+                        addProfileImg,
+                        addBio,
+                        getPosts,
+                        currentUserPosts,
+                        selectedUser,
+                        postDetail,
+                        createPost,
+                        removePost,
+                        editPost,
+                        upvotePost,
+                        downvotePost,
+                        getComments,
+                        createComment,
+                        removeComment,
+                        editComment
+                    }} 
+                >
+                    { props.children }
+                </UserContext.Provider>
+            }
+        </>
     );
 };
 

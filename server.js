@@ -6,6 +6,9 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 
 const auth = require('./routes/userAuth');
+const getPosts = require('./routes/getPosts')
+const getProfile = require('./routes/getProfile')
+const getComments = require('./routes/getComments')
 const posts = require('./routes/posts');
 const profile = require('./routes/profile')
 const comments = require('./routes/comments')
@@ -34,6 +37,9 @@ mongoose.connect (
 )
 
 app.use('/auth', auth);
+app.use('/posts', getPosts)
+app.use('/profile', getProfile)
+app.use('/comments', getComments)
 app.use('/api', expressJWT({ secret: process.env.SECRET }));
 app.use('/api/posts', posts);
 app.use('/api/vote', votes);

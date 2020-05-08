@@ -45,17 +45,21 @@ body {
 }
 
 /* auth */
+.auth-page-container {
+    padding-top: 50px;
+}
+
 .auth-page {
     border: solid rgb(224, 224, 224) 1px;
-    width: 700px;
+    width: 702px;
     background-color: white;
-    margin: 40px auto;
-    padding: 10px;
+    margin: auto;
+    padding: 30px 10px;
     text-align: center;
 }
 
 .auth-container {
-    margin: 20px
+    margin-top: 20px;
 }
 
 .auth-form {
@@ -93,25 +97,24 @@ body {
     border: solid rgb(224, 224, 224) 1px;
     background-color: white;
     padding: 8px;
-    align-items: center;
     position: fixed;
     z-index: 10;
     width: 100%;
 }
 
 .nav-box {
-    width: 700px;
+    width: 702px;
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin: auto
+    justify-content: space-between;
+    margin: auto;
+    padding: 0 2px
 }
 
 .nav-link {
     text-decoration: none;
     font-size: 13pt;
     color: black;
-    margin-left: 30px;
+    margin-right: 30px;
     transition: .3s
 }
 
@@ -121,16 +124,15 @@ body {
 
 .nav-user {
     display: flex;
-    margin-top: -21px;
-    align-items: center;
-    justify-content: flex-end;
 }
 
 .navbar-icon-link {
     height: 22px;
     width: 22px;
     border-radius: 20px;
-    margin-right: 8px
+    margin-right: 12px;
+    margin-top: -2px;
+    margin-left: 1px
 }
 
 .navbar-icon {
@@ -138,11 +140,22 @@ body {
     width: 22px;
     border-radius: 20px;
     margin-left: 1px;
-    margin-top: 1px
+    margin-top: 1px;
+    background-size: cover;
+    background-repeat: no-repeat
 }
 
-.nav-button {
-    font-size: 13px;
+.nav-auth {
+    font-size: 12pt;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    align-self: center;
+    transition: .3s
+}
+
+.nav-auth:hover {
+    color: rgb(116, 154, 177)
 }
 
 /* posts */
@@ -159,7 +172,7 @@ body {
     border: solid rgb(224, 224, 224) 1px;
     max-width: 702px;
     border-radius: 4px;
-    margin: 10px auto 25px
+    margin: 10px auto 25px;
 }
 
 .card-user {
@@ -172,6 +185,8 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 60px;
+    background-size: cover;
+    background-repeat: no-repeat
 }
 
 .card-user-icon-box {
@@ -185,8 +200,7 @@ body {
 .card-username {
     font-size: 16pt;
     color: rgb(53, 53, 53);
-    transition: color .3s;
-    margin-top: -8px
+    transition: color .3s
 }
 
 .card-username:hover {
@@ -199,7 +213,7 @@ body {
     position: relative;
     float: right;
     margin-top: -42px;
-    margin-right: 10px;
+    margin-right: 10px
 }
 
 .card-image {
@@ -215,6 +229,11 @@ body {
     margin-top: 6px
 }
 
+.vote-buttons > button:disabled {
+    cursor: default;
+    border: 1px solid #e7e7e7
+}
+
 /* detail */
 .post-detail-container {
     padding-top: 50px;
@@ -223,7 +242,7 @@ body {
 
 .post-detail {
     padding-bottom: 14px;
-    width: 700px;
+    width: 702px;
     margin: auto;
     background-color: white;
     border: solid rgb(224, 224, 224) 1px;
@@ -245,7 +264,9 @@ body {
 .detail-icon {
     width: 70px;
     height: 70px;
-    border-radius: 60px
+    border-radius: 60px;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .detail-username {
@@ -293,7 +314,8 @@ body {
 }
 
 .detail-description-input {
-    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-top: -10px;
     text-align: center;
 }
 
@@ -334,7 +356,7 @@ body {
 }
 
 .comments-list {
-    margin-top: 50px
+    margin-top: 10px
 }
 
 .comment {
@@ -360,7 +382,9 @@ body {
     width: 24px;
     height: 24px;
     border-radius: 60px;
-    margin-bottom: -5px
+    margin-bottom: -5px;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .comment-username-link {
@@ -410,8 +434,8 @@ body {
 
 .comment-save-button {
     height: 18px;
-    margin-top: -10px;
-    margin-left: 21px
+    margin-top: -9px;
+    margin-left: 26px
 }
 
 .edit-comment-input {
@@ -424,10 +448,8 @@ body {
     padding-top: 50px;
 }
 
-.profile-edit {
-    display: grid;
-    grid-template-columns: 200px auto;
-    width: 700px;
+.profile-edit-container {
+    width: 702px;
     margin: auto;
     padding: 10px;
     padding-bottom: 20px;
@@ -436,12 +458,104 @@ body {
     background-color: white;
 }
 
+.profile-edit {
+    display: grid;
+    grid-template-columns: 200px auto;
+}
+
+.set-profile-pic {
+    grid-column: 1 / 2;
+    margin: 20px auto;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    padding-top: 40px;
+    border-radius: 80px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.profile-pic-input {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+    z-index: -1;
+}
+
+.label-styling {
+    border-radius: 80px;
+    width: 150px;
+    height: 150px;
+    margin-top: -40px;
+    padding-top: 56px;
+    cursor: pointer;
+    color: transparent;
+    font-size: 13pt;
+    transition: .3s
+}
+
+.size-limit {
+    font-size: 8pt
+}
+
+.label-styling:hover {
+    color: #e5e6e7;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.profile-pic-input:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+}
+
+.profile-upload-error {
+    color: red;
+    font-size: 9pt;
+    text-align: center;
+    margin-top: -12px
+}
+
+.upload-progress {
+    display: none;
+}
+
+.upload-progress-active {
+    display: block;
+}
+
+.loading-bar-container {
+    height: 20px;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 4px
+}
+
+.loading-bar {
+    color: white;
+    background-color: rgb(116, 154, 177);
+    text-align: center
+}
+
 .profile-edit-text {
     grid-column: 2 / 3
 }
 
 .profile-username {
-    margin: 14px;
+    margin: 16px 0 10px 14px;
+    margin-bottom: 10px
+}
+
+.profile-delete-user-button {
+    float: right;
+    right: 20px;
+    color: red;
 }
 
 .profile-postnum {
@@ -473,76 +587,17 @@ body {
     margin-left: 14px
 }
 
-.set-profile-pic {
-    grid-column: 1 / 2;
-    align-self: center;
-    justify-self: center;
-    margin: 20px;
-    width: 150px;
-    height: 150px;
-    text-align: center;
-    padding-top: 40px;
-    border-radius: 80px;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.profile-pic-input {
-    width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-    z-index: -1;
-}
-
-.label-styling {
-    border-radius: 80px;
-    width: 150px;
-    height: 150px;
-    margin-top: -40px;
-    padding-top: 56px;
-    cursor: pointer;
-    color: transparent;
-    font-size: 13pt;
-    transition: .3s;
-}
-
-.size-limit {
-    font-size: 8pt
-}
-
-.label-styling:hover {
-    color: #e5e6e7;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.profile-pic-input:focus + label {
-	outline: 1px dotted #000;
-	outline: -webkit-focus-ring-color auto 5px;
-}
-
-.profile-pic {
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
-}
-
-.profile-upload-error {
-    color: red;
-    font-size: 9pt;
-    text-align: center;
-    margin-top: -12px
-}
-
 .profile-post {
     text-align: center;
-    width: 700px;
+    width: 702px;
     margin: 14px auto;
     padding: 20px;
     border: solid rgb(224, 224, 224) 1px;
     border-radius: 4px;
     background-color: white;
+}
+.post-description-textarea {
+    margin-bottom: 8px
 }
 
 .post-submit-button {
@@ -552,12 +607,21 @@ body {
     padding: 6px
 }
 
+.post-submit-button:disabled {
+    cursor: default;
+    border: 1px solid #e7e7e7
+}
+
 /* logged in user posts (my album page) */
 .current-user-posts-page {
     padding-top: 50px;
     text-align: center;
-    width: 700px;
+    width: 702px;
     margin: auto;
+}
+
+.current-user-title {
+    margin: 8px 0 14px 0
 }
 
 .user-post-list {
@@ -592,7 +656,7 @@ body {
     border: solid rgb(224, 224, 224) 1px;
     border-radius: 4px;
     background-color: white;
-    max-width: 700px;
+    width: 702px;
     margin: auto;
     margin-bottom: -26px;
     display: grid;
@@ -606,6 +670,8 @@ body {
     margin: 20px;
     grid-column: 1 / 2;
     justify-self: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .user-detail-text {
@@ -628,25 +694,22 @@ body {
     margin-right: 16px;
 }
 
-@media only screen and (max-width: 880px){
-    .nav-box {
-        justify-content: flex-start;
-        align-items: flex-start;
-    }
-
-    .nav-link {
-        margin-left: 0;
-        margin-right: 30px
-    }
-}
-
 @media only screen and (max-width: 740px){
     .auth-page {
         width: 96%
     }
 
+    .nav {
+        padding: 8px 0
+    }
+
     .nav-box {
-        width: 96%
+        width: 96%;
+        padding: 0
+    }
+
+    .nav-user {
+        margin-right: 1px
     }
 
     .card-image {
@@ -661,8 +724,14 @@ body {
         max-width: 100%;
     }
 
-    .profile-edit {
+    .profile-edit-container {
         width: 96%
+    }
+
+    .profile-delete-user-button {
+        position: absolute;
+        right: 3%;
+        margin-top: -4px
     }
 
     .bio-textarea {
@@ -730,6 +799,10 @@ body {
         margin: auto
     }
 
+    .comments-list {
+        margin-top: 46px
+    }
+
     .comment-buttons {
         margin-right: 0;
         float: right;
@@ -740,7 +813,8 @@ body {
     .comment-save-button {
         width: 51px;
         height: 30px;
-        margin-top: 5px
+        margin-top: 5px;
+        margin-left: -30px
     }
     
     .edit-comment-input {
@@ -764,7 +838,8 @@ body {
     }
 
     .profile-username {
-        font-size: 14pt
+        font-size: 14pt;
+        margin-top: 22px
     }
 }
 
@@ -885,6 +960,21 @@ body {
     }
 }
 
+@media only screen and (max-width: 400px){
+    .nav-link {
+        font-size: 12pt;
+        margin-right: 26px
+    }
+
+    .nav-logout {
+        font-size: 11pt
+    }
+
+    .nav-user {
+        margin-top: -2px
+    }
+}
+
 @media only screen and (max-width: 390px){
     .card-date {
         float: right;
@@ -894,9 +984,13 @@ body {
     }
 }
 
-@media only screen and (max-width: 340px){
+@media only screen and (max-width: 360px){
     .nav-link {
-        font-size: 12pt;
-        margin-right: 26px
+        margin-right: 16px;
+        font-size: 11pt
+    }
+
+    .nav-logout {
+        font-size: 10pt
     }
 }

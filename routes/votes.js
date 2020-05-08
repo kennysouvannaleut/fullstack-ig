@@ -8,7 +8,7 @@ votes.put('/upvote/:postId', (req, res, next) => {
         if(post.usersWhoHaveVoted.includes(req.user._id)){
             res.status(403)
             return next(Error('You can only vote once per post'))
-        }else{
+        } else {
             Post.findOneAndUpdate(
                 {_id: req.params.postId},
                 {
@@ -34,7 +34,7 @@ votes.put('/downvote/:postId', (req, res, next) => {
         if(post.usersWhoHaveVoted.includes(req.user._id)){
             res.status(403)
             return next(Error('You can only vote once per post'))
-        }else{
+        } else {
             Post.findOneAndUpdate(
                 {_id: req.params.postId},
                 {

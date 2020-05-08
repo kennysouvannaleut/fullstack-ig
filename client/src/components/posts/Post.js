@@ -6,18 +6,17 @@ import DefaultAvatar from '../../media/blank-avatar.png'
 const Post = props => {
     const { 
         _id,
-        img: {
-            imgUrl
-        },
+        img,
         dateAdded,
         votes,
+        usersWhoHaveVoted,
         postedBy,
         userImg,
         upvotePost, 
         downvotePost, 
         userPage
     } = props;
-    const { user: { username } } = useContext(userContext);
+    const { user: { username, _id: userId }, token } = useContext(userContext);
 
     return (
         <div className='card'>
@@ -25,10 +24,11 @@ const Post = props => {
                 <div className='card-user'>
                     <div className='card-user-icon-box'>
                         <Link to={`/user/${ postedBy }`}>
-                            {userImg ?
-                                <img className='card-user-icon' src={userImg} alt=''/> :
-                                <img className='card-user-icon' src={DefaultAvatar} alt=''/>
-                            }
+                            <div 
+                                className={'card-user-icon'} 
+                                style={{'backgroundImage': `url(${userImg ? userImg : DefaultAvatar})`}}
+                            >
+                            </div>
                         </Link>
                     </div>
                     <Link className='card-username-link' to={`/user/${ postedBy }`}>
@@ -38,16 +38,28 @@ const Post = props => {
             }
             {!userPage && <p className='card-date'>{dateAdded}</p>}
             <Link to={`/detail/${ _id }`}>
-                <img className='card-image' alt='' src={imgUrl}/>
+                {img && <img className='card-image' alt='' src={img.imgUrl}/>}
             </Link>
             <div className='card-info'>
                 <div className='card-post-section'>
                     {userPage && <p className='user-detail-date'>{dateAdded}</p>}
                     <p className='card-votes'> votes: { votes }</p>
-                    {username !== postedBy &&
+                    {username !== postedBy && token &&
                         <div className='vote-buttons'>
-                            <button className='button' onClick={ () => upvotePost(_id) }>Upvote</button>
-                            <button className='button' onClick={ () => downvotePost(_id) }>Downvote</button>
+                            <button 
+                                className='button' 
+                                onClick={ () => upvotePost(_id) }
+                                disabled={usersWhoHaveVoted.includes(userId) && true}
+                            >
+                                Upvote
+                            </button>
+                            <button 
+                                className='button' 
+                                onClick={ () => downvotePost(_id) }
+                                disabled={usersWhoHaveVoted.includes(userId) && true}
+                            >
+                                Downvote
+                            </button>
                         </div>
                     }
                 </div>

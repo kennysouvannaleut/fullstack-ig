@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
-import CommentForm from './CommentForm.js'
-import DefaultAvatar from '../../media/blank-avatar.png'
 import {confirmAlert} from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
+import CommentForm from './CommentForm.js'
+import DefaultAvatar from '../../media/blank-avatar.png'
 
 function Comment(props){
     const {comment, commentId, postedBy, userImg, removeComment, user, editComment} = props
@@ -46,10 +46,11 @@ function Comment(props){
             <div className='comment'>
                 <div className='comment-user'>
                     <Link className='comment-icon-link' to={`/user/${ postedBy }`}>
-                        {userImg ?
-                            <img className='comment-icon' src={userImg} alt=''/> :
-                            <img className='comment-icon' src={DefaultAvatar} alt='' />
-                        }
+                        <div 
+                            className={'comment-icon'} 
+                            style={{'backgroundImage': `url(${userImg ? userImg : DefaultAvatar})`}}
+                        >
+                        </div>
                     </Link>
                 </div>
                 {toggle ? 

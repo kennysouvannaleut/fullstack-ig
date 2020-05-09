@@ -25,7 +25,7 @@ const SetProfileImg = props => {
         const img = e.target.files
         if(img.length > 0 && checkMimeType(img) && checkFileSize(img)){
             const path = `${user}/profile`
-            profile && profile.img !== '' && deleteImage(profile.img.imgRef)
+            profile && profile.img && profile.img.imgRef && deleteImage(profile.img.imgRef)
             imageUpload(img, path, setUrl)
             setShowProgressBar(true)
         }

@@ -217,7 +217,7 @@ body {
 }
 
 .card-image {
-    max-width: 700px;
+    width: 700px;
 }
 
 .card-votes {
@@ -300,7 +300,7 @@ body {
 }
 
 .detail-image {
-    max-width: 700px;
+    width: 700px;
 }
 
 .detail-votes {
@@ -616,7 +616,7 @@ body {
 .current-user-posts-page {
     padding-top: 50px;
     text-align: center;
-    width: 702px;
+    width: 700px;
     margin: auto;
 }
 
@@ -626,7 +626,7 @@ body {
 
 .user-post-list {
     display: flex;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
 .post-column-1 {
@@ -692,6 +692,35 @@ body {
     font-size: 11pt;
     float: right;
     margin-right: 16px;
+}
+
+.user-detail-album {
+    display: flex;
+    flex-wrap: wrap;
+    width: 700px;
+    margin: auto;
+}
+
+.toggle-album-button-container {
+    text-align: center;
+    margin-bottom: -30px;
+    margin-top: 46px
+}
+
+.toggle-album-button {
+    width: 100px;
+    height: 30px;
+    font-size: 10pt
+}
+
+.toggle-album-button-active {
+    width: 100px;
+    height: 30px;
+    font-size: 10pt;
+    margin-bottom: 3px;
+    background-color: rgb(116, 154, 177);
+    box-shadow: 2px 2px rgb(182, 182, 182);
+    transform: translateY(2px);
 }
 
 @media only screen and (max-width: 740px){
@@ -760,6 +789,14 @@ body {
 
     .user-detail-info {
         max-width: 96%
+    }
+
+    .toggle-album-button-active {
+        margin-bottom: 7px
+    }
+
+    .user-detail-album {
+        width: 98%
     }
 }
 
@@ -887,7 +924,7 @@ body {
     }
 
     .user-detail-icon {
-        margin-bottom: 0
+        margin: 10px auto
     }
 
     .user-detail-text {
@@ -901,6 +938,10 @@ body {
 
     .set-profile-pic {
         margin: auto
+    }
+
+    .upload-progress-active {
+        margin-top: 10px
     }
 
     .profile-upload-error {
@@ -958,16 +999,16 @@ body {
         width: 96%;
         margin: auto
     }
+
+    .nav-auth {
+        font-size: 11pt
+    }
 }
 
 @media only screen and (max-width: 400px){
     .nav-link {
         font-size: 12pt;
         margin-right: 26px
-    }
-
-    .nav-logout {
-        font-size: 11pt
     }
 
     .nav-user {
@@ -990,7 +1031,7 @@ body {
         font-size: 11pt
     }
 
-    .nav-logout {
+    .nav-auth {
         font-size: 10pt
     }
 }

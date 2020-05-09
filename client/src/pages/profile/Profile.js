@@ -5,6 +5,7 @@ import UserContext from '../../context/userContext';
 import FormContainer from '../../components/form/FormContainer';
 import SetProfileImg from './SetProfileImg.js'
 import SetBio from './SetBio.js'
+import { deleteImage } from '../../firebase/firebase.js'
 
 const Profile = () => {
     const userContext = useContext(UserContext);
@@ -21,6 +22,8 @@ const Profile = () => {
     } = userContext
     
     const [bioToggle, setBioToggle] = useState(false)
+
+    console.log(currentProfile)
 
     useEffect(() => {
         getCurrentProfile()
@@ -39,7 +42,10 @@ const Profile = () => {
                         <button
                             className='button'
                             onClick={() => {
+                                posts.map(post => deleteImage(post.img.imgRef))
+                                deleteImage(currentProfile.img.imgRef)
                                 deleteUser()
+                                deleteImage(`/${username}/`)
                                 onClose()
                             }}
                         >

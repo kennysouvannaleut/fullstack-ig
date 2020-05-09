@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import UserContext from './userContext';
 import axios from 'axios';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const userAxios = axios.create();
 
@@ -47,10 +47,8 @@ const UserProvider = props => {
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
-    const [redirect, setRedirect] = useState(false)
     const { goBack } = useHistory();
 
-    // console.log(userState)
     // USER AUTH:
     const signup = credentials => {
         axios.post('/auth/signup', credentials)
@@ -78,11 +76,7 @@ const UserProvider = props => {
         userAxios.delete('/api/users/delete-user')
             .then(res => {
                 console.log(res)
-                localStorage.removeItem('token');
-                localStorage.removeItem('user');
-                setUserState(initialState)
-                setRedirect(true)
-                // not working
+                logout()
             })
             .catch(err => {
                 console.log(err)
@@ -427,42 +421,35 @@ const UserProvider = props => {
     }
 
     return (
-        <>
-            {
-            redirect ?
-                <Redirect to='/auth'/> 
-            :
-                <UserContext.Provider 
-                    value={{ 
-                        ...userState,
-                        signup,
-                        deleteUser,
-                        login,
-                        logout,
-                        resetAuthErr,
-                        getCurrentProfile,
-                        getProfile,
-                        addProfileImg,
-                        addBio,
-                        getPosts,
-                        currentUserPosts,
-                        selectedUser,
-                        postDetail,
-                        createPost,
-                        removePost,
-                        editPost,
-                        upvotePost,
-                        downvotePost,
-                        getComments,
-                        createComment,
-                        removeComment,
-                        editComment
-                    }} 
-                >
-                    { props.children }
-                </UserContext.Provider>
-            }
-        </>
+        <UserContext.Provider 
+            value={{ 
+                ...userState,
+                signup,
+                deleteUser,
+                login,
+                logout,
+                resetAuthErr,
+                getCurrentProfile,
+                getProfile,
+                addProfileImg,
+                addBio,
+                getPosts,
+                currentUserPosts,
+                selectedUser,
+                postDetail,
+                createPost,
+                removePost,
+                editPost,
+                upvotePost,
+                downvotePost,
+                getComments,
+                createComment,
+                removeComment,
+                editComment
+            }} 
+        >
+            { props.children }
+        </UserContext.Provider>
     );
 };
 

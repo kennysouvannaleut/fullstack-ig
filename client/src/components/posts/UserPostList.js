@@ -17,11 +17,9 @@ const UserPostList = () => {
     return (
         <div className='current-user-posts-page'>
             { loading && <div className='loader' /> }
-            { 
             <h3 className='current-user-title'> 
                 You have { posts.length } post{(posts.length > 1 || posts.length === 0) && 's'}! 
             </h3> 
-            }
             <div className='user-post-list'>
                 <div className='post-column-1'>
                     {posts.map((post, i) => 

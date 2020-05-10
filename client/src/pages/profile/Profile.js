@@ -23,8 +23,6 @@ const Profile = () => {
     
     const [bioToggle, setBioToggle] = useState(false)
 
-    console.log(currentProfile)
-
     useEffect(() => {
         getCurrentProfile()
         currentUserPosts()
@@ -43,7 +41,7 @@ const Profile = () => {
                             className='button'
                             onClick={() => {
                                 posts.map(post => deleteImage(post.img.imgRef))
-                                deleteImage(currentProfile.img.imgRef)
+                                currentProfile.img && currentProfile.img.imgRef.length > 1 && deleteImage(currentProfile.img.imgRef)
                                 deleteUser()
                                 deleteImage(`/${username}/`)
                                 onClose()

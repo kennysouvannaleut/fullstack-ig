@@ -19,7 +19,6 @@ const App = () => {
 
     return (
         <div className='App'>
-            {/* { token && <Navbar logout={ logout }/> } */}
             <Navbar logout={ logout }/>
             <Switch>
                 <Route 

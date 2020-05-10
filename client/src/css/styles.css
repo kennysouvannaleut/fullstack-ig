@@ -44,6 +44,29 @@ body {
     background-color: white;
 }
 
+
+.custom-confirm {
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0 20px 75px rgba(0, 0, 0, 0.13);
+    padding: 20px;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 10px;
+    animation: 0.5s 0.2s forwards;
+    color: rgb(53, 53, 53);
+    text-align: center
+}
+
+.custom-confirm > p {
+    margin: 20px 0
+}
+
+.custom-confirm > button {
+    margin: 0 10px;
+    height: 30px;
+    width: 50px
+}
+
 /* auth */
 .auth-page-container {
     padding-top: 50px;
@@ -291,6 +314,18 @@ body {
     margin-right: 15px
 }
 
+.image-flag-container {
+    justify-self: right;
+    margin-right: 8px;
+    margin-top: -16px
+}
+
+.image-flag {
+    text-decoration: none;
+    color: red;
+    font-size: 9pt;
+}
+
 .detail-date {
     color: rgb(124, 124, 124);
     font-size: 11pt;
@@ -301,6 +336,39 @@ body {
 
 .detail-image {
     width: 700px;
+}
+
+.detail-image:hover {
+    cursor: zoom-in;
+}
+
+.resize-background {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 99;
+    background-color: rgba(245, 245, 245, 0.9)
+}
+
+.detail-image-large-container {
+    border: solid rgb(224, 224, 224) 1px;
+    position: absolute;
+    margin-top: 160px;
+    width: 98%;
+    left: 1%;
+}
+
+.detail-image-large {
+    width: 100%;
+    z-index: 10;
+    border: solid white 10px;
+    border-radius: 4px;
+}
+
+.detail-image-large:hover {
+    cursor: zoom-out
 }
 
 .detail-votes {
@@ -408,28 +476,6 @@ body {
 .comment-buttons {
     float: right;
     margin-right: -56px;
-}
-
-.custom-alert {
-    background-color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    box-shadow: 0 20px 75px rgba(0, 0, 0, 0.13);
-    padding: 20px;
-    border: solid rgb(224, 224, 224) 1px;
-    border-radius: 10px;
-    animation: 0.5s 0.2s forwards;
-    color: rgb(53, 53, 53);
-    text-align: center
-}
-
-.custom-alert > p {
-    margin: 20px 0
-}
-
-.custom-alert > button {
-    margin: 0 10px;
-    height: 30px;
-    width: 50px
 }
 
 .comment-save-button {
@@ -613,6 +659,40 @@ body {
 }
 
 /* logged in user posts (my album page) */
+.custom-alert-container {
+    padding-top: 50px;
+    margin-bottom: -40px
+}
+
+.custom-alert {
+    width: 300px;
+    height: 56px;
+    margin: auto;
+    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 20px;
+    background-color: white
+}
+
+.custom-alert > button {
+    height: 26px;
+    width: 26px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 12pt;
+    float: right;
+    margin-top: -18px
+}
+
+.custom-alert > button:hover {
+    cursor: pointer;
+}
+
+.custom-alert > p {
+    margin-left: 26px
+}
+
 .current-user-posts-page {
     padding-top: 50px;
     text-align: center;
@@ -645,6 +725,10 @@ body {
     width: 100%;
     margin-top: 8px;
     vertical-align: middle
+}
+
+.new-image {
+    border: 5px solid blue
 }
 
 /* (other) user page */
@@ -745,14 +829,6 @@ body {
         max-width: 100%
     }
 
-    .post-detail {
-        width: 100%
-    }
-
-    .detail-image {
-        max-width: 100%;
-    }
-
     .profile-edit-container {
         width: 96%
     }
@@ -797,6 +873,20 @@ body {
 
     .user-detail-album {
         width: 98%
+    }
+}
+
+@media only screen and (max-width: 700px){
+    .post-detail {
+        width: 100%
+    }
+
+    .detail-image:hover {
+        cursor: default;
+    }
+
+    .detail-image {
+        max-width: 100%;
     }
 }
 
@@ -911,6 +1001,11 @@ body {
         margin: 5px;
     }
 
+    .image-flag-container {
+        float: right;
+        margin-top: -64px
+    }
+
     .detail-date {
         float: left;
         margin: 10px;
@@ -995,7 +1090,7 @@ body {
         font-size: 13pt
     }
 
-    .custom-alert {
+    .custom-confirm {
         width: 96%;
         margin: auto
     }

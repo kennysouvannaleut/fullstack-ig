@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {Redirect} from 'react-router-dom'
 import FormComponent from './FormComponent';
 import {imageUpload, firebaseOn, firebaseOff} from '../../firebase/firebase.js'
+import userContext from '../../context/userContext';
 
 const FormContainer = props => {
     const { createPost, user } = props;
+
+    const {posts} = useContext(userContext)
 
     const createDate = () => {
         const month = new Date().toLocaleString('default', { month: 'long' })
@@ -56,8 +59,13 @@ const FormContainer = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
+        const newName = img[0].name
+        const prevNameArr = posts.map(post => post.img.imgRef.split('/')[1])
+
         if(img.length === 0){
             alert("You must choose a picture") 
+        } else if(prevNameArr.includes(newName)){
+            alert("A file with that name has already been uploaded. Please rename the file and try again.")
         } else {
             imageUpload(img, user, setUrl)
             setShowProgressBar(true)
@@ -87,7 +95,7 @@ const FormContainer = props => {
         <div>
             {
             redirect ? 
-                <Redirect to='/current-user'/> 
+                <Redirect to={{pathname: '/current-user', state: {newImg: 'new'}}}/> 
             :
                 <FormComponent 
                     handleChange={ handleChange }

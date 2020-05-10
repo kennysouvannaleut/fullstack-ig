@@ -10,6 +10,8 @@ const UserDetail = () => {
 
     const [albumView, setAlbumView] = useState(false)
 
+    // console.log(newImg && 'NEWNEWNEWNEW')
+
     useEffect(() => {
         selectedUser(username)
         getProfile(username)

@@ -39,6 +39,7 @@ const PostDetail = () => {
     } = currentPost
     
     const [toggle, setToggle] = useState(false)
+    const [resize, setResize] = useState(false)
 
     const [descriptionInput, setDescriptionInput] = useState(description)
 
@@ -47,15 +48,6 @@ const PostDetail = () => {
         getProfile(username)
         getComments(postId)
     }, [])
-
-    // const sendMail = postId => {
-    //     const subject = 'Image Flagged'
-    //     window.open(`mailto:evantaylor667@gmail.com?subject=${subject}&body=`)
-    //             //  + "?cc=myCCaddress@example.com"
-    //             //  + '\nsubject=' + escape('Image Flagged')
-    //              + '&body=' + escape(`Photo with id ${postId} flagged.`)
-    //     // window.location.href = link
-    // }
 
     const toggleEdit = () => {
         setToggle(!toggle)
@@ -77,7 +69,7 @@ const PostDetail = () => {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
-                    <div className='custom-alert'>
+                    <div className='custom-confirm'>
                         <h2>Confirm Delete</h2>
                         <p>Are you sure you want to delete your image?</p>
                         <button onClick={onClose} className='button'>No</button>
@@ -95,6 +87,10 @@ const PostDetail = () => {
                 )
             }
         })
+    }
+
+    const handleResize = () => {
+        window.matchMedia("(min-width: 740px)").matches && setResize(!resize)
     }
 
     return(
@@ -116,12 +112,33 @@ const PostDetail = () => {
                 {
                 postedBy === username &&
                     <button className='delete-button button' onClick={handleDelete}>Delete Post</button>
-                // :
-                    // <button onClick={() => sendMail(postId) }>Report Image</button>
+                }
+                {
+                postedBy !== username &&
+                    <div className='image-flag-container'>
+                        <a 
+                            className='image-flag'
+                            href={`mailto:evantaylor667@gmail.com?subject=Image%20Flag&body=Image%20id%20is%20${_id}`}
+                            target='_blank'
+                        >
+                            Flag Image
+                        </a>
+                    </div>
                 }
                 </div>
                 <p className='detail-date'>{dateAdded}</p>
-                <img className='detail-image' src={imgUrl} alt='' />
+                <div 
+                    className={resize ? 'resize-background' : ''}
+                    onClick={handleResize}
+                >
+                    <div className={resize && 'detail-image-large-container'}>
+                        <img 
+                            className={`detail-image ${resize ? 'detail-image-large' : ''}`} 
+                            src={imgUrl} alt='' 
+                            onClick={handleResize}
+                        />
+                    </div>
+                </div>
                 <p className='detail-votes'>votes: {votes}</p>
                 {username !== postedBy && token &&
                     <div className='vote-buttons'>

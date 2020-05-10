@@ -16,7 +16,7 @@ function Comment(props){
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
-                    <div className='custom-alert'>
+                    <div className='custom-confirm'>
                         <h2>Confirm Delete</h2>
                         <p>Are you sure you want to delete your comment?</p>
                         <button onClick={onClose} className='button'>No</button>

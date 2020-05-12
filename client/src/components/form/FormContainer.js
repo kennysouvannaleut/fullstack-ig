@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import {Redirect} from 'react-router-dom'
 import FormComponent from './FormComponent';
 import {imageUpload, firebaseOn, firebaseOff} from '../../firebase/firebase.js'
 import userContext from '../../context/userContext';
@@ -30,7 +29,6 @@ const FormContainer = props => {
     const [img, setimg] = useState([]);
     const [showProgressBar, setShowProgressBar] = useState(false)
     const [btnDisable, setBtnDisable] = useState(false)
-    const [redirect, setRedirect] = useState(false) 
     
     const [firebaseId, setFirebaseId] = useState('')
     const [uploadProgress, setUploadProgress] = useState(0)
@@ -88,27 +86,19 @@ const FormContainer = props => {
     const finalizeSubmit = inputs => {
         createPost(inputs)
         setInputs(initialInputs)
-        setRedirect(true)
     }
 
     return (
-        <div>
-            {
-            redirect ? 
-                <Redirect to={{pathname: '/current-user', state: {newImg: 'new'}}}/> 
-            :
-                <FormComponent 
-                    handleChange={ handleChange }
-                    handleSubmit={ handleSubmit }
-                    onDrop={ onDrop }
-                    inputs={ inputs }
-                    buttonText='Submit'
-                    btnDisable={btnDisable}
-                    showProgressBar={showProgressBar}
-                    uploadProgress={uploadProgress}
-                />
-            }
-        </div>
+        <FormComponent 
+            handleChange={ handleChange }
+            handleSubmit={ handleSubmit }
+            onDrop={ onDrop }
+            inputs={ inputs }
+            buttonText='Submit'
+            btnDisable={btnDisable}
+            showProgressBar={showProgressBar}
+            uploadProgress={uploadProgress}
+        />
     );
 };
 

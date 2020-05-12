@@ -28,11 +28,17 @@ const Profile = () => {
         currentUserPosts()
     }, [])
 
+    const handleDeleteData = () => {
+        posts.forEach(post => deleteImage(post.img.imgRef))
+        currentProfile.img && currentProfile.img.imgRef.length > 0 && deleteImage(currentProfile.img.imgRef)
+        deleteUser()
+    }
+
     const handleDeleteProfile = () => {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
-                    <div className='custom-alert'>
+                    <div className='custom-confirm'>
                         <h2>Confirm Delete Profile</h2>
                         <p>Are you sure you want to delete your profile? <br/><br/>
                             This action cannot be undone.</p>
@@ -40,10 +46,7 @@ const Profile = () => {
                         <button
                             className='button'
                             onClick={() => {
-                                posts.map(post => deleteImage(post.img.imgRef))
-                                currentProfile.img && currentProfile.img.imgRef.length > 1 && deleteImage(currentProfile.img.imgRef)
-                                deleteUser()
-                                deleteImage(`/${username}/`)
+                                handleDeleteData()
                                 onClose()
                             }}
                         >

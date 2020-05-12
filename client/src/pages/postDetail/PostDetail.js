@@ -131,7 +131,7 @@ const PostDetail = () => {
                     className={resize ? 'resize-background' : ''}
                     onClick={handleResize}
                 >
-                    <div className={resize && 'detail-image-large-container'}>
+                    <div className={resize ? 'detail-image-large-container' : ''}>
                         <img 
                             className={`detail-image ${resize ? 'detail-image-large' : ''}`} 
                             src={imgUrl} alt='' 

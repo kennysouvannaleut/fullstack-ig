@@ -25,7 +25,7 @@ const FormComponent = props => {
                 fileSizeError='File size is to big'
                 fileTypeError='is not supported file extension'
                 buttonText='Upload An Image'
-                label='Max file size 10mb, accepted: jpg, png, gif. Please do not upload photos containing nudity, violence, hate'
+                label='Max file size 10mb, accepted: jpg, png, gif. Please do not upload photos containing nudity, violence, or hate'
                 fileContainerStyle={{
                     'paddingTop': '10px',
                     'paddingBottom': '0'

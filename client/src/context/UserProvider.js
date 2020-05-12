@@ -47,7 +47,7 @@ const UserProvider = props => {
         errMsg: ''
     }
     const [userState, setUserState] = useState(initialState);
-    const { goBack } = useHistory();
+    const { goBack, push } = useHistory();
 
     // USER AUTH:
     const signup = credentials => {
@@ -205,6 +205,8 @@ const UserProvider = props => {
                     ...prevUserState,
                     posts: [res.data, ...prevUserState.posts]
                 }));
+                // setRedirect(true)
+                push('/current-user')
             })
             .catch(err => {
                 console.error(err);
@@ -307,11 +309,7 @@ const UserProvider = props => {
     const editPostIcons = userImg => {
         userAxios.put(`/api/posts/profile/${userState.user.username}`, {data: userImg})
             .then(res => {
-                setUserState(prevUserState => ({
-                    ...prevUserState,
-                    posts: prevUserState.posts.map(post => 
-                        (post.postedBy === prevUserState.user.username ? res.data : post))
-                }))
+                console.log(res)
             })
             .catch(err => {
                 console.error(err)

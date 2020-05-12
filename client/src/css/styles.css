@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: whitesmoke
+    background-color: whitesmoke;
 }
 
 .App {
@@ -347,15 +347,16 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
+    overflow: auto;
     position: absolute;
     z-index: 99;
-    background-color: rgba(245, 245, 245, 0.9)
+    background-color: rgba(0, 0, 0, 0.6)
 }
 
 .detail-image-large-container {
-    border: solid rgb(224, 224, 224) 1px;
+    border-radius: 4px;
     position: absolute;
-    margin-top: 160px;
+    margin-top: 156px;
     width: 98%;
     left: 1%;
 }

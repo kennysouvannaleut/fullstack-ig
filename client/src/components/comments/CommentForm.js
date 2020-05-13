@@ -1,7 +1,15 @@
 import React, {useState} from 'react'
 
 function CommentForm(props){
-    const {addOrEditComment, postOrCommentId, commentBtnText, toggle, prevComment} = props
+    const {
+        addOrEditComment, 
+        postOrCommentId, 
+        commentBtnText, 
+        toggle, 
+        prevComment, 
+        formType, 
+        btnType
+    } = props
     const [comment, setComment] = useState({comment: prevComment || ''})
 
     function handleChange(e){
@@ -17,10 +25,19 @@ function CommentForm(props){
     }
 
     return(
-        <div>
+        <div className='comment-form'>
             <form onSubmit={handleSubmit}>
-                <input onChange={handleChange} type='text' value={comment.comment}/>
-                <button>{commentBtnText}</button>
+                <textarea 
+                    onChange={handleChange} 
+                    type='text' 
+                    value={comment.comment} 
+                    placeholder='Add a comment'
+                    rows={1} 
+                    cols={60}
+                    className={`input comment-input ${formType}`}
+                    maxLength={200}
+                />
+                <button className={`button comment-form-button ${btnType}`}>{commentBtnText}</button>
             </form>
         </div>
     )

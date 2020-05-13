@@ -1,6 +1,9 @@
 import firebase from 'firebase/app'
 import 'firebase/storage'
 
+let progress
+const progressArr = []
+
 const dotENV = require('dotenv')
 dotENV.config()
 const apiKey = process.env.API_KEY
@@ -25,7 +28,6 @@ const imageUpload = (img, user, setUrl) => {
     const storage = firebase.storage()
     const storageRef = storage.ref()
 
-    // const imgRef = storageRef.child(imgName);
     const path = `${user}/${imgName}`
     const imgRef = storageRef.child(path);
     
@@ -38,10 +40,14 @@ const imageUpload = (img, user, setUrl) => {
 
     // listens for state changes, errors, and completion of upload
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-        (snapshot) => {
+        snapshot => {
             // task progress
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            for(let i = 0; i < progressArr.length; i++){
+                progressArr[i].callback(progress)
+            }
             console.log(`Upload is ${progress}% done`)
+
             switch(snapshot.state){
                 case firebase.storage.TaskState.PAUSED:
                     console.log('Upload is paused')
@@ -51,7 +57,7 @@ const imageUpload = (img, user, setUrl) => {
                     break
             }
             console.log(snapshot)
-        }, (error) => {
+        }, error => {
             // full list of error codes: https://firebase.google.com/docs/storage/web/handle-errors
             switch(error.code){
                 case 'storage/unauthorized':
@@ -68,20 +74,22 @@ const imageUpload = (img, user, setUrl) => {
         }, () => {
         // Upload completed successfully, now we can get the download URL
             uploadTask.snapshot.ref.getDownloadURL()
-            // .then(firebaseUrl => {
-            //     console.log(path)
-            // })
                 .then(firebaseUrl => {
                     const url = firebaseUrl
                     setUrl(url, path)
                 })
-            // storage.ref('images').child(pictureName).getDownloadURL()
-            //     .then(firebaseUrl => {
-            //         const url = firebaseUrl
-            //         setUrl(url)
-            //     })
         }
     )
+}
+
+const firebaseOn = callback => {
+    const id = Date.now()
+    progressArr.push({callback, id})
+    return id
+}
+
+const firebaseOff = id => {
+    progressArr.filter(item => item.id !== id)
 }
 
 const deleteImage = ref => {
@@ -89,7 +97,6 @@ const deleteImage = ref => {
     const storage = firebase.storage()
     const storageRef = storage.ref()
     const thisImg = storageRef.child(ref)
-    // var fileRef = storageRef.child(`${user}/${name}`)
     
     // Delete the file
     thisImg.delete().then(() => {
@@ -99,4 +106,4 @@ const deleteImage = ref => {
     })
 }
 
-export {imageUpload, deleteImage}
+export {imageUpload, firebaseOn, firebaseOff, deleteImage}

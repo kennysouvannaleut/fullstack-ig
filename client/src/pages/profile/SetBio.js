@@ -18,10 +18,17 @@ const SetBio = props => {
 
     return (
         <form onSubmit={handleBioSubmit}>
-            <div>
-                <textarea value={bioInput} placeholder='About me' onChange={handleBioChange}></textarea>
+            <div className='profile-bio'>
+                <textarea 
+                    value={bioInput} 
+                    placeholder='About me' 
+                    onChange={handleBioChange}
+                    className='bio-textarea input'
+                    maxLength={300}
+                >
+                </textarea>
             </div>
-            <button>Set bio!</button>
+            <button className='set-bio-button button'>Set Bio!</button>
         </form>
     )
 }

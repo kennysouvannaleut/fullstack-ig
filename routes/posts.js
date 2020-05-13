@@ -9,7 +9,7 @@ posts.post('/', async (req, res, next) => {
     req.body.postedBy = req.user.username
     try{
         const profile = await Profile.findOne({username: req.user.username})
-        if(profile){
+        if(profile && profile.img){
             req.body.userImg = profile.img.imgUrl
         }
         const newPost = new Post(req.body)
@@ -20,17 +20,6 @@ posts.post('/', async (req, res, next) => {
         res.status(500)
         return next(err)
     }
-})
-
-// get all posts
-posts.get('/', (req, res, next) => {
-    Post.find((err, posts) => {
-        if(err){
-            res.status(500)
-            return next(err)
-        }
-        return res.status(200).send(posts)
-    })
 })
 
 // get (logged in) user's posts
@@ -44,30 +33,6 @@ posts.get('/current-user', (req, res, next) => {
     })
 })
 
-// get (other) user's posts
-posts.get('/user/:username', (req, res, next) => {
-    Post.find({postedBy: req.params.username}, (err, posts) => {
-        if(err){
-            res.status(500)
-            return next(err)
-        }
-        return res.status(200).send(posts)
-    })
-})
-
-// get one post
-posts.get('/detail/:postId', (req, res, next) => {
-    Post.findOne(
-        { _id: req.params.postId},
-        (err, post) => {
-            if(err){
-                res.status(500)
-                return next(err)
-            }
-        return res.status(200).send(post)
-    })
-})
-
 // delete post
 posts.delete('/:postId', (req, res, next) => {
     Post.findOneAndDelete(
@@ -77,8 +42,9 @@ posts.delete('/:postId', (req, res, next) => {
                 res.status(500)
                 return next(err)
             }
-        return res.status(200).send(`Your post was deleted` + deletedPost)
-    })
+            return res.status(200).send(`Your post was deleted` + deletedPost)
+        }
+    )
 })
 
 // update post
@@ -92,7 +58,7 @@ posts.put('/:postId', (req, res, next) => {
                 res.status(500)
                 return next(err)
             }
-            return res.status(201).send(`Your post was updated` + updatedPost)
+            return res.status(201).send(updatedPost)
         }
     )
 })

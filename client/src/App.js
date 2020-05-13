@@ -10,50 +10,44 @@ import ProtectedRoute from './components/ProtectedRoute.js'
 
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
-import Post from './pages/post/Post';
-import DetailPage from './pages/detail/DetailPage.js';
-import UserPosts from './pages/userPosts/UserPosts.js';
+import UserAlbum from './pages/userAlbum/UserAlbum.js';
+import PostDetail from './pages/postDetail/PostDetail.js';
+import UserDetail from './pages/userDetail/UserDetail.js';
 
 const App = () => {
     const { token , logout } = useContext(UserContext);
 
     return (
         <div className='App'>
-            { token && <Navbar logout={ logout }/> }
+            <Navbar logout={ logout }/>
             <Switch>
                 <Route 
-                    exact path='/'
+                    path='/auth'
                     render={ () => token ? <Redirect to='/profile' /> : <Auth /> }
                 /> 
                 <ProtectedRoute 
                     path='/profile' 
                     component={ Profile } 
-                    redirectTo={ '/' }
+                    redirectTo={ '/auth' }
                     token={ token } 
                 />
                 <ProtectedRoute 
                     path='/current-user' 
-                    component={ Post } 
-                    redirectTo={ '/' }
+                    component={ UserAlbum } 
+                    redirectTo={ '/auth' }
                     token={ token }
                 />
-                <ProtectedRoute
-                    path='/home'
+                <Route
+                    exact path='/'
                     component={ Home }
-                    redirectTo={ '/' }
-                    token={ token }
                 />
-                <ProtectedRoute 
+                <Route 
                     exact path='/detail/:postId' 
-                    component={ DetailPage }
-                    redirectTo='/'
-                    token={ token }
+                    component={ PostDetail }
                 />
-                <ProtectedRoute 
+                <Route 
                     exact path='/user/:username' 
-                    component={ UserPosts }
-                    redirectTo='/'
-                    token={ token }
+                    component={ UserDetail }
                 />
                 <ProtectedRoute 
                     exact path='*' 

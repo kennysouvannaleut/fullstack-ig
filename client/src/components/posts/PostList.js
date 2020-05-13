@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import UserContext from '../../context/userContext';
-import PostCard from './PostCard';
+import Post from './Post';
+import UserPost from './UserPost.js'
 
 const PostList = props => {
     const userContext = useContext(UserContext);
@@ -13,7 +14,7 @@ const PostList = props => {
         upvotePost, 
         downvotePost
         } = userContext;
-    const { userPage } = props;
+    const { userPage, albumView } = props;
 
     useEffect(() => {
         if(!userPage){
@@ -25,26 +26,74 @@ const PostList = props => {
     return (
         <div className='posts'>
             {
-            !loading ? (
-                <div className='posts-grid-container'>
-                    {
-                    posts.map((post, i) => {
-                        return (
-                            <PostCard 
-                                key={ i }
-                                { ...post }
-                                upvotePost={ upvotePost } 
-                                downvotePost={ downvotePost }
-                                userPage={ userPage }
-                                id={ post._id }
-                            />
-                        )
-                    })
+            !loading ? 
+            <>
+                {albumView ?
+                    <div className='user-detail-album'>
+                        <div className='post-column-1'>
+                            {posts.map((post, i) => 
+                                i % 2 === 0 &&
+                                    <UserPost 
+                                        { ...post } 
+                                        key={ i }
+                                    />
+                            )}
+                        </div>
+                        <div className='post-column-2'>
+                            {posts.map((post, i) => 
+                                i % 2 === 1 &&
+                                    <UserPost 
+                                        { ...post } 
+                                        key={ i }
+                                    /> 
+                            )}
+                        </div>
+                    </div>
+                :
+                    <div className='posts-grid-container'>
+                        {
+                        posts.map((post, i) => {
+                            return (
+                                <Post 
+                                    key={ i }
+                                    { ...post }
+                                    upvotePost={ upvotePost } 
+                                    downvotePost={ downvotePost }
+                                    userPage={ userPage }
+                                    id={ post._id }
+                                />
+                            )
+                        })
+                        }
+                    </div>
+            //                 className='user-post-list'>
+            //     <div className='post-column-1'>
+            //         {posts.map((post, i) => 
+            //             i % 2 === 0 &&
+            //                 <UserPost 
+            //                     { ...post } 
+            //                     key={ i }
+            //                 />
+            //         )}
+            //     </div>
+            //     <div className='post-column-2'>
+            //         {posts.map((post, i) => 
+            //             i % 2 === 1 &&
+            //                 <UserPost 
+            //                     { ...post } 
+            //                     key={ i }
+            //                 /> 
+            //         )}
+            //     </div>
+            // </div>
+                        // })
+                    //     }
+                    // </div>
                 }
-                </div>
-            ) : (
+                </>
+            :
                 <div>Loading...</div>
-            )}
+            }
         </div>
     );
 };

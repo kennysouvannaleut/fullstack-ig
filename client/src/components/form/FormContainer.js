@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import {Redirect} from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react';
 import FormComponent from './FormComponent';
-import {imageUpload} from '../../firebase/firebase.js'
+import {imageUpload, firebaseOn, firebaseOff} from '../../firebase/firebase.js'
+import userContext from '../../context/userContext';
 
 const FormContainer = props => {
     const { createPost, user } = props;
 
-    // const dateString = date.getFullYear() + '-'
-    // + ('0' + (date.getMonth() + 1)).slice(-2) + '-'
-    // + ('0' + date.getDate()).slice(-2);
+    const {posts} = useContext(userContext)
+
+    const createDate = () => {
+        const month = new Date().toLocaleString('default', { month: 'long' })
+        const dateArr = Date().split(' ')
+        return `${month} ${dateArr[2]}, ${dateArr[3]}`
+    }
 
     const initialInputs = {
         img: {
@@ -18,12 +22,26 @@ const FormContainer = props => {
         user: user,
         description: '',
         likes: '',
-        dateAdded: Date.now()
+        dateAdded: createDate()
     };
     
     const [inputs, setInputs] = useState(initialInputs);
     const [img, setimg] = useState([]);
-    const [redirect, setRedirect] = useState(false)
+    const [showProgressBar, setShowProgressBar] = useState(false)
+    const [btnDisable, setBtnDisable] = useState(false)
+    
+    const [firebaseId, setFirebaseId] = useState('')
+    const [uploadProgress, setUploadProgress] = useState(0)
+    
+    useEffect(() => {
+        const id = firebaseOn(progress => {
+            setUploadProgress(progress)
+        })
+        setFirebaseId(id)
+        return function cleanUp(){
+            firebaseOff(firebaseId)
+        }
+    }, [])
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -39,7 +57,18 @@ const FormContainer = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        imageUpload(img, user, setUrl);
+        const newName = img[0].name
+        const prevNameArr = posts.map(post => post.img.imgRef.split('/')[1])
+
+        if(img.length === 0){
+            alert("You must choose a picture") 
+        } else if(prevNameArr.includes(newName)){
+            alert("A file with that name has already been uploaded. Please rename the file and try again.")
+        } else {
+            imageUpload(img, user, setUrl)
+            setShowProgressBar(true)
+            setBtnDisable(true)
+        }
     };
 
     const setUrl = (url, path) => {
@@ -57,18 +86,18 @@ const FormContainer = props => {
     const finalizeSubmit = inputs => {
         createPost(inputs)
         setInputs(initialInputs)
-        setRedirect(true)
     }
 
     return (
-        redirect ? 
-        <Redirect to='/current-user'/> :
         <FormComponent 
             handleChange={ handleChange }
             handleSubmit={ handleSubmit }
             onDrop={ onDrop }
             inputs={ inputs }
-            buttonText='submit'
+            buttonText='Submit'
+            btnDisable={btnDisable}
+            showProgressBar={showProgressBar}
+            uploadProgress={uploadProgress}
         />
     );
 };

@@ -3,6 +3,7 @@ import React from 'react';
 const AuthForm = props => {
     const {
         handleChange,
+        noSpaces,
         handleSubmit,
         buttonText,
         errMsg,
@@ -13,13 +14,16 @@ const AuthForm = props => {
     } = props;
     
     return (
-        <form onSubmit={ handleSubmit }>
+        <form className='auth-form' onSubmit={ handleSubmit }>
             <input 
                 type='text'
                 name='username'
                 value={ username }
                 onChange={ handleChange }
+                onKeyDown={ noSpaces }
                 placeholder='Username'
+                maxLength={15}
+                autoFocus
             />
             <input
                 type='password'
@@ -27,8 +31,9 @@ const AuthForm = props => {
                 value={ password }
                 onChange={ handleChange }
                 placeholder='Password'
+                maxLength={20}
             />
-            <button>{ buttonText }</button>
+            <button className='button auth-button'>{ buttonText }</button>
             { errMsg && <p style={{ color: 'red' }}>{ errMsg }</p> }
         </form>
     );
